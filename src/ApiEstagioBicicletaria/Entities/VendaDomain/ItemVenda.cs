@@ -28,6 +28,12 @@ namespace ApiEstagioBicicletaria.Entities.VendaDomain
         public decimal PrecoUnitarioDoProdutoNaVendaSemDesconto { get;  set; }
 
 
+        [AtributoASerIgnoradoLogCriacao]
+        [AtributoASerIgnoradoLogAtualizacao]
+        public bool Atual { get; set; } = true;
+
+
+
         protected ItemVenda()
         {
 

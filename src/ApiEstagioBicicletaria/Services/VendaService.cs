@@ -366,9 +366,10 @@ namespace ApiEstagioBicicletaria.Services
                         _estoqueLogService.CriarLogDeAtualizacaoQuantidadeEmEstoque(estoqueDoItem, estoqueDoItem.Produto, valorAntigoQuantidadeEmEstoque,
                         estoqueDoItem.QuantidadeEmEstoque,AcaoQueAlterouEstoque.AtualizacaoVenda, _usuarioLogado);
                         itemASerExcluido.Ativo = false;
+                        itemASerExcluido.Atual = false;
                         _itemVendaLogService.CriarLogsDeExclusao(itemASerExcluido, vendaParaAtualizar, _usuarioLogado);
                         itensVenda.Remove(itemASerExcluido);
-                        _contexto.ItensVendas.Remove(itemASerExcluido);
+                        _contexto.ItensVendas.Update(itemASerExcluido);
                     }
                 }
 
@@ -383,9 +384,10 @@ namespace ApiEstagioBicicletaria.Services
                             ?? throw new ExcecaoDeRegraDeNegocio(400, $"nenhum servico venda encontrado para ser excluído com o id: {idASerDeletado}");
                         
                         servicoVendaASerExcluido.Ativo = false;
+                        servicoVendaASerExcluido.Atual = false;
                         _servicoVendaLogService.CriarLogsDeExclusao(servicoVendaASerExcluido, vendaParaAtualizar, _usuarioLogado);
                         servicosVenda.Remove(servicoVendaASerExcluido);
-                        _contexto.ServicosVendas.Remove(servicoVendaASerExcluido);
+                        _contexto.ServicosVendas.Update(servicoVendaASerExcluido);
                     }
                 }
 
@@ -619,9 +621,10 @@ namespace ApiEstagioBicicletaria.Services
                     foreach (Parcela parcelaIterada in parcelasDeletadas)
                     {
                         parcelaIterada.Ativo = false;
+                        parcelaIterada.Atual = false;
                         parcelasDaVenda.RemoveAll(p => p.Id == parcelaIterada.Id);
                         _parcelaLogService.CriarLogDeExclusao(parcelaIterada, transacaoDaVendaASerAtualizada, _usuarioLogado);
-                        _contexto.Parcelas.Remove(parcelaIterada);
+                        _contexto.Parcelas.Update(parcelaIterada);
                     }
 
                     for (int i = 0; i < parcelasDaVenda.Count; i++)
@@ -1140,11 +1143,13 @@ namespace ApiEstagioBicicletaria.Services
         private VendaTransacaoOutputDto EntityToDtoInativo(Venda venda)
         {
 
-            List<ItemVenda> itensDaVenda = _contexto.ItensVendas.Include(i => i.Produto).Where(i => i.IdVenda == venda.Id && !i.Ativo).ToList();
-            List<ServicoVenda> servicosDaVenda = _contexto.ServicosVendas.Include(s => s.Servico).Where(s => s.IdVenda == venda.Id && !s.Ativo).ToList();
+            List<ItemVenda> itensDaVenda = _contexto.ItensVendas.Include(i => i.Produto)
+                .Where(i => i.IdVenda == venda.Id && !i.Ativo && i.Atual).ToList();
+            List<ServicoVenda> servicosDaVenda = _contexto.ServicosVendas.Include(s => s.Servico)
+                .Where(s => s.IdVenda == venda.Id && !s.Ativo && s.Atual).ToList();
             Transacao transacaoDaVenda = _contexto.Transacoes.Where(t => t.IdVenda == venda.Id && !t.Ativo).FirstOrDefault()
                 ?? throw new ExcecaoDeRegraDeNegocio(500, "transacao não encontrada, erro!!");
-            List<Parcela> parcelasDaTranscao = _contexto.Parcelas.Where(p => p.IdTransacao == transacaoDaVenda.Id && !p.Ativo)
+            List<Parcela> parcelasDaTranscao = _contexto.Parcelas.Where(p => p.IdTransacao == transacaoDaVenda.Id && !p.Ativo && p.Atual)
                 .OrderBy(p => p.DataVencimento).ToList();
 
             int QuantidadeDeParcelasNaoPagasDaVenda = parcelasDaTranscao.Where(p => p.Pago == false).Count();

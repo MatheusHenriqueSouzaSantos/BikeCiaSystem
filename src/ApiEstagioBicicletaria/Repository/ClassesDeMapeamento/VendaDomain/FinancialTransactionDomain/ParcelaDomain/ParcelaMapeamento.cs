@@ -31,6 +31,9 @@ namespace ApiEstagioBicicletaria.Repository.ClassesDeMapeamento.VendaDomain.Fina
             builder.Property(p => p.DataVencimento)
              .HasColumnName("data_vencimento")
              .IsRequired();
+            builder.Property(i => i.Atual)
+               .HasColumnName("atual")
+               .IsRequired();
         }
     }
 }

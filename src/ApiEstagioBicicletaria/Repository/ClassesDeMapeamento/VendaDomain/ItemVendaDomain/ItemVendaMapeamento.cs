@@ -33,6 +33,9 @@ namespace ApiEstagioBicicletaria.Repository.ClassesDeMapeamento.VendaDomain.Item
             builder.Property(i=>i.PrecoUnitarioDoProdutoNaVendaSemDesconto)
                 .HasColumnName("preco_unitario_do_produto_na_venda_sem_desconto")
                 .IsRequired();
+            builder.Property(i => i.Atual)
+               .HasColumnName("atual")
+               .IsRequired();
         }
     }
 }

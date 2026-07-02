@@ -31,6 +31,9 @@ public class ItemEntradaEstoqueMapeamento : BaseMapeamento<ItemEntradaEstoque>
         builder.Property(i=>i.Quantidade)
             .HasColumnName("quantidade")
             .IsRequired();
-            
+        builder.Property(i=>i.Atual)
+            .HasColumnName("atual")
+            .IsRequired();
+
     }
 }

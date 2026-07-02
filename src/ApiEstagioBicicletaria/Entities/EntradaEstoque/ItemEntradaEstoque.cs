@@ -23,6 +23,10 @@ namespace ApiEstagioBicicletaria.Entities.EntradaEstoque
 
         public int Quantidade { get; set; }
 
+        [AtributoASerIgnoradoLogCriacao]
+        [AtributoASerIgnoradoLogAtualizacao]
+        public bool Atual { get; set; } = true;
+
         public ItemEntradaEstoque(EntradaEstoque entradaEstoque, Produto produto, int quantidade)
         {
             EntradaEstoque = entradaEstoque;
