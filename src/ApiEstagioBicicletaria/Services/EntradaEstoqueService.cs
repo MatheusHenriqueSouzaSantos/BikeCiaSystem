@@ -73,7 +73,7 @@ namespace ApiEstagioBicicletaria.Services
             foreach(EntradaEstoque entradaEstoque in entradasEstoque)
             {
                 List<ItemEntradaEstoque> itensEntradaEstoque = _contexto.ItensEntradaEstoque.Include(i => i.Produto)
-                    .Where(i => i.IdEntradaEstoque == entradaEstoque.Id).ToList();
+                    .Where(i => i.IdEntradaEstoque == entradaEstoque.Id && i.Ativo).ToList();
                 EntradaEstoqueOutputDto entradaEstoqueDto = EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
                 entradasEstoqueDto.Add(entradaEstoqueDto);
             }
@@ -90,7 +90,7 @@ namespace ApiEstagioBicicletaria.Services
             foreach (EntradaEstoque entradaEstoque in entradasEstoque)
             {
                 List<ItemEntradaEstoque> itensEntradaEstoque = _contexto.ItensEntradaEstoque.Include(i => i.Produto)
-                    .Where(i => i.IdEntradaEstoque == entradaEstoque.Id).ToList();
+                    .Where(i => i.IdEntradaEstoque == entradaEstoque.Id && i.Atual).ToList();
                 EntradaEstoqueOutputDto entradaEstoqueDto = EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
                 entradasEstoqueDto.Add(entradaEstoqueDto);
             }
@@ -98,13 +98,12 @@ namespace ApiEstagioBicicletaria.Services
             return entradasEstoqueDto;
 
         }
-        //colocar o end point de buscar inativas..., ajustar com o front
 
         public EntradaEstoqueOutputDto BuscarEntradasAtivasPorId(Guid id)
         {
             EntradaEstoque entradaEstoque = _contexto.EntradasEstoque.FirstOrDefault(e=>e.Id==id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Entrada Estoque não Encontrada");
-            List<ItemEntradaEstoque> itensEntradaEstoque=_contexto.ItensEntradaEstoque.Where(i=>i.IdEntradaEstoque==entradaEstoque.Id).ToList();
+            List<ItemEntradaEstoque> itensEntradaEstoque=_contexto.ItensEntradaEstoque.Where(i=>i.IdEntradaEstoque==entradaEstoque.Id && i.Ativo).ToList();
 
             return EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
         }
@@ -124,10 +123,6 @@ namespace ApiEstagioBicicletaria.Services
             _contexto.SaveChanges();
             return EntidadeParaDto(entradaEstoque,itens);
         }
-
-        //logs?
-
-
         public EntradaEstoqueOutputDto Atualizar(Guid id, EntradaEstoqueUpdateDto dto)
         {
             EntradaEstoque entradaEstoque = _contexto.EntradasEstoque.Include(e => e.Fornecedor).FirstOrDefault(e => e.Id == id && e.Ativo)
@@ -167,9 +162,10 @@ namespace ApiEstagioBicicletaria.Services
                     _estoqueLogService.CriarLogDeAtualizacaoQuantidadeEmEstoque(estoqueDoItem, produtoDoItem, quantidadeEmEstoqueAntiga, estoqueDoItem.QuantidadeEmEstoque,
                         AcaoQueAlterouEstoque.AtualizacaoEntradaEstoque, _usuarioLogado);
                     itemASerDeletado.Ativo = false;
+                    itemASerDeletado.Atual = false;
                     itensEntrada.Remove(itemASerDeletado);
                     _itemEntradaEstoqueLogService.CriarLogsDeExclusao(itemASerDeletado, entradaEstoque, _usuarioLogado);
-                    _contexto.ItensEntradaEstoque.Remove(itemASerDeletado);
+                    _contexto.ItensEntradaEstoque.Update(itemASerDeletado);
                     //log
                 }
                 

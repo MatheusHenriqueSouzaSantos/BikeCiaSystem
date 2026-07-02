@@ -31,6 +31,9 @@ namespace ApiEstagioBicicletaria.Repository.ClassesDeMapeamento.VendaDomain.Serv
             builder.Property(s=>s.PrecoServicoNaVendaSemDesconto)
                 .HasColumnName("preco_servico_na_venda_sem_desconto")
                 .IsRequired();
+            builder.Property(i => i.Atual)
+               .HasColumnName("atual")
+               .IsRequired();
         }
     }
 }

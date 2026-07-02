@@ -20,6 +20,10 @@
 
         public DateOnly DataVencimento { get; set; }
 
+        [AtributoASerIgnoradoLogCriacao]
+        [AtributoASerIgnoradoLogAtualizacao]
+        public bool Atual { get; set; } = true;
+
 
         protected Parcela()
         {
