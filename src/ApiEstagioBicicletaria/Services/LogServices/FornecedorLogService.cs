@@ -3,11 +3,12 @@ using ApiEstagioBicicletaria.Entities.FornedorDomain;
 using ApiEstagioBicicletaria.Entities.UsuarioDomain;
 using ApiEstagioBicicletaria.Entities.VendedorDomain;
 using ApiEstagioBicicletaria.Repository.Repositorios;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using System.Reflection;
 
 namespace ApiEstagioBicicletaria.Services.LogServices
 {
-    public class FornecedorLogService
+    public class FornecedorLogService : IFornecedorLogService
     {
         private readonly LogRepositorio<FornecedorLog> _repositorio;
 

@@ -56,7 +56,7 @@ namespace ApiEstagioBicicletaria
             builder.Services.AddScoped<ClienteLogService>();
             builder.Services.AddScoped<EnderecoLogService>();
             builder.Services.AddScoped<EstoqueLogService>();
-            builder.Services.AddScoped<FornecedorLogService>();
+            builder.Services.AddScoped<IFornecedorLogService,FornecedorLogService>();
             builder.Services.AddScoped<ProdutoLogService>();
             builder.Services.AddScoped<ServicoLogService>();
             builder.Services.AddScoped<IVendedorLogService,VendedorLogService>();
