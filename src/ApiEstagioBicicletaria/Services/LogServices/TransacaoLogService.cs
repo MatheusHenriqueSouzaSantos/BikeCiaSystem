@@ -72,7 +72,7 @@ namespace ApiEstagioBicicletaria.Services.LogServices
         {
             TransacaoLog log = new(transacao,
                 vendaDaTransacao,
-                LogAcao.Inativacao,
+                LogAcao.Atualizacao,
                 "TransacaoEmCurso",
                 "false",
                 "true",
@@ -86,7 +86,7 @@ namespace ApiEstagioBicicletaria.Services.LogServices
         {
             TransacaoLog log = new(transacao,
                 vendaDaTransacao,
-                LogAcao.Inativacao,
+                LogAcao.Atualizacao,
                 "Pago",
                 "false",
                 "true",

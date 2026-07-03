@@ -73,7 +73,7 @@ namespace ApiEstagioBicicletaria.Services.LogServices
         {
             ParcelaLog log = new(parcela,
                 transacaoDaParcela,
-                LogAcao.Inativacao,
+                LogAcao.Atualizacao,
                 "Pago",
                 "false",
                 "true",
