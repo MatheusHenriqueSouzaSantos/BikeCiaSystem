@@ -197,7 +197,7 @@ namespace ApiEstagioBicicletaria.Controllers
                 return StatusCode(500, "Erro Inesperado, entre em contato com o suporte");
             }
         }
-        [HttpGet("buscar-vendas-por-documento-indentificador-do-cliente")]
+        [HttpPost("buscar-vendas-por-documento-indentificador-do-cliente")]
         [Authorize]
         public ActionResult<List<VendaTransacaoOutputDto>> BuscarVendasPorCpfOuCnpj([FromBody] DocumentoClienteInputDto dto)
         {

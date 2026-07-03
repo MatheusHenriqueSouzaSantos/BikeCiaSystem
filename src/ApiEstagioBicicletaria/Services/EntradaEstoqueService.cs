@@ -8,6 +8,7 @@ using ApiEstagioBicicletaria.Entities.EstoqueDomain;
 using ApiEstagioBicicletaria.Entities.FornedorDomain;
 using ApiEstagioBicicletaria.Entities.ProdutoDomain;
 using ApiEstagioBicicletaria.Entities.UsuarioDomain;
+using ApiEstagioBicicletaria.Entities.VendaDomain;
 using ApiEstagioBicicletaria.Excecoes;
 using ApiEstagioBicicletaria.Repositories;
 using ApiEstagioBicicletaria.Repository.Repositorios;
@@ -101,9 +102,10 @@ namespace ApiEstagioBicicletaria.Services
 
         public EntradaEstoqueOutputDto BuscarEntradasAtivasPorId(Guid id)
         {
-            EntradaEstoque entradaEstoque = _contexto.EntradasEstoque.FirstOrDefault(e=>e.Id==id)
+            EntradaEstoque entradaEstoque = _contexto.EntradasEstoque.Include(e=>e.Fornecedor).FirstOrDefault(e=>e.Id==id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Entrada Estoque não Encontrada");
-            List<ItemEntradaEstoque> itensEntradaEstoque=_contexto.ItensEntradaEstoque.Where(i=>i.IdEntradaEstoque==entradaEstoque.Id && i.Ativo).ToList();
+            List<ItemEntradaEstoque> itensEntradaEstoque=_contexto.ItensEntradaEstoque.Include(i=>i.Produto)
+                .Where(i=>i.IdEntradaEstoque==entradaEstoque.Id && i.Ativo).ToList();
 
             return EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
         }
@@ -115,6 +117,11 @@ namespace ApiEstagioBicicletaria.Services
             ?? throw new ExcecaoDeRegraDeNegocio(404,"Fornecedor não encontrado ou inativo");
 
             EntradaEstoque entradaEstoque = new(fornecedor, _geradorCodigo.GerarCodigoMovimentacao(),StatusEntradaEstoque.Criada);
+
+            if (dto.Itens.Count<1)
+            {
+                throw new ExcecaoDeRegraDeNegocio(400, "A Entrada deve conter pelo menos um item");
+            }
 
             List<ItemEntradaEstoque> itens=CriarItensEntradaEstoque(dto.Itens,entradaEstoque);
           
@@ -154,7 +161,8 @@ namespace ApiEstagioBicicletaria.Services
 
                     if (estoqueDoItem.QuantidadeEmEstoque - itemASerDeletado.Quantidade < 0)
                     {
-                        throw new ExcecaoDeRegraDeNegocio(400, $"não é possível excluir o item de entrada com id:{itemASerDeletado.Id}, pois se não o estoque ficaria negativo");
+                        throw new ExcecaoDeRegraDeNegocio(400, $"não é possível excluir o item de entrada do produto: {produtoDoItem.NomeProduto}," +
+                            $" pois se não o estoque do produto ficaria negativo pois já foi usado em vendas");
                     }
                     int quantidadeEmEstoqueAntiga = estoqueDoItem.QuantidadeEmEstoque;
                     estoqueDoItem.AbaterQuantidadeEmEstoque(itemASerDeletado.Quantidade);
@@ -181,17 +189,34 @@ namespace ApiEstagioBicicletaria.Services
                         ?? throw new ExcecaoDeRegraDeNegocio(500, "produto não encontrado");
                     if (!produtoDoItem.Ativo)
                     {
-                        throw new ExcecaoDeRegraDeNegocio(400, $"não é possível alterar esse item, pois o produto com id: {produtoDoItem.Id} está inativo, exclua este item");
+                        throw new ExcecaoDeRegraDeNegocio(400, $"não é possível alterar esse item, pois o produto: {produtoDoItem.NomeProduto} relacionado ao item" +
+                            $" está inativo, exclua este item");
+                    }
+                    if (itemDto.Quantidade <= 0)
+                    {
+                        throw new ExcecaoDeRegraDeNegocio(
+                            400,
+                            $"A quantidade do item do produto:{produtoDoItem.NomeProduto} deve ser maior que zero."
+                        );
                     }
                     Estoque estoqueDoItem = _contexto.Estoques.Include(e=>e.Produto).First(e => e.ProdutoId==produtoDoItem.Id);
                     int quantidadeEmEstoqueAntiga = estoqueDoItem.QuantidadeEmEstoque;
-                    estoqueDoItem.AbaterQuantidadeEmEstoque(itemASerAtualizado.Quantidade);
-                    estoqueDoItem.AdicionarQuantidadeEmEstoque(itemDto.Quantidade);
-                    if (estoqueDoItem.QuantidadeEmEstoque<0)
+                    int diferencaEstoque = itemDto.Quantidade - itemASerAtualizado.Quantidade;
+
+                    if (estoqueDoItem.QuantidadeEmEstoque + diferencaEstoque < 0)
                     {
-                        throw new ExcecaoDeRegraDeNegocio(400, $"Estoque insufisciente para concluir a operação, do item com id: {itemASerAtualizado.Id} " +
-                            $"pois há apenas: {estoqueDoItem.QuantidadeEmEstoque} unidades");
+                        throw new ExcecaoDeRegraDeNegocio(400, $"Estoque insuficiente para concluir a operação, " +
+                            $"pois o produto: {produtoDoItem.NomeProduto} tem apenas: {estoqueDoItem.QuantidadeEmEstoque} unidades, pois já foi usado em vendas");
                     }
+                    if (diferencaEstoque > 0)
+                    {
+                        estoqueDoItem.AdicionarQuantidadeEmEstoque(diferencaEstoque);
+                    }
+                    if (diferencaEstoque < 0)
+                    {
+                        estoqueDoItem.AbaterQuantidadeEmEstoque(Math.Abs(diferencaEstoque));
+                    }
+
                     _contexto.Estoques.Update(estoqueDoItem);
                     _estoqueLogService.CriarLogDeAtualizacaoQuantidadeEmEstoque(estoqueDoItem, produtoDoItem, quantidadeEmEstoqueAntiga,
                         estoqueDoItem.QuantidadeEmEstoque, AcaoQueAlterouEstoque.AtualizacaoEntradaEstoque, _usuarioLogado);
@@ -219,6 +244,10 @@ namespace ApiEstagioBicicletaria.Services
                     _contexto.ItensEntradaEstoque.Add(itemCriado);
                 }
             }
+            if (!itensEntrada.Any())
+            {
+                throw new ExcecaoDeRegraDeNegocio(400, "A entrada precisa ter pelo menos um item, se não exclua a entrada");
+            }
             entradaEstoque.Status = StatusEntradaEstoque.Atualizada;
             _entradaEstoqueLogService.CriarLogsDeAtualizacao(entradaEstoqueCopia, entradaEstoque, _usuarioLogado);
             _contexto.SaveChanges();
@@ -229,11 +258,11 @@ namespace ApiEstagioBicicletaria.Services
 
         public void InativarEntradaEstoque(Guid id)
         {
-            EntradaEstoque entrada = _repositorio.BuscarPorId(id)
+            EntradaEstoque entrada = _contexto.EntradasEstoque.FirstOrDefault(e => e.Id == id && e.Ativo)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Entrada de estoque não encontrada");
             StatusEntradaEstoque statusAntigo=entrada.Status;
-            List<ItemEntradaEstoque> itensEntradaEstoque = _itemEntradaRepositorio
-                .BuscarItensPorIdEntradaEstoque(entrada.Id);
+            List<ItemEntradaEstoque> itensEntradaEstoque = _contexto.ItensEntradaEstoque.Where(i=>i.IdEntradaEstoque==entrada.Id && i.Ativo)
+                .Include(i=>i.Produto).ToList();
             foreach(ItemEntradaEstoque item in itensEntradaEstoque)
             {
                 
@@ -241,8 +270,9 @@ namespace ApiEstagioBicicletaria.Services
                     ?? throw new ExcecaoDeRegraDeNegocio(500,"estoque não encontrado");
                 if(item.Quantidade> estoqueDoItem.QuantidadeEmEstoque)
                 {
-                    throw new ExcecaoDeRegraDeNegocio(400, $"Não é possível cancelar essa entrada, pois o item com id: {item.Id} não pode ser excluído, " +
-                        $"pois o estoque do produto {item.Produto.NomeProduto} não pode ficar negativo ");
+                    throw new ExcecaoDeRegraDeNegocio(400, $"Não é possível cancelar essa entrada, " +
+                        $"pois o item com o produto: {item.Produto.NomeProduto} não pode ser excluído, " +
+                        $"pois o estoque ficaria negativo, pois já foi usado em vendas");
                 }
                 int quantidadeEmEstoqueAntiga = estoqueDoItem.QuantidadeEmEstoque;
                 estoqueDoItem.AbaterQuantidadeEmEstoque(item.Quantidade);
