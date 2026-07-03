@@ -114,9 +114,9 @@ namespace ApiEstagioBicicletaria.Services
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Vendedor não encontrado ou inativo");
 
 
-            List<ItemVendaCreateDto> itensVenda = dto.Venda.ItensVenda ?? [];
-            List<ServicoVendaCreateDto> servicosVenda = dto.Venda.ServicosVenda ?? [];
-            decimal valorTotalDaVendaSemDescontoTotalAplicado=CalcularTotalVendaSemDescontoTotalAplicadoParaVendaCriada(itensVenda,servicosVenda);
+            List<ItemVendaCreateDto> itensVendaDtoCreate = dto.Venda.ItensVenda ?? [];
+            List<ServicoVendaCreateDto> servicosVendaDtoCreate = dto.Venda.ServicosVenda ?? [];
+            decimal valorTotalDaVendaSemDescontoTotalAplicado=CalcularTotalVendaSemDescontoTotalAplicadoParaVendaCriada(itensVendaDtoCreate,servicosVendaDtoCreate);
             decimal descontoVenda = dto.Venda.DescontoSobreTotalVenda ?? 0.0m;
             if (descontoVenda < 0)
             {
@@ -128,7 +128,7 @@ namespace ApiEstagioBicicletaria.Services
                 throw new ExcecaoDeRegraDeNegocio(400, "O desconto não pode ser maior que o total da venda");
             }
 
-            if(itensVenda.Count<1 && servicosVenda.Count < 1)
+            if(itensVendaDtoCreate.Count<1 && servicosVendaDtoCreate.Count < 1)
             {
                 throw new ExcecaoDeRegraDeNegocio(400,"A venda deve conter pelo menos um item ou serviço");
             }
@@ -151,7 +151,7 @@ namespace ApiEstagioBicicletaria.Services
 
             List<ServicoVenda> listaDeServicosDaVendaCriada =new List<ServicoVenda>();
 
-            foreach(ItemVendaCreateDto itemEnviado in dto.Venda.ItensVenda)
+            foreach(ItemVendaCreateDto itemEnviado in itensVendaDtoCreate)
             {
                 Produto? produtoDoItem = _contexto.Produtos.FirstOrDefault(p => p.Id == itemEnviado.IdProduto && p.Ativo);
 
@@ -184,7 +184,7 @@ namespace ApiEstagioBicicletaria.Services
                 
             }
 
-            foreach(ServicoVendaCreateDto servicoEnviado in dto.Venda.ServicosVenda)
+            foreach(ServicoVendaCreateDto servicoEnviado in servicosVendaDtoCreate)
             {
                 Servico? servicoDaVenda = _contexto.Servicos.FirstOrDefault(s=>s.Id==servicoEnviado.IdServico && s.Ativo);
                 if(servicoDaVenda == null)
