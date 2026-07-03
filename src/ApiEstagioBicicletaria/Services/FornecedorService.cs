@@ -11,6 +11,7 @@ using ApiEstagioBicicletaria.Seguranca;
 using ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios;
 using ApiEstagioBicicletaria.Services.Interfaces;
 using ApiEstagioBicicletaria.Services.LogServices;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using ApiEstagioBicicletaria.Validacao;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
@@ -21,20 +22,16 @@ namespace ApiEstagioBicicletaria.Services
 {
     public class FornecedorService : IFornecedorService
     {
-
         private ContextoDb _contexto;
 
-        private FornecedorRepositorio _fornecedorRepositorio;
-
-        private FornecedorLogService _logService;
+        private IFornecedorLogService _logService;
 
         private Usuario _usuarioLogado;
 
-        public FornecedorService(ContextoDb contexto, FornecedorRepositorio fornecedorRepositorio, FornecedorLogService logService, 
+        public FornecedorService(ContextoDb contexto, IFornecedorLogService logService, 
             IUsuarioLogadoService usuarioLogadoService)
         {
             _contexto = contexto;
-            _fornecedorRepositorio = fornecedorRepositorio;
             _logService = logService;
             _usuarioLogado = usuarioLogadoService.ObterUsuario();
         }
