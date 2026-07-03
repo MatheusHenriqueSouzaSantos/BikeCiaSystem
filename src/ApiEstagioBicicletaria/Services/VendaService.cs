@@ -97,12 +97,17 @@ namespace ApiEstagioBicicletaria.Services
 
         }
 
-        public VendaTransacaoOutputDto BuscarVendaAtivasPorId(Guid id)
+        public VendaTransacaoOutputDto BuscarVendaAtivaEInativaPorId(Guid id)
         {
-            Venda venda= _contexto.Vendas.Include(v => v.Vendedor).Include(v => v.Cliente).ThenInclude(c => c.Endereco).FirstOrDefault(v => v.Id == id)
+            Venda venda= _contexto.Vendas.Include(v => v.Vendedor).Include(v => v.Cliente).ThenInclude(c => c.Endereco)
+                .FirstOrDefault(v => v.Id == id)
              ?? throw new ExcecaoDeRegraDeNegocio(404, "Venda não encontrada!!!");
-
-            return EntityToDto(venda);
+            if (venda.Ativo)
+            {
+                return EntityToDto(venda);
+            }
+            return EntityToDtoInativo(venda);
+            
         }
 
         public VendaTransacaoOutputDto CadastrarVenda(VendaTransacaoCreateDto dto)
@@ -927,7 +932,7 @@ namespace ApiEstagioBicicletaria.Services
             return pdf;
         }
 
-        public List<VendaTransacaoOutputDto> BuscarVendasPorCpfOuCnpj(DocumentoClienteInputDto dto)
+        public List<VendaTransacaoOutputDto> BuscarVendasAtivasPorCpfOuCnpj(DocumentoClienteInputDto dto)
         {
             List<VendaTransacaoOutputDto> vendasDoClienteNoFormatoDto=new List<VendaTransacaoOutputDto>();
             List<Venda> vendasDoCliente=new List<Venda>();
@@ -978,20 +983,16 @@ namespace ApiEstagioBicicletaria.Services
         }
         public VendaTransacaoOutputDto BuscarVendaAtivaOuInativaPorCodigoVenda(string codigoVenda)
         {
-            Venda? vendaVindaDoBanco = _contexto.Vendas.Include(v=>v.Cliente).ThenInclude(c=>c.Endereco).Where(v => v.CodigoVenda == codigoVenda).FirstOrDefault();
-            if (vendaVindaDoBanco == null)
+            Venda vendaVindaDoBanco = _contexto.Vendas.Include(v=>v.Cliente).ThenInclude(c=>c.Endereco)
+                .Where(v => v.CodigoVenda == codigoVenda).FirstOrDefault()
+                ?? throw new ExcecaoDeRegraDeNegocio(400, "Venda não encontrada");
+
+            if (vendaVindaDoBanco.Ativo)
             {
-                throw new ExcecaoDeRegraDeNegocio(400,"Venda não encontrada");
-            }
-            Transacao? transacaoDaVenda = _contexto.Transacoes.FirstOrDefault(t=>t.IdVenda==vendaVindaDoBanco.Id);
-            if (transacaoDaVenda == null)
-            {
-                throw new ExcecaoDeRegraDeNegocio(500, "Uma transação nunca deveria ser nula para uma venda já realizada");
+                return EntityToDto(vendaVindaDoBanco);
             }
 
-            VendaTransacaoOutputDto vendaTransacaoFormatoOutput = EntityToDto(vendaVindaDoBanco);
-
-            return vendaTransacaoFormatoOutput;
+            return EntityToDtoInativo(vendaVindaDoBanco);
         }
 
         public List<Object> BuscarLogsPorIdVenda(Guid idVenda)
