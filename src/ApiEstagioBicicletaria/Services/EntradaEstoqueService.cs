@@ -91,7 +91,7 @@ namespace ApiEstagioBicicletaria.Services
             foreach (EntradaEstoque entradaEstoque in entradasEstoque)
             {
                 List<ItemEntradaEstoque> itensEntradaEstoque = _contexto.ItensEntradaEstoque.Include(i => i.Produto)
-                    .Where(i => i.IdEntradaEstoque == entradaEstoque.Id && i.Atual).ToList();
+                    .Where(i => i.IdEntradaEstoque == entradaEstoque.Id&& !i.Ativo && i.Atual).ToList();
                 EntradaEstoqueOutputDto entradaEstoqueDto = EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
                 entradasEstoqueDto.Add(entradaEstoqueDto);
             }
@@ -100,14 +100,21 @@ namespace ApiEstagioBicicletaria.Services
 
         }
 
-        public EntradaEstoqueOutputDto BuscarEntradasAtivasPorId(Guid id)
+        public EntradaEstoqueOutputDto BuscarEntradasAtivaOuInativaPorId(Guid id)
         {
             EntradaEstoque entradaEstoque = _contexto.EntradasEstoque.Include(e=>e.Fornecedor).FirstOrDefault(e=>e.Id==id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Entrada Estoque não Encontrada");
-            List<ItemEntradaEstoque> itensEntradaEstoque=_contexto.ItensEntradaEstoque.Include(i=>i.Produto)
-                .Where(i=>i.IdEntradaEstoque==entradaEstoque.Id && i.Ativo).ToList();
-
+            List<ItemEntradaEstoque> itensEntradaEstoque;
+            if (entradaEstoque.Ativo)
+            {
+                itensEntradaEstoque = _contexto.ItensEntradaEstoque.Include(i => i.Produto)
+                .Where(i => i.IdEntradaEstoque == entradaEstoque.Id && i.Ativo).ToList();
+                return EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
+            }
+            itensEntradaEstoque = _contexto.ItensEntradaEstoque.Include(i => i.Produto)
+                .Where(i => i.IdEntradaEstoque == entradaEstoque.Id && !i.Ativo && i.Atual).ToList();
             return EntidadeParaDto(entradaEstoque, itensEntradaEstoque);
+
         }
 
 

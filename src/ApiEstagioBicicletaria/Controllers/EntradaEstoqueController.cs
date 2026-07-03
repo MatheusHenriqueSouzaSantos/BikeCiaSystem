@@ -58,11 +58,11 @@ namespace ApiEstagioBicicletaria.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public ActionResult<EntradaEstoqueOutputDto> BuscarEntradasAtivasPorId([FromRoute]Guid id)
+        public ActionResult<EntradaEstoqueOutputDto> BuscarEntradasAtivasOuInativasPorId([FromRoute]Guid id)
         {
             try
             {
-                return Ok(_service.BuscarEntradasAtivasPorId(id));
+                return Ok(_service.BuscarEntradasAtivaOuInativaPorId(id));
             }
             catch (ExcecaoDeRegraDeNegocio ex)
             {

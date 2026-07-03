@@ -62,11 +62,11 @@ namespace ApiEstagioBicicletaria.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public ActionResult<VendaTransacaoOutputDto> BuscarVendaAtivaPorId([FromRoute]Guid id)
+        public ActionResult<VendaTransacaoOutputDto> BuscarVendaOuInativaPorId([FromRoute]Guid id)
         {
             try
             {
-                return Ok(_vendaService.BuscarVendaAtivasPorId(id));
+                return Ok(_vendaService.BuscarVendaAtivaEInativaPorId(id));
             }
             catch (ExcecaoDeRegraDeNegocio ex)
             {
@@ -199,7 +199,7 @@ namespace ApiEstagioBicicletaria.Controllers
         }
         [HttpPost("buscar-vendas-por-documento-indentificador-do-cliente")]
         [Authorize]
-        public ActionResult<List<VendaTransacaoOutputDto>> BuscarVendasPorCpfOuCnpj([FromBody] DocumentoClienteInputDto dto)
+        public ActionResult<List<VendaTransacaoOutputDto>> BuscarVendasAtivasPorCpfOuCnpj([FromBody] DocumentoClienteInputDto dto)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace ApiEstagioBicicletaria.Controllers
 
                     return BadRequest(mensagensDeErro);
                 }
-                return _vendaService.BuscarVendasPorCpfOuCnpj(dto);
+                return _vendaService.BuscarVendasAtivasPorCpfOuCnpj(dto);
             }
             catch (ExcecaoDeRegraDeNegocio ex)
             {
@@ -223,7 +223,7 @@ namespace ApiEstagioBicicletaria.Controllers
 
         [HttpGet("buscar-venda-por-codigo-venda/{codigoVenda}")]
         [Authorize]
-        public ActionResult<VendaTransacaoOutputDto> BuscarVendaPorCodigoVenda([FromRoute]string codigoVenda)
+        public ActionResult<VendaTransacaoOutputDto> BuscarVendaAtivaOuInativaPorCodigoVenda([FromRoute]string codigoVenda)
         {
             try
             {
