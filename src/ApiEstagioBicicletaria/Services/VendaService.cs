@@ -41,7 +41,6 @@ namespace ApiEstagioBicicletaria.Services
         //private readonly int _numeroDeLinhasPorPagina = 42;
         private ContextoDb _contexto;
         private readonly GeradorCodigoIndentificador<Venda> _geradorCodigoVenda;
-        private readonly VendedorRepositorio _vendedorRepositorio;
         private readonly VendaLogService _vendaLogService;
         private readonly ItemVendaLogService _itemVendaLogService;
         private readonly ServicoVendaLogService _servicoVendaLogService;
@@ -50,15 +49,12 @@ namespace ApiEstagioBicicletaria.Services
         private readonly ParcelaLogService _parcelaLogService;
         private readonly EstoqueLogService _estoqueLogService;
 
-        public VendaService(ContextoDb contexto, GeradorCodigoIndentificador<Venda> geradorCodigoVenda, 
-            VendedorRepositorio vendedorRepositorio, VendaLogService vendaLogService,
-            ServicoVendaLogService servicoVendaLogService,ItemVendaLogService itemVendaLogService,
-            IUsuarioLogadoService usuarioLogadoService,TransacaoLogService transacaoLogService,
-            ParcelaLogService parcelaLogService,EstoqueLogService estoqueLogService)
+        public VendaService(ContextoDb contexto, GeradorCodigoIndentificador<Venda> geradorCodigoVenda, VendaLogService vendaLogService,
+            ServicoVendaLogService servicoVendaLogService,ItemVendaLogService itemVendaLogService,IUsuarioLogadoService usuarioLogadoService,
+            TransacaoLogService transacaoLogService,ParcelaLogService parcelaLogService,EstoqueLogService estoqueLogService)
         {
             _contexto = contexto;
             _geradorCodigoVenda = geradorCodigoVenda;
-            _vendedorRepositorio = vendedorRepositorio;
             _vendaLogService = vendaLogService;
             _itemVendaLogService = itemVendaLogService;
             _servicoVendaLogService = servicoVendaLogService;
