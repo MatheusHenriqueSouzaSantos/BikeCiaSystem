@@ -1,4 +1,5 @@
-﻿using ApiEstagioBicicletaria.Entities.ProdutoDomain;
+﻿using ApiEstagioBicicletaria.Dtos.ProdutoDtos;
+using ApiEstagioBicicletaria.Entities.ProdutoDomain;
 
 namespace ApiEstagioBicicletaria.Dtos.VendaDtos.ItemVendaDtos
 {
@@ -8,7 +9,7 @@ namespace ApiEstagioBicicletaria.Dtos.VendaDtos.ItemVendaDtos
 
         //public Guid IdVenda { get; private set; }
 
-        public Produto Produto { get; private set; }
+        public ProdutoDtoOutPut Produto { get; private set; }
 
         public DateTime DataCriacao { get; private set; }
 
@@ -29,11 +30,11 @@ namespace ApiEstagioBicicletaria.Dtos.VendaDtos.ItemVendaDtos
 
         }
 
-        public ItemVendaOutputDto(Guid id, Produto produto, DateTime dataCriacao, int quantidade, decimal descontoUnitario, 
+        public ItemVendaOutputDto(Guid id, ProdutoDtoOutPut produtoDto, DateTime dataCriacao, int quantidade, decimal descontoUnitario, 
             decimal precoUnitarioDoProdutoNaVenda, decimal precoUnitarioDoProdutoNaVendaComDescontoAplicado, decimal valorTotalDoItem, bool ativo)
         {
             Id = id;
-            Produto = produto;
+            Produto = produtoDto;
             DataCriacao = dataCriacao;
             Quantidade = quantidade;
             DescontoUnitario = descontoUnitario;

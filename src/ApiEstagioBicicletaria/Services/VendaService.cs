@@ -1,4 +1,6 @@
 ﻿using ApiEstagioBicicletaria.Dtos;
+using ApiEstagioBicicletaria.Dtos.EstoqueDtos;
+using ApiEstagioBicicletaria.Dtos.ProdutoDtos;
 using ApiEstagioBicicletaria.Dtos.RelatorioDtos;
 using ApiEstagioBicicletaria.Dtos.VendaDtos;
 using ApiEstagioBicicletaria.Dtos.VendaDtos.ItemVendaDtos;
@@ -1116,8 +1118,14 @@ namespace ApiEstagioBicicletaria.Services
             {
                 decimal precoDoProdutoNaVendaComDescontoAplicado = item.PrecoUnitarioDoProdutoNaVendaSemDesconto - item.DescontoUnitario;
                 decimal totalItem = precoDoProdutoNaVendaComDescontoAplicado * item.Quantidade;
-                ItemVendaOutputDto itemVendaOutputDto = new ItemVendaOutputDto(item.Id, item.Produto, item.DataCriacao, item.Quantidade,
-                    item.DescontoUnitario, item.PrecoUnitarioDoProdutoNaVendaSemDesconto, precoDoProdutoNaVendaComDescontoAplicado, totalItem,item.Ativo);
+                Produto produtoDoItem = item.Produto;
+                Estoque estoqueDoProdutoDoItem = _contexto.Estoques.FirstOrDefault(e => e.Produto.Id == produtoDoItem.Id)
+                    ?? throw new ExcecaoDeRegraDeNegocio(500, "Estoque do produto não encontrado, erro!!");
+                ProdutoDtoOutPut dtoDeProduto = new ProdutoDtoOutPut(produtoDoItem.Id, produtoDoItem.CodigoDeBarra
+                    , produtoDoItem.DataCriacao, produtoDoItem.NomeProduto, produtoDoItem.Descricao, produtoDoItem.Preco,
+                    produtoDoItem.Ativo, new EstoqueSimplificadoOutputDto(estoqueDoProdutoDoItem.Id,estoqueDoProdutoDoItem.QuantidadeEmEstoque));
+                ItemVendaOutputDto itemVendaOutputDto = new ItemVendaOutputDto(item.Id,dtoDeProduto,
+                    item.DataCriacao, item.Quantidade, item.DescontoUnitario, item.PrecoUnitarioDoProdutoNaVendaSemDesconto, precoDoProdutoNaVendaComDescontoAplicado, totalItem,item.Ativo);
                 itensVendaFormatoDtoOutput.Add(itemVendaOutputDto);
             }
             foreach (ServicoVenda servicoVenda in servicosDaVenda)
@@ -1165,7 +1173,13 @@ namespace ApiEstagioBicicletaria.Services
             {
                 decimal precoDoProdutoNaVendaComDescontoAplicado = item.PrecoUnitarioDoProdutoNaVendaSemDesconto - item.DescontoUnitario;
                 decimal totalItem = precoDoProdutoNaVendaComDescontoAplicado * item.Quantidade;
-                ItemVendaOutputDto itemVendaOutputDto = new ItemVendaOutputDto(item.Id, item.Produto, item.DataCriacao, 
+                Produto produtoDoItem = item.Produto;
+                Estoque estoqueDoProdutoDoItem = _contexto.Estoques.FirstOrDefault(e => e.Produto.Id == produtoDoItem.Id)
+                    ?? throw new ExcecaoDeRegraDeNegocio(500, "Estoque do produto não encontrado, erro!!");
+                ProdutoDtoOutPut dtoDeProduto = new ProdutoDtoOutPut(produtoDoItem.Id, produtoDoItem.CodigoDeBarra
+                    , produtoDoItem.DataCriacao, produtoDoItem.NomeProduto, produtoDoItem.Descricao, produtoDoItem.Preco,
+                    produtoDoItem.Ativo, new EstoqueSimplificadoOutputDto(estoqueDoProdutoDoItem.Id, estoqueDoProdutoDoItem.QuantidadeEmEstoque));
+                ItemVendaOutputDto itemVendaOutputDto = new ItemVendaOutputDto(item.Id, dtoDeProduto, item.DataCriacao, 
                     item.Quantidade, item.DescontoUnitario, item.PrecoUnitarioDoProdutoNaVendaSemDesconto, precoDoProdutoNaVendaComDescontoAplicado,
                     totalItem, item.Ativo);
                 itensVendaFormatoDtoOutput.Add(itemVendaOutputDto);
