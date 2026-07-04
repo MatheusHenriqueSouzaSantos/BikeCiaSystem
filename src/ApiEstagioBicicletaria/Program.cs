@@ -43,14 +43,7 @@ namespace ApiEstagioBicicletaria
             builder.Services.AddScoped<IFornecedorService, FornecedorService>();
             builder.Services.AddScoped<IEstoqueService, EstoqueService>();
             builder.Services.AddScoped<IEntradaEstoqueService, EntradaEstoqueService>();
-            builder.Services.AddScoped<EntradaEstoqueRepositorio>();
-            builder.Services.AddScoped<ItemEntradaEstoqueRepositorio>();
-            builder.Services.AddScoped<FornecedorRepositorio>();
-            builder.Services.AddScoped<ProdutoRepositorio>();
-            builder.Services.AddScoped<EstoqueRepositorio>();
-            builder.Services.AddScoped<UsuarioRepositorio>();
             builder.Services.AddScoped<SenhaService>();
-            builder.Services.AddScoped<VendedorRepositorio>();
             builder.Services.AddScoped<IUsuarioLogadoService,UsuarioLogadoService>();
             builder.Services.AddScoped(typeof(LogRepositorio<>));
             builder.Services.AddScoped<ClienteLogService>();

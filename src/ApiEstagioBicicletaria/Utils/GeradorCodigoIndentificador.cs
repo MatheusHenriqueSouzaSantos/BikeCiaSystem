@@ -42,7 +42,7 @@ namespace ApiEstagioBicicletaria.Utils
 
         }
 
-        public bool VerificarSeOCodigoMovimentoGeradoJaExisteNoBanco(string codigoGerado)
+        private bool VerificarSeOCodigoMovimentoGeradoJaExisteNoBanco(string codigoGerado)
         {
             if (typeof(T).Equals(typeof(Venda))){
                 return _contextoDb.Vendas.Any(v => v.CodigoVenda == codigoGerado);
@@ -75,7 +75,7 @@ namespace ApiEstagioBicicletaria.Utils
 
         }
 
-        public bool VerificarSeOCodigoUsuarioGeradoJaExisteNoBanco(string codigoGerado)
+        private bool VerificarSeOCodigoUsuarioGeradoJaExisteNoBanco(string codigoGerado)
         {   
             return _contextoDb.Usuarios.Any(u => u.CodigoUsuario == codigoGerado); 
         }

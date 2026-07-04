@@ -27,16 +27,6 @@ namespace ApiEstagioBicicletaria.Services
     {
         private readonly ContextoDb _contexto;
 
-        private readonly EntradaEstoqueRepositorio _repositorio;
-
-        private readonly ItemEntradaEstoqueRepositorio _itemEntradaRepositorio;
-
-        private readonly FornecedorRepositorio _fornecedorRepositorio;
-
-        private readonly ProdutoRepositorio _produtoRepositorio;
-
-        private readonly EstoqueRepositorio _estoqueRepositorio;
-
         private readonly GeradorCodigoIndentificador<EntradaEstoque> _geradorCodigo;
 
         private readonly EntradaEstoqueLogService _entradaEstoqueLogService;
@@ -47,18 +37,11 @@ namespace ApiEstagioBicicletaria.Services
 
         private readonly Usuario _usuarioLogado;
 
-        public EntradaEstoqueService(ContextoDb contexto, EntradaEstoqueRepositorio repositorio, 
-            ItemEntradaEstoqueRepositorio itemEntradaRepositorio, FornecedorRepositorio fornecedorRepositorio, 
-            ProdutoRepositorio produtoRepositorio, EstoqueRepositorio estoqueRepositorio, GeradorCodigoIndentificador<EntradaEstoque> geradorCodigo,
-            EntradaEstoqueLogService entradaEstoqueLogService,ItemEntradaEstoqueLogService itemEntradaEstoqueLogService,EstoqueLogService estoqueLogService
-            ,IUsuarioLogadoService usuarioLogadoService)
+        public EntradaEstoqueService(ContextoDb contexto,GeradorCodigoIndentificador<EntradaEstoque> geradorCodigo,
+            EntradaEstoqueLogService entradaEstoqueLogService,ItemEntradaEstoqueLogService itemEntradaEstoqueLogService,
+            EstoqueLogService estoqueLogService,IUsuarioLogadoService usuarioLogadoService)
         {
             _contexto = contexto;
-            _repositorio = repositorio;
-            _itemEntradaRepositorio = itemEntradaRepositorio;
-            _fornecedorRepositorio = fornecedorRepositorio;
-            _produtoRepositorio = produtoRepositorio;
-            _estoqueRepositorio = estoqueRepositorio;
             _geradorCodigo = geradorCodigo;
             _entradaEstoqueLogService = entradaEstoqueLogService;
             _itemEntradaEstoqueLogService= itemEntradaEstoqueLogService;
@@ -132,7 +115,7 @@ namespace ApiEstagioBicicletaria.Services
 
             List<ItemEntradaEstoque> itens=CriarItensEntradaEstoque(dto.Itens,entradaEstoque);
           
-            _repositorio.Cadastrar(entradaEstoque);
+            _contexto.EntradasEstoque.Add(entradaEstoque);
             _entradaEstoqueLogService.CriarLogsDeCriacao(entradaEstoque, _usuarioLogado);
             _contexto.SaveChanges();
             return EntidadeParaDto(entradaEstoque,itens);
@@ -283,7 +266,7 @@ namespace ApiEstagioBicicletaria.Services
                 }
                 int quantidadeEmEstoqueAntiga = estoqueDoItem.QuantidadeEmEstoque;
                 estoqueDoItem.AbaterQuantidadeEmEstoque(item.Quantidade);
-                _estoqueRepositorio.AtualizarEstoque(estoqueDoItem);
+                _contexto.Estoques.Update(estoqueDoItem);
                 _estoqueLogService.CriarLogDeAtualizacaoQuantidadeEmEstoque(estoqueDoItem, estoqueDoItem.Produto, quantidadeEmEstoqueAntiga,
                     estoqueDoItem.QuantidadeEmEstoque, AcaoQueAlterouEstoque.ExclusaoEntradaEstoque, _usuarioLogado);
                 item.Ativo = false;
@@ -293,7 +276,7 @@ namespace ApiEstagioBicicletaria.Services
             }
             entrada.Ativo = false;
             entrada.Status = StatusEntradaEstoque.Cancelada;
-            _repositorio.Inativar(entrada);
+            _contexto.EntradasEstoque.Update(entrada);
             _entradaEstoqueLogService.CriarLogsDeExclusao(entrada, statusAntigo, _usuarioLogado);
             _contexto.SaveChanges();
         }
@@ -331,13 +314,13 @@ namespace ApiEstagioBicicletaria.Services
                 Estoque estoqueDoItem=_contexto.Estoques.First(e=>e.ProdutoId==produtoDoItem.Id);
                 int quantidadeAnteriorDoEstoque = estoqueDoItem.QuantidadeEmEstoque;
                 ItemEntradaEstoque item = new(entradaEstoque, produtoDoItem, itemDto.Quantidade);
-                _itemEntradaRepositorio.Cadastrar(item);
+                _contexto.ItensEntradaEstoque.Add(item);
                 _itemEntradaEstoqueLogService.CriarLogsDeCriacao(item, entradaEstoque, _usuarioLogado);
                 itens.Add(item);
                 estoqueDoItem.AdicionarQuantidadeEmEstoque(itemDto.Quantidade);
                 _estoqueLogService.CriarLogDeAtualizacaoQuantidadeEmEstoque(estoqueDoItem, estoqueDoItem.Produto, quantidadeAnteriorDoEstoque,
                     estoqueDoItem.QuantidadeEmEstoque, AcaoQueAlterouEstoque.CriacaoEntradaEstoque, _usuarioLogado);
-                _estoqueRepositorio.AtualizarEstoque(estoqueDoItem);
+                _contexto.Estoques.Update(estoqueDoItem);
             }
             return itens;
         }
