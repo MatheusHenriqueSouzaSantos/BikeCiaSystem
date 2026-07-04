@@ -14,17 +14,17 @@ public class ItemEntradaEstoqueOutputDto
 
     public Guid IdProduto {get;private set;}
 
-    public string NomeDoProduto {get; private set;}
+    public ProdutoDtoOutPut Produto {get; private set; }
 
     public int Quantidade {get; private set;}
     
-    public ItemEntradaEstoqueOutputDto(Guid id, DateTime dataCriacao, bool ativo, Guid idProduto, string nomeDoProduto, int quantidade)
+    public ItemEntradaEstoqueOutputDto(Guid id, DateTime dataCriacao, bool ativo, ProdutoDtoOutPut produtoDto, int quantidade)
     {
         Id = id;
         DataCriacao = dataCriacao;
         Ativo = ativo;
-        IdProduto = idProduto;
-        NomeDoProduto = nomeDoProduto;
+        Produto = produtoDto;
+        IdProduto = produtoDto.Id;
         Quantidade = quantidade;
     }
     

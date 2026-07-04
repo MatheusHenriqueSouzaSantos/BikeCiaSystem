@@ -306,8 +306,13 @@ namespace ApiEstagioBicicletaria.Services
             foreach (ItemEntradaEstoque item in itens)
             {
                 Produto produtoDoItem=item.Produto;
+                Estoque estoqueDoProdutoDoItem=_contexto.Estoques.FirstOrDefault(e=>e.ProdutoId==produtoDoItem.Id)
+                    ?? throw new ExcecaoDeRegraDeNegocio(500,"estoque não encontrado");
+                ProdutoDtoOutPut produtoDto=new(produtoDoItem.Id,produtoDoItem.CodigoDeBarra,produtoDoItem.DataCriacao,
+                    produtoDoItem.NomeProduto,produtoDoItem.Descricao,produtoDoItem.Preco,produtoDoItem.Ativo,
+                    new(estoqueDoProdutoDoItem.Id,estoqueDoProdutoDoItem.QuantidadeEmEstoque));
                 ItemEntradaEstoqueOutputDto itemDto = new(item.Id, item.DataCriacao, 
-                    item.Ativo,produtoDoItem.Id,produtoDoItem.NomeProduto, item.Quantidade);
+                    item.Ativo,produtoDto, item.Quantidade);
                 itensDto.Add(itemDto);
             }
             EntradaEstoqueOutputDto entradaEstoqueDto = new(entradaEstoque.Id, entradaEstoque.DataCriacao,
