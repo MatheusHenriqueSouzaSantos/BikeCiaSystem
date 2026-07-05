@@ -67,7 +67,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         table.Header(header =>
                         {
                             header.Cell().AlignCenter().Text("Nome Do Vendedor").Bold();
-                            header.Cell().AlignCenter().PaddingLeft(7).Text("CPF").Bold();
+                            header.Cell().AlignRight().Text("CPF").Bold();
                             header.Cell().AlignRight().Text("Quantidade De Vendas Realizadas").Bold();
                             header.Cell().AlignRight().Text("Faturamento").Bold();
                         });
