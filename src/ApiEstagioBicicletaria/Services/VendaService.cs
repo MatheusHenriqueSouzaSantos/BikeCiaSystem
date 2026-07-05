@@ -894,7 +894,7 @@ namespace ApiEstagioBicicletaria.Services
                 string codigoVenda = vendaIterada.CodigoVenda;
                 string tipoDePagamento = transacaoDaVenda.TipoPagamento.ToString();
                 string meioDePagamento = transacaoDaVenda.MeioPagamento.ToString();
-                string dataDaVenda = DateOnly.FromDateTime(vendaIterada.DataCriacao).ToString();
+                string dataDaVenda = DateOnly.FromDateTime(vendaIterada.DataCriacao).ToString("dd/MM/yyyy");
                 decimal valorTotalPago =Math.Round ((_contexto.Parcelas.Where(p => p.IdTransacao == transacaoDaVenda.Id && p.Pago && p.Ativo).Sum(p => p.ValorParcela)),2,MidpointRounding.AwayFromZero);
                 if (vendaIterada.Ativo)
                 {
