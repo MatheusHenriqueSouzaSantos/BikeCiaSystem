@@ -71,7 +71,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             header.Cell().AlignCenter().Text("Razao Social").Bold().FontSize(10);
                             header.Cell().AlignCenter().Text("Cnpj").Bold().FontSize(10);
                             header.Cell().AlignRight().Text("Total De Entradas").Bold().FontSize(10);
-                            header.Cell().AlignRight().PaddingRight(-5).Text("Total De Produtos").Bold().FontSize(10);
+                            header.Cell().AlignRight().PaddingRight(-5).Text("Produtos Registrados").Bold().FontSize(10);
                             header.Cell().AlignRight().Text("Total De Itens").Bold().FontSize(10);
                         });
                         table.Cell().ColumnSpan(5).PaddingTop(8).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Darken3);

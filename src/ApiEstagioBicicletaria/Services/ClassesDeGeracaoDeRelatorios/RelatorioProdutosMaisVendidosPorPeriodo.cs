@@ -64,8 +64,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         });
                         table.Header(header =>
                         {
-                            header.Cell().AlignCenter().Text("Código De Barra").Bold();
                             header.Cell().PaddingLeft(9).Text("Nome Do Produto").Bold();
+                            header.Cell().AlignCenter().Text("Código De Barra").Bold();
                             header.Cell().AlignRight().Text("Quantidade Vendida").Bold();
                             header.Cell().AlignRight().Text("Faturamento").Bold();
                         });
@@ -78,8 +78,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         {
                             foreach (ProdutoMaisVendidoDto dto in _produtos)
                             {
-                                table.Cell().AlignRight().PaddingRight(16).Text(dto.Produto.CodigoDeBarra);
                                 table.Cell().PaddingLeft(9).Text(dto.Produto.NomeProduto);
+                                table.Cell().AlignRight().PaddingRight(16).Text(dto.Produto.CodigoDeBarra);
                                 table.Cell().AlignRight().Text(dto.QuantidadeVendida.ToString());
                                 table.Cell().AlignRight().Text("R$ " + dto.Faturamento.ToString("F2"));
                                 table.Cell().ColumnSpan(4).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);

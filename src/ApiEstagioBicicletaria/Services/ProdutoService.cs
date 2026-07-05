@@ -295,7 +295,7 @@ namespace ApiEstagioBicicletaria.Services
             //int numeroDeRegistroASerBuscados = _numeroMaximoDePaginas * _numeroDeLinhasPorPagina;
             List<ProdutoMaisVendidoDto> produtosMaisVendidos = _contextoDb.
                 ItensVendas.
-                Where(iv => iv.Ativo && iv.Produto.Ativo && iv.DataCriacao>=dataDeInicioDoPeriodoConvertidaDateTime && iv.DataCriacao<=dataDeFimDoPeriodoConvertidaDateTime)
+                Where(iv => iv.Ativo && iv.DataCriacao>=dataDeInicioDoPeriodoConvertidaDateTime && iv.DataCriacao<=dataDeFimDoPeriodoConvertidaDateTime)
                 .GroupBy(iv => iv.Produto.Id)
                 .Select(g => new ProdutoMaisVendidoDto
                 {

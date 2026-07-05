@@ -49,7 +49,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         table.Cell().ColumnSpan(5);
                         table.Cell().ColumnSpan(3).TranslateX(143).TranslateY(-45).AlignRight().AlignTop().PaddingBottom(-80).Width(120).Height(60).Image(caminhoImagem).FitArea();
                     });
-                    col.Item().Text($"Relatório de Produtos (Em Falta) Com o Estoque Abaixo ou igual a: {_quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor}" ).FontSize(20).Bold();
+                    col.Item().Text($"Relatório de Produtos Ativos (Em Falta) Com o Estoque Abaixo ou igual a: {_quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor}" ).FontSize(20).Bold();
                     col.Item().PaddingVertical(10);
                     col.Item().Table(table =>
                     {
@@ -62,8 +62,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         });
                         table.Header(header =>
                         {
-                            header.Cell().AlignCenter().Text("Código De Barra").Bold();
                             header.Cell().AlignCenter().Text("Nome Do Produto").Bold();
+                            header.Cell().AlignCenter().Text("Código De Barra").Bold();
                             header.Cell().AlignRight().Text("Preço Unitário").Bold();
                             header.Cell().AlignRight().Text("Quantidade Em Estoque").Bold();
                         }); 
@@ -80,8 +80,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         {
                             foreach (ProdutoEmFaltaDto produto in _produtos)
                             {
-                                table.Cell().AlignRight().PaddingRight(17).Text(produto.CodigoDeBarra);
                                 table.Cell().AlignLeft().PaddingLeft(11).Text(produto.NomeProduto);
+                                table.Cell().AlignRight().PaddingRight(17).Text(produto.CodigoDeBarra);
                                 table.Cell().AlignRight().PaddingRight(1).Text($"R$ {produto.PrecoUnitario}");
                                 table.Cell().AlignRight().Text(produto.QuantidadeEmEstoque.ToString());
                                 table.Cell().ColumnSpan(4).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);
