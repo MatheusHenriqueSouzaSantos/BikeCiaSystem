@@ -71,7 +71,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             header.Cell().AlignCenter().Text("Razao Social").Bold().FontSize(10);
                             header.Cell().AlignCenter().Text("Cnpj").Bold().FontSize(10);
                             header.Cell().AlignRight().Text("Total De Entradas").Bold().FontSize(10);
-                            header.Cell().AlignRight().PaddingRight(-5).Text("Produtos Registrados").Bold().FontSize(10);
+                            header.Cell().AlignRight().Text("Produtos Registrados").Bold().FontSize(10);
                             header.Cell().AlignRight().Text("Total De Itens").Bold().FontSize(10);
                         });
                         table.Cell().ColumnSpan(5).PaddingTop(8).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Darken3);
@@ -84,11 +84,11 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         {
                             foreach (FornecedorComMaisEntradasDto fornecedorComDadosEntrada in _fornecedoresComDadosEntrada)
                             {
-                                table.Cell().AlignLeft().PaddingRight(10).Text(fornecedorComDadosEntrada.RazaoSocial);
-                                table.Cell().AlignLeft().PaddingLeft(11).Text(fornecedorComDadosEntrada.Cnpj);
-                                table.Cell().AlignRight().PaddingRight(1).Text(fornecedorComDadosEntrada.QuantidadeDeEntradas);
-                                table.Cell().AlignRight().PaddingRight(-5).Text(fornecedorComDadosEntrada.QuantidadeDeProdutosDasEntrada);
-                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeTotalDosItens);
+                                table.Cell().AlignLeft().PaddingRight(10).Text(fornecedorComDadosEntrada.RazaoSocial).FontSize(15);
+                                table.Cell().AlignLeft().PaddingLeft(11).Text(fornecedorComDadosEntrada.Cnpj).FontSize(15);
+                                table.Cell().AlignRight().PaddingRight(1).Text(fornecedorComDadosEntrada.QuantidadeDeEntradas).FontSize(15);
+                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeDeProdutosDasEntrada).FontSize(15);
+                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeTotalDosItens).FontSize(15);
                                 table.Cell().ColumnSpan(5).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);
                             }
                         }
