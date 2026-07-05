@@ -886,7 +886,7 @@ namespace ApiEstagioBicicletaria.Services
                 {
                     throw new ExcecaoDeRegraDeNegocio(500, "O tipo do cliente deve ser físico ou jurídico");
                 }
-                Transacao? transacaoDaVenda = _contexto.Transacoes.Where(t => t.IdVenda == vendaIterada.Id && t.Ativo).FirstOrDefault();
+                Transacao? transacaoDaVenda = _contexto.Transacoes.Where(t => t.IdVenda == vendaIterada.Id).FirstOrDefault();
                 if(transacaoDaVenda == null)
                 {
                     throw new ExcecaoDeRegraDeNegocio(500, "Transação nunca deveria ser nulo para uma venda já realizada");
