@@ -84,7 +84,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             foreach (VendedorComMaiorFaturamentoPorPeriodo vendedor in _vendedores)
                             {
                                 table.Cell().AlignLeft().PaddingLeft(11).Text(vendedor.VendedorNome);
-                                table.Cell().AlignRight().PaddingLeft(-3).PaddingRight(6).Text(vendedor.Cpf);
+                                table.Cell().AlignRight().PaddingLeft(-3).PaddingRight(6)
+                                .Text($"{vendedor.Cpf[..3]}.{vendedor.Cpf[3..6]}.{vendedor.Cpf[6..9]}-{vendedor.Cpf[9..]}");
                                 table.Cell().AlignRight().PaddingRight(1).Text(vendedor.QuantidadeDeVendas);
                                 table.Cell().AlignRight().Text($"R$ {vendedor.Faturamento}");
                                 table.Cell().ColumnSpan(4).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);
