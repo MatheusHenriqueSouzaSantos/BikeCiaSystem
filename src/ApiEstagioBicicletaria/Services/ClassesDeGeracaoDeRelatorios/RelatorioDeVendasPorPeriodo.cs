@@ -81,7 +81,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             header.Cell().PaddingRight(-3).Text("Nome Vendedor").Bold().FontSize(9);
                             header.Cell().PaddingLeft(11).PaddingRight(-5).Text("Tipo De Pagamento").Bold().FontSize(9);
                             header.Cell().PaddingLeft(17).PaddingRight(-10).AlignLeft().Text("Data Da Venda").Bold().FontSize(9);
-                            header.Cell().AlignCenter().PaddingLeft(2).PaddingRight(-25).Text("Status").Bold().FontSize(9);
+                            header.Cell().AlignCenter().PaddingRight(-25).Text("Status").Bold().FontSize(9);
                             header.Cell().PaddingLeft(-2).AlignRight().Text("Valor Total Pago").Bold().FontSize(9);
                             header.Cell().AlignRight().Text("Valor Total").Bold().FontSize(9);
                         });
@@ -104,7 +104,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                                 table.Cell().PaddingBottom(5).PaddingTop(5).PaddingRight(-3).Text(vendaDto.NomeVendedor).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(11).PaddingRight(-5).Text(vendaDto.TipoDePagamento).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(15).PaddingRight(-13).AlignCenter().Text(vendaDto.DataDaVenda).FontSize(9);
-                                table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(22).PaddingRight(-20).Text(vendaDto.Status).FontSize(9);
+                                table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(21).PaddingRight(-20).Text(vendaDto.Status).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).AlignRight().Text("R$ " + vendaDto.ValorTotalPago.ToString("F2")).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).AlignRight().Text("R$ " + vendaDto.ValorTotal.ToString("F2")).FontSize(9);
                                 if (i != tamanhoDaLista)
