@@ -919,7 +919,11 @@ namespace ApiEstagioBicicletaria.Services
 
                 listaDeVendasNoFormatoASerExibidoNoRelatorio.Add(vendaNoFormatoDto);
             }
-
+            listaDeVendasNoFormatoASerExibidoNoRelatorio = listaDeVendasNoFormatoASerExibidoNoRelatorio
+                .OrderBy(v => v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Aberta ? 1 :
+                v.Status == StatusVendaParaRelatorioVendaPorPeriodo.EmAndamento ? 2 :
+                v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Pago ? 3 : 4)
+                .ThenByDescending(v=>v.DataDaVenda).ToList();
             QuestPDF.Settings.License = LicenseType.Community;
 
             var documento = new RelatorioDeVendasPorPeriodo(listaDeVendasNoFormatoASerExibidoNoRelatorio,
