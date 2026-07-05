@@ -104,7 +104,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                                 table.Cell().PaddingBottom(5).PaddingTop(5).PaddingRight(-3).Text(vendaDto.NomeVendedor).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(11).PaddingRight(-5).Text(vendaDto.TipoDePagamento).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(15).PaddingRight(-13).AlignCenter().Text(vendaDto.DataDaVenda).FontSize(9);
-                                table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(17).PaddingRight(-20).Text(vendaDto.Status).FontSize(9);
+                                table.Cell().PaddingBottom(5).PaddingTop(5).PaddingLeft(22).PaddingRight(-20).Text(vendaDto.Status).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).AlignRight().Text("R$ " + vendaDto.ValorTotalPago.ToString("F2")).FontSize(9);
                                 table.Cell().PaddingBottom(5).PaddingTop(5).AlignRight().Text("R$ " + vendaDto.ValorTotal.ToString("F2")).FontSize(9);
                                 if (i != tamanhoDaLista)
