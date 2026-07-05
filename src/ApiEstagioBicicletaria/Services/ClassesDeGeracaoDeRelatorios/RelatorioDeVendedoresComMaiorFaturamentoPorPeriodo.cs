@@ -66,8 +66,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         });
                         table.Header(header =>
                         {
-                            header.Cell().AlignCenter().Text("CPF").Bold();
                             header.Cell().AlignCenter().Text("Nome Do Vendedor").Bold();
+                            header.Cell().AlignCenter().Text("CPF").Bold();
                             header.Cell().AlignRight().Text("Quantidade De Vendas Realizadas").Bold();
                             header.Cell().AlignRight().Text("Faturamento").Bold();
                         });
@@ -81,8 +81,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         {
                             foreach (VendedorComMaiorFaturamentoPorPeriodo vendedor in _vendedores)
                             {
-                                table.Cell().AlignLeft().PaddingRight(10).Text(vendedor.Cpf);
                                 table.Cell().AlignLeft().PaddingLeft(11).Text(vendedor.VendedorNome);
+                                table.Cell().AlignLeft().PaddingRight(10).Text(vendedor.Cpf);
                                 table.Cell().AlignRight().PaddingRight(1).Text(vendedor.QuantidadeDeVendas);
                                 table.Cell().AlignRight().Text($"R$ {vendedor.Faturamento}");
                                 table.Cell().ColumnSpan(4).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);
