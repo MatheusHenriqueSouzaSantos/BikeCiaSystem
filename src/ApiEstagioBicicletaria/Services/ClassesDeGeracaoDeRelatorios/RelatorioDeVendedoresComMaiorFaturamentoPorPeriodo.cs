@@ -53,7 +53,9 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         table.Cell().ColumnSpan(5);
                         table.Cell().ColumnSpan(3).TranslateX(143).TranslateY(-45).AlignRight().AlignTop().PaddingBottom(-80).Width(120).Height(60).Image(caminhoImagem).FitArea();
                     });
-                    col.Item().Text($"Relatório de Vendedores Com Maior faturamento Por Período: {DataInicial} à {DataFinal}").FontSize(20).Bold();
+                    col.Item().Text($"Relatório de Vendedores Com Maior Faturamento Por Período: {DataInicial:dd/MM/yyyy} à {DataFinal:dd/MM/yyyy}")
+                    .FontSize(20)
+                    .Bold();
                     col.Item().PaddingVertical(10);
                     col.Item().Table(table =>
                     {
