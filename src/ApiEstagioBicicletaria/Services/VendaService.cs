@@ -856,7 +856,7 @@ namespace ApiEstagioBicicletaria.Services
             //int numeroDeRegistroASerBuscados = _numeroMaximoDePaginas * _numeroDeLinhasPorPagina;
 
             List<Venda> vendasNoPeriodo = _contexto.Vendas.
-                Where(v => v.DataCriacao >= dataDeInicioDoPeriodoConvertidaDateTime && v.DataCriacao <= dataDeFimDoPeriodoConvertidaDateTime && v.Ativo)
+                Where(v => v.DataCriacao >= dataDeInicioDoPeriodoConvertidaDateTime && v.DataCriacao <= dataDeFimDoPeriodoConvertidaDateTime)
                 .OrderBy(v => v.DataCriacao)
                 .ToList();
 
@@ -870,22 +870,17 @@ namespace ApiEstagioBicicletaria.Services
             foreach(Venda vendaIterada in vendasNoPeriodo)
             {
                 string nomeCliente="";
-                string cpfOuCnpj = "";
-                Cliente? cliente = _contexto.Clientes.Where(c => c.Id == vendaIterada.IdCliente && c.Ativo).FirstOrDefault();
-
-                if(cliente == null)
-                {
-                    throw new ExcecaoDeRegraDeNegocio(500, "Cliente nunca deveria ser nulo para uma venda já realizada");
-                }
+                Cliente cliente = _contexto.Clientes.FirstOrDefault(c => c.Id == vendaIterada.IdCliente)
+                ?? throw new ExcecaoDeRegraDeNegocio(500, "Cliente nunca deveria ser nulo para uma venda já realizada");
+                Vendedor vendedor = _contexto.Vendedores.FirstOrDefault(v => v.Id == vendaIterada.IdVendedor)
+                ?? throw new ExcecaoDeRegraDeNegocio(500, "Vendedor nunca deveria ser nulo para uma venda já realizada");
                 if (cliente.TipoCliente == TipoCliente.PessoaFisica)
                 {
                     nomeCliente = ((ClienteFisico)cliente).Nome;
-                    cpfOuCnpj = ((ClienteFisico)cliente).Cpf;
                 }
                 if (cliente.TipoCliente == TipoCliente.PessoaJuridica)
                 {
                     nomeCliente = ((ClienteJuridico)cliente).RazaoSocial;
-                    cpfOuCnpj = ((ClienteJuridico)cliente).Cnpj;
                 }
                 if(cliente.TipoCliente != TipoCliente.PessoaFisica && cliente.TipoCliente != TipoCliente.PessoaJuridica)
                 {
@@ -904,18 +899,23 @@ namespace ApiEstagioBicicletaria.Services
                 valorTotalPagoDasVendasNessePeriodo += valorTotalPago;
                 decimal valorTotalVenda = vendaIterada.ValorTotalComDesconto;
                 valorTotalDasVendasNessePeriodo += valorTotalVenda;
-                string pago="";
-                if (transacaoDaVenda.Pago)
+                StatusVendaParaRelatorioVendaPorPeriodo status=StatusVendaParaRelatorioVendaPorPeriodo.Aberta;
+
+                if (!vendaIterada.Ativo)
                 {
-                    pago = "Sim";
+                    status = StatusVendaParaRelatorioVendaPorPeriodo.Cancelada;
                 }
-                if (!transacaoDaVenda.Pago)
+                if(vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && !transacaoDaVenda.Pago)
                 {
-                    pago = "Não";
+                    status= StatusVendaParaRelatorioVendaPorPeriodo.EmAndamento;
+                }
+                if (vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && transacaoDaVenda.Pago)
+                {
+                    status = StatusVendaParaRelatorioVendaPorPeriodo.Pago;
                 }
 
-                VendaNoFormatoASerExibidoRelatorioDto vendaNoFormatoDto = new VendaNoFormatoASerExibidoRelatorioDto(codigoVenda,nomeCliente,cpfOuCnpj, tipoDePagamento,
-                    dataDaVenda, valorTotalPago, valorTotalVenda,pago);
+                VendaNoFormatoASerExibidoRelatorioDto vendaNoFormatoDto = new VendaNoFormatoASerExibidoRelatorioDto(codigoVenda,nomeCliente,vendedor.NomeCompleto, tipoDePagamento,
+                    dataDaVenda, valorTotalPago, valorTotalVenda,status);
 
                 listaDeVendasNoFormatoASerExibidoNoRelatorio.Add(vendaNoFormatoDto);
             }
