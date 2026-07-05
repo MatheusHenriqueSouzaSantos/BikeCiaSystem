@@ -115,8 +115,8 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             table.Cell().ColumnSpan(8).PaddingTop(8).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Darken3);
 
                             table.Cell().ColumnSpan(6);
-                            table.Cell().AlignRight().Text("Total Pago Das Vendas:").FontSize(10);
-                            table.Cell().AlignRight().Text("Total Das Vendas:").FontSize(10);
+                            table.Cell().AlignRight().Text("Total Pago Das Vendas (Ativas):").FontSize(10);
+                            table.Cell().AlignRight().Text("Total Das Vendas (Ativas):").FontSize(10);
 
                             table.Cell().ColumnSpan(6);
                             table.Cell().AlignRight().Text("R$ " + _valorTotalPagoDasVendasDoPeriodo.ToString("F2")).FontSize(10);
