@@ -317,7 +317,7 @@ namespace ApiEstagioBicicletaria.Services
             
         }
 
-        public byte[] GerarRelatorioDeProdutosComEstoqueAbaixoOuIgualUmaQuantidade(int quantidadeParaBuscarDosProdutosEmFalta)
+        public byte[] GerarRelatorioDeProdutosAtivosComEstoqueAbaixoOuIgualUmaQuantidade(int quantidadeParaBuscarDosProdutosEmFalta)
         {
             //int numeroDeRegistroASerBuscados = _numeroMaximoDePaginas * _numeroDeLinhasPorPagina;
             if (quantidadeParaBuscarDosProdutosEmFalta < 0)
@@ -353,7 +353,7 @@ namespace ApiEstagioBicicletaria.Services
                 ))
                 .ToList();
 
-            var documento = new RelatorioDeProdutosEmFalta(produtosEmFaltaDto, quantidadeParaBuscarDosProdutosEmFalta);
+            var documento = new RelatorioDeProdutosAtivosEmFalta(produtosEmFaltaDto, quantidadeParaBuscarDosProdutosEmFalta);
             QuestPDF.Settings.License = LicenseType.Community;
             byte[] pdf = documento.GeneratePdf();
 

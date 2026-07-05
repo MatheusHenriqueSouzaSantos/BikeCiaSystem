@@ -233,12 +233,12 @@ namespace ApiEstagioBicicletaria.Controllers
 
         [HttpGet("relatorio-de-produtos-em-falta/{quantidadeParaBuscarDosProdutosEmFalta}")]
         [Authorize]
-        public ActionResult<byte[]> GerarRelatorioDeProdutosEmFalta(int quantidadeParaBuscarDosProdutosEmFalta)
+        public ActionResult<byte[]> GerarRelatorioDeProdutosAtivosEmFalta(int quantidadeParaBuscarDosProdutosEmFalta)
         {
             try
             {
-                byte[] bytesPdf = _produtoService.GerarRelatorioDeProdutosComEstoqueAbaixoOuIgualUmaQuantidade(quantidadeParaBuscarDosProdutosEmFalta);
-                return File(bytesPdf, "application/pdf", "relatorioDeProdutosEmFalta.pdf");
+                byte[] bytesPdf = _produtoService.GerarRelatorioDeProdutosAtivosComEstoqueAbaixoOuIgualUmaQuantidade(quantidadeParaBuscarDosProdutosEmFalta);
+                return File(bytesPdf, "application/pdf", "relatorioDeProdutosAtivosEmFalta.pdf");
             }
             catch (ExcecaoDeRegraDeNegocio ex)
             {
