@@ -27,7 +27,7 @@ namespace ApiEstagioBicicletaria.Services.Interfaces
 
         List<ProdutoDtoOutPut> BuscarProdutosPorNome(string nome);
         byte[] GerarRelatorioDeProdutosMaisVendidosPorPeriodo(DatasParaGeracaoDeRelatorioDto dto);
-        byte[] GerarRelatorioDeProdutosComEstoqueAbaixoOuIgualUmaQuantidade(int quantidadePaBuscarProdutosEmFalta);
+        byte[] GerarRelatorioDeProdutosAtivosComEstoqueAbaixoOuIgualUmaQuantidade(int quantidadePaBuscarProdutosEmFalta);
 
         List<Object> BuscarLogsPorIdProduto(Guid idProdutoEnviado);
 

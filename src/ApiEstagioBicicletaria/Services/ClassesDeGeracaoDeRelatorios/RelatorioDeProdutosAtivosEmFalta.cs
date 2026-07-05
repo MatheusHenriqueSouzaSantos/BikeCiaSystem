@@ -6,12 +6,12 @@ using QuestPDF.Infrastructure;
 
 namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
 {
-    public class RelatorioDeProdutosEmFalta : IDocument
+    public class RelatorioDeProdutosAtivosEmFalta : IDocument
     {
         private readonly List<ProdutoEmFaltaDto> _produtos;
         private readonly int _quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor;
 
-        public RelatorioDeProdutosEmFalta(List<ProdutoEmFaltaDto> produtos, int quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor)
+        public RelatorioDeProdutosAtivosEmFalta(List<ProdutoEmFaltaDto> produtos, int quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor)
         {
             this._produtos = produtos;
             _quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor = quantidadeUsadapParaBuscarProdutosComEstoqueMenorOuIgualEsseValor;
