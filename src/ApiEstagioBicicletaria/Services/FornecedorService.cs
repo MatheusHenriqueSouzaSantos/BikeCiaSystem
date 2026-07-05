@@ -205,8 +205,8 @@ namespace ApiEstagioBicicletaria.Services
                     g.Key.RazaoSocial,
                     g.Key.Cnpj,
                     g.Count(),
-                    g.Sum(e=>e.Itens.Count()),
-                    g.Sum(e=>e.Itens.Sum(it=>it.Quantidade))
+                    g.Sum(e=>e.Itens.Count(it=>it.Ativo)),
+                    g.Sum(e=>e.Itens.Where(it=>it.Ativo).Sum(it=>it.Quantidade))
                 ))
                 .OrderByDescending(fce=>fce.QuantidadeTotalDosItens)
                 .ToList();
