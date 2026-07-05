@@ -84,11 +84,11 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         {
                             foreach (FornecedorComMaisEntradasDto fornecedorComDadosEntrada in _fornecedoresComDadosEntrada)
                             {
-                                table.Cell().AlignLeft().PaddingRight(10).Text(fornecedorComDadosEntrada.RazaoSocial).FontSize(15);
-                                table.Cell().AlignLeft().PaddingLeft(11).Text(fornecedorComDadosEntrada.Cnpj).FontSize(15);
-                                table.Cell().AlignRight().PaddingRight(1).Text(fornecedorComDadosEntrada.QuantidadeDeEntradas).FontSize(15);
-                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeDeProdutosDasEntrada).FontSize(15);
-                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeTotalDosItens).FontSize(15);
+                                table.Cell().AlignLeft().PaddingRight(10).Text(fornecedorComDadosEntrada.RazaoSocial).FontSize(12);
+                                table.Cell().AlignLeft().PaddingLeft(11).Text(fornecedorComDadosEntrada.Cnpj).FontSize(12);
+                                table.Cell().AlignRight().PaddingRight(1).Text(fornecedorComDadosEntrada.QuantidadeDeEntradas).FontSize(12);
+                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeDeProdutosDasEntrada).FontSize(12);
+                                table.Cell().AlignRight().Text(fornecedorComDadosEntrada.QuantidadeTotalDosItens).FontSize(12);
                                 table.Cell().ColumnSpan(5).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);
                             }
                         }
