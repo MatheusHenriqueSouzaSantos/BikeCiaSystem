@@ -81,7 +81,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             header.Cell().PaddingRight(-3).Text("Nome Vendedor").Bold().FontSize(9);
                             header.Cell().PaddingLeft(11).PaddingRight(-5).Text("Tipo De Pagamento").Bold().FontSize(9);
                             header.Cell().PaddingLeft(17).PaddingRight(-10).AlignLeft().Text("Data Da Venda").Bold().FontSize(9);
-                            header.Cell().AlignCenter().PaddingLeft(2).PaddingRight(-25).Text("Status").Bold().FontSize(9);
+                            header.Cell().AlignCenter().PaddingRight(-25).Text("Status").Bold().FontSize(9);
                             header.Cell().PaddingLeft(-2).AlignRight().Text("Valor Total Pago").Bold().FontSize(9);
                             header.Cell().AlignRight().Text("Valor Total").Bold().FontSize(9);
                         });
