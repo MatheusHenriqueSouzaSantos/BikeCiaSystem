@@ -177,75 +177,22 @@ namespace ApiEstagioBicicletaria.Services
             _usuarioLogService.CriarLogsDeReativacao(usuarioVindoDoBanco, _usuarioLogadoService.ObterUsuario());
             _contexto.SaveChanges();
         }
+
         public string Login(UsuarioLoginDto dto)
         {
-            Console.WriteLine("========== LOGIN ==========");
-            Console.WriteLine($"Email informado: {dto.Email}");
-
-            Usuario? usuarioVindoDoBanco = _contexto.Usuarios
-                .FirstOrDefault(u => u.Email == dto.Email);
-
-            Console.WriteLine($"Usuário encontrado? {usuarioVindoDoBanco != null}");
-
-            if (usuarioVindoDoBanco != null)
+            Usuario usuarioVindoDoBanco = _contexto.Usuarios.FirstOrDefault(u => u.Email == dto.Email)
+                ?? throw new ExcecaoDeRegraDeNegocio(400, "usuário ou senha inválida");
+            if (usuarioVindoDoBanco.Ativo == false)
             {
-                Console.WriteLine($"Id: {usuarioVindoDoBanco.Id}");
-                Console.WriteLine($"Email BD: {usuarioVindoDoBanco.Email}");
-                Console.WriteLine($"Ativo: {usuarioVindoDoBanco.Ativo}");
-                Console.WriteLine($"Perfil: {usuarioVindoDoBanco.PerfilUsuario}");
-                Console.WriteLine($"Hash: {usuarioVindoDoBanco.Senha}");
+                throw new ExcecaoDeRegraDeNegocio(400, "usuário está inativo, entre em contato com o administrador do sistema, para reativa-lo, para fazer login");
             }
-
-            if (usuarioVindoDoBanco == null)
+            if (!_senhaService.ValidarSenha(usuarioVindoDoBanco.Senha, dto.Senha))
             {
-                Console.WriteLine("Usuário não encontrado.");
                 throw new ExcecaoDeRegraDeNegocio(400, "usuário ou senha inválida");
             }
-
-            if (!usuarioVindoDoBanco.Ativo)
-            {
-                Console.WriteLine("Usuário está inativo.");
-                throw new ExcecaoDeRegraDeNegocio(400,
-                    "usuário está inativo, entre em contato com o administrador do sistema");
-            }
-
-            bool senhaValida = _senhaService.ValidarSenha(
-                usuarioVindoDoBanco.Senha,
-                dto.Senha);
-
-            Console.WriteLine($"Senha válida? {senhaValida}");
-
-            if (!senhaValida)
-            {
-                Console.WriteLine("Senha incorreta.");
-                throw new ExcecaoDeRegraDeNegocio(400, "usuário ou senha inválida");
-            }
-
-            Console.WriteLine("Gerando JWT...");
-
-            string jwt = _servicoJwt.GerarJWT(usuarioVindoDoBanco);
-
-            Console.WriteLine("JWT gerado com sucesso.");
-            Console.WriteLine("===========================");
-
+            var jwt = _servicoJwt.GerarJWT(usuarioVindoDoBanco);
             return jwt;
         }
-
-        //public string Login(UsuarioLoginDto dto)
-        //{
-        //    Usuario usuarioVindoDoBanco = _contexto.Usuarios.FirstOrDefault(u=>u.Email==dto.Email)
-        //        ??throw new ExcecaoDeRegraDeNegocio(400, "usuário ou senha inválida");
-        //    if (usuarioVindoDoBanco.Ativo == false)
-        //    {
-        //        throw new ExcecaoDeRegraDeNegocio(400, "usuário está inativo, entre em contato com o administrador do sistema, para reativa-lo, para fazer login");
-        //    }
-        //    if (!_senhaService.ValidarSenha(usuarioVindoDoBanco.Senha,dto.Senha))
-        //    {
-        //        throw new ExcecaoDeRegraDeNegocio(400, "usuário ou senha inválida");
-        //    }
-        //    var jwt= _servicoJwt.GerarJWT(usuarioVindoDoBanco);
-        //    return jwt;
-        //}
 
         public List<UsuarioLogOutputDto> BuscarLogsPorIdUsuario(Guid id)
         {
