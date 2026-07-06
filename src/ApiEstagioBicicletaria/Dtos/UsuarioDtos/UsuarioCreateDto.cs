@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApiEstagioBicicletaria.Dtos.UsuarioDtos
 {
-    public class UsuarioInputDto
+    public class UsuarioCreateDto
     {
         [Required(ErrorMessage ="O nome é obrigatório")]
         [MaxLength(70,ErrorMessage ="O nome deve ter no máximo 70 caracteres")]
@@ -21,7 +21,7 @@ namespace ApiEstagioBicicletaria.Dtos.UsuarioDtos
         [Required(ErrorMessage ="O campo perfil usuário é obrigatório")]
         public PerfilUsuario PerfilUsuario { get; set; }
 
-        public UsuarioInputDto(string nome, string email, string senha, PerfilUsuario perfilUsuario)
+        public UsuarioCreateDto(string nome, string email, string senha, PerfilUsuario perfilUsuario)
         {
             Nome = nome;
             Email = email;

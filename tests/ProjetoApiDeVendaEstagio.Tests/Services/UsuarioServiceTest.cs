@@ -137,7 +137,7 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
         [Fact]
         public void CadastrarUsuarioComSucesso()
         {
-            UsuarioInputDto dtoDeCriacao = new("usuarioUm", "usuarioum@gmail.com", "testeUm", PerfilUsuario.Admin);
+            UsuarioCreateDto dtoDeCriacao = new("usuarioUm", "usuarioum@gmail.com", "testeUm", PerfilUsuario.Admin);
 
             Guid IdUsuarioCriado = _service.Cadastrar(dtoDeCriacao).Id;
             Usuario? usuarioCriado = _contexto.Usuarios.FirstOrDefault(v => v.Id == IdUsuarioCriado);
@@ -154,7 +154,7 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
             _contexto.Usuarios.Add(new Usuario("abce", "usuarioUm", "usuarioum@gmail.com", _senhaService.GerarHashDaSenha("testeUm"), PerfilUsuario.Admin));
             _contexto.SaveChanges();
             Guid idUsuarioCriado = _contexto.Usuarios.FirstOrDefault().Id;
-            UsuarioInputDto dtoDeAtualizacao = new("usuarioAtualizado", "usuarioatualizado@gmail.com", "testeatualizado", PerfilUsuario.User);
+            UsuarioCreateDto dtoDeAtualizacao = new("usuarioAtualizado", "usuarioatualizado@gmail.com", "testeatualizado", PerfilUsuario.User);
             _service.Atualizar(idUsuarioCriado, dtoDeAtualizacao);
             Usuario? usuarioVindoDoBanco = _contexto.Usuarios.FirstOrDefault(v => v.Id == idUsuarioCriado);
             Assert.NotNull(usuarioVindoDoBanco);
