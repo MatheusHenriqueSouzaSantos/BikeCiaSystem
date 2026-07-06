@@ -14,9 +14,9 @@ namespace ApiEstagioBicicletaria.Services.Interfaces
 
         UsuarioOutputDto BuscarUsuarioLogado();
 
-        UsuarioOutputDto Cadastrar(UsuarioInputDto dto);
+        UsuarioOutputDto Cadastrar(UsuarioCreateDto dto);
 
-        UsuarioOutputDto Atualizar(Guid id, UsuarioInputDto dto);
+        UsuarioOutputDto Atualizar(Guid id, UsuarioUpdateDto dto);
 
         UsuarioOutputDto AtualizarUsuarioLogado(AlteracaoDeUsuarioLogadoDto dto);
 

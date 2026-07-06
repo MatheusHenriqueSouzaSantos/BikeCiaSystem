@@ -64,7 +64,7 @@ namespace ApiEstagioBicicletaria.Services
             return EntidadeParaDto(usuarioLogado);
         }
 
-        public UsuarioOutputDto Cadastrar(UsuarioInputDto dto)
+        public UsuarioOutputDto Cadastrar(UsuarioCreateDto dto)
         {
             if (_contexto.Usuarios.Any(u=>u.Email==dto.Email))
             {
@@ -78,7 +78,7 @@ namespace ApiEstagioBicicletaria.Services
             return EntidadeParaDto(usuario);
         }
 
-        public UsuarioOutputDto Atualizar(Guid id, UsuarioInputDto dto)
+        public UsuarioOutputDto Atualizar(Guid id, UsuarioUpdateDto dto)
         {
             Usuario usuarioVindoDoBanco = _contexto.Usuarios.FirstOrDefault(u => u.Id == id)
                ?? throw new ExcecaoDeRegraDeNegocio(404, "Usuário não encontrado");
@@ -105,7 +105,10 @@ namespace ApiEstagioBicicletaria.Services
             Usuario usuarioCopia = usuarioVindoDoBanco.Copia();
             usuarioVindoDoBanco.Nome = dto.Nome;
             usuarioVindoDoBanco.Email=dto.Email;
-            usuarioVindoDoBanco.Senha = _senhaService.GerarHashDaSenha(dto.Senha);
+            if (dto.Senha != null)
+            {
+                usuarioVindoDoBanco.Senha = _senhaService.GerarHashDaSenha(dto.Senha);
+            }
             usuarioVindoDoBanco.PerfilUsuario = dto.PerfilUsuario;
 
             _contexto.Usuarios.Update(usuarioVindoDoBanco);

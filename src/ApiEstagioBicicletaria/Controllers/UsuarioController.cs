@@ -94,7 +94,7 @@ namespace ApiEstagioBicicletaria.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult<UsuarioOutputDto> Cadastrar([FromBody] UsuarioInputDto dto)
+        public ActionResult<UsuarioOutputDto> Cadastrar([FromBody] UsuarioCreateDto dto)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace ApiEstagioBicicletaria.Controllers
         }
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public ActionResult<UsuarioOutputDto> Atualizar([FromRoute] Guid id, [FromBody] UsuarioInputDto dto)
+        public ActionResult<UsuarioOutputDto> Atualizar([FromRoute] Guid id, [FromBody] UsuarioUpdateDto dto)
         {
             try
             {
