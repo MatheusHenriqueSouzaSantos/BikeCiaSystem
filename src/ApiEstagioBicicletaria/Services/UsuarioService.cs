@@ -184,7 +184,7 @@ namespace ApiEstagioBicicletaria.Services
                 ?? throw new ExcecaoDeRegraDeNegocio(400, "usuário ou senha inválida");
             if (usuarioVindoDoBanco.Ativo == false)
             {
-                throw new ExcecaoDeRegraDeNegocio(400, "usuário está inativo, entre em contato com o administrador do sistema, para reativa-lo, para fazer login");
+                throw new ExcecaoDeRegraDeNegocio(401, "usuário está inativo, entre em contato com o administrador do sistema, para reativa-lo, para fazer login");
             }
             if (!_senhaService.ValidarSenha(usuarioVindoDoBanco.Senha, dto.Senha))
             {
