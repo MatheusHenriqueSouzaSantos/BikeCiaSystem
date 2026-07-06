@@ -94,6 +94,14 @@ namespace ApiEstagioBicicletaria.Services
             {
                 throw new ExcecaoDeRegraDeNegocio(400,"Já existe um usuário com esse email cadastrado");
             }
+            if(usuarioVindoDoBanco.PerfilUsuario==PerfilUsuario.Admin && dto.PerfilUsuario!=PerfilUsuario.Admin)
+            {
+                int quantidadeDeUsuariosAdminAtivo = _contexto.Usuarios.Count(u => u.PerfilUsuario == PerfilUsuario.Admin && u.Ativo);
+                if (quantidadeDeUsuariosAdminAtivo == 1)
+                {
+                    throw new ExcecaoDeRegraDeNegocio(400, "não é possível alterar o perfil desse usuário admin, pois o sistema precisa ter um usuário admin ativo");
+                }
+            }
             Usuario usuarioCopia = usuarioVindoDoBanco.Copia();
             usuarioVindoDoBanco.Nome = dto.Nome;
             usuarioVindoDoBanco.Email=dto.Email;
