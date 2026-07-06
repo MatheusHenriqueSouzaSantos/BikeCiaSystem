@@ -17,7 +17,7 @@ namespace ApiEstagioBicicletaria.Entities
 
         public Guid IdUsuarioResponsavel { get; private set; }
 
-        public DateTime DataCriacao { get; private set; }=DateTime.Now;
+        public DateTime DataCriacao { get; private set; }=DateTime.UtcNow;
 
         protected EntidadeBaseLog(LogAcao acao, string campoAlterado, string valorAntigo, string valorNovo, Usuario usuarioResponsavel)
         {
