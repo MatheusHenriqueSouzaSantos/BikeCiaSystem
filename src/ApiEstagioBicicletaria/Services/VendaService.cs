@@ -25,6 +25,7 @@ using ApiEstagioBicicletaria.Seguranca;
 using ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios;
 using ApiEstagioBicicletaria.Services.Interfaces;
 using ApiEstagioBicicletaria.Services.LogServices;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using ApiEstagioBicicletaria.Utils;
 using ApiEstagioBicicletaria.Validacao;
 using Microsoft.AspNetCore.Mvc;
@@ -40,18 +41,18 @@ namespace ApiEstagioBicicletaria.Services
         //private readonly int _numeroMaximoDePaginas = 5;
         //private readonly int _numeroDeLinhasPorPagina = 42;
         private ContextoDb _contexto;
-        private readonly GeradorCodigoIndentificador<Venda> _geradorCodigoVenda;
+        private readonly IGeradorCodigoIdentificador _geradorCodigoVenda;
         private readonly VendaLogService _vendaLogService;
         private readonly ItemVendaLogService _itemVendaLogService;
         private readonly ServicoVendaLogService _servicoVendaLogService;
         private readonly Usuario _usuarioLogado;
         private readonly TransacaoLogService _transacaoLogService;
         private readonly ParcelaLogService _parcelaLogService;
-        private readonly EstoqueLogService _estoqueLogService;
+        private readonly IEstoqueLogService _estoqueLogService;
 
-        public VendaService(ContextoDb contexto, GeradorCodigoIndentificador<Venda> geradorCodigoVenda, VendaLogService vendaLogService,
+        public VendaService(ContextoDb contexto, IGeradorCodigoIdentificador geradorCodigoVenda, VendaLogService vendaLogService,
             ServicoVendaLogService servicoVendaLogService,ItemVendaLogService itemVendaLogService,IUsuarioLogadoService usuarioLogadoService,
-            TransacaoLogService transacaoLogService,ParcelaLogService parcelaLogService,EstoqueLogService estoqueLogService)
+            TransacaoLogService transacaoLogService,ParcelaLogService parcelaLogService,IEstoqueLogService estoqueLogService)
         {
             _contexto = contexto;
             _geradorCodigoVenda = geradorCodigoVenda;
@@ -142,7 +143,7 @@ namespace ApiEstagioBicicletaria.Services
 
             decimal valorTotalDaVendaComDescontoAplicado=Math.Round((valorTotalDaVendaSemDescontoTotalAplicado-descontoVenda),2,MidpointRounding.AwayFromZero);
 
-            string codigoVenda = _geradorCodigoVenda.GerarCodigoMovimentacao();
+            string codigoVenda = _geradorCodigoVenda.GerarCodigoVenda();
 
             Venda vendaCriada = new Venda(codigoVenda, clienteDaVenda, descontoVenda,valorTotalDaVendaSemDescontoTotalAplicado, valorTotalDaVendaComDescontoAplicado,vendedorDaVenda);
 

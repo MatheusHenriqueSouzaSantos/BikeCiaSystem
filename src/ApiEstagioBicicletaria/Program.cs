@@ -32,8 +32,8 @@ namespace ApiEstagioBicicletaria
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddSwaggerGen();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddScoped<ServicoJwt>();
-            builder.Services.AddScoped(typeof(GeradorCodigoIndentificador<>));
+            builder.Services.AddScoped<IServicoJwt,ServicoJwt>();
+            builder.Services.AddScoped<IGeradorCodigoIdentificador,GeradorCodigoIndentificador>();
             builder.Services.AddScoped<IClienteService, ClienteService>();
             builder.Services.AddScoped<IProdutoService, ProdutoService>();
             builder.Services.AddScoped<IServicoService, ServicoService>();
@@ -43,12 +43,12 @@ namespace ApiEstagioBicicletaria
             builder.Services.AddScoped<IFornecedorService, FornecedorService>();
             builder.Services.AddScoped<IEstoqueService, EstoqueService>();
             builder.Services.AddScoped<IEntradaEstoqueService, EntradaEstoqueService>();
-            builder.Services.AddScoped<SenhaService>();
+            builder.Services.AddScoped<ISenhaService, SenhaService>();
             builder.Services.AddScoped<IUsuarioLogadoService,UsuarioLogadoService>();
             builder.Services.AddScoped(typeof(LogRepositorio<>));
             builder.Services.AddScoped<ClienteLogService>();
             builder.Services.AddScoped<EnderecoLogService>();
-            builder.Services.AddScoped<EstoqueLogService>();
+            builder.Services.AddScoped<IEstoqueLogService,EstoqueLogService>();
             builder.Services.AddScoped<IFornecedorLogService,FornecedorLogService>();
             builder.Services.AddScoped<ProdutoLogService>();
             builder.Services.AddScoped<ServicoLogService>();
@@ -58,9 +58,9 @@ namespace ApiEstagioBicicletaria
             builder.Services.AddScoped<ServicoVendaLogService>();
             builder.Services.AddScoped<ParcelaLogService>();
             builder.Services.AddScoped<TransacaoLogService>();
-            builder.Services.AddScoped<UsuarioLogService>();
-            builder.Services.AddScoped<EntradaEstoqueLogService>();
-            builder.Services.AddScoped<ItemEntradaEstoqueLogService>();
+            builder.Services.AddScoped<IUsuarioLogService, UsuarioLogService>();
+            builder.Services.AddScoped<IEntradaEstoqueLogService,EntradaEstoqueLogService>();
+            builder.Services.AddScoped<IItemEntradaEstoqueLogService,ItemEntradaEstoqueLogService>();
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddCors(options =>
@@ -165,7 +165,7 @@ namespace ApiEstagioBicicletaria
             using(var scope = app.Services.CreateScope())
             {
                 var contexto = scope.ServiceProvider.GetRequiredService<ContextoDb>();
-                var senhaService = scope.ServiceProvider.GetRequiredService<SenhaService>();
+                var senhaService = scope.ServiceProvider.GetRequiredService<ISenhaService>();
 
                 if (!contexto.Usuarios.Any())
                 {

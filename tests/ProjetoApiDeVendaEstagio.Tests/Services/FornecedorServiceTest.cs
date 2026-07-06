@@ -35,7 +35,7 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
                 .Options;
             _contexto = new ContextoDb(optionsBd);
 
-            Usuario usuarioLogado = new("1234", "usuarioLgado", "usuariologado@gmail.com", "usarioLogado", PerfilUsuario.Admin);
+            Usuario usuarioLogado = new("abcd", "usuarioLogado", "usuariologado@gmail.com", "usarioLogado", PerfilUsuario.Admin);
 
             _usuarioLogadoServiceMock.Setup(u => u.ObterUsuario()).Returns(usuarioLogado);
 
@@ -153,10 +153,9 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
                  "bike ltda", "bike produções", "21.048.789/0001-20", "123456789");
             _contexto.Fornecedores.Add(fornecedor);
             _contexto.SaveChanges();
-            Guid idfornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault().Id;
-            _fornecedorService.Atualizar(idfornecedorVindoDoBanco, new FornecedorUpdateDto("321", "fornecedoratualizado@gmail.com",
+            _fornecedorService.Atualizar(fornecedor.Id, new FornecedorUpdateDto("321", "fornecedoratualizado@gmail.com",
                  "bike ltda atualizada", "bike produções atualizada", "12345678"));
-            Fornecedor fornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault(v => v.Id == idfornecedorVindoDoBanco);
+            Fornecedor fornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault(v => v.Id == fornecedor.Id);
             Assert.NotNull(fornecedorVindoDoBanco);
             Assert.Equal("321", fornecedor.Telefone);
             Assert.Equal("fornecedoratualizado@gmail.com", fornecedorVindoDoBanco.Email);
@@ -172,9 +171,8 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
                  "bike ltda", "bike produções", "21.048.789/0001-20", "123456789");
             _contexto.Fornecedores.Add(fornecedor);
             _contexto.SaveChanges();
-            Guid idFornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault().Id;
-            _fornecedorService.Inativar(idFornecedorVindoDoBanco);
-            Fornecedor fornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault(v => v.Id == idFornecedorVindoDoBanco);
+            _fornecedorService.Inativar(fornecedor.Id);
+            Fornecedor fornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault(v => v.Id == fornecedor.Id);
             Assert.NotNull(fornecedorVindoDoBanco);
             Assert.False(fornecedorVindoDoBanco.Ativo);
         }
@@ -187,9 +185,8 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
             fornecedor.Ativo = false;
             _contexto.Fornecedores.Add(fornecedor);
             _contexto.SaveChanges();
-            Guid idFornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault().Id;
-            _fornecedorService.Reativar(idFornecedorVindoDoBanco);
-            Fornecedor fornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault(v => v.Id == idFornecedorVindoDoBanco);
+            _fornecedorService.Reativar(fornecedor.Id);
+            Fornecedor fornecedorVindoDoBanco = _contexto.Fornecedores.FirstOrDefault(v => v.Id == fornecedor.Id);
             Assert.NotNull(fornecedorVindoDoBanco);
             Assert.True(fornecedorVindoDoBanco.Ativo);
         }

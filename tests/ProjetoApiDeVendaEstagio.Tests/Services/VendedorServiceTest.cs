@@ -35,7 +35,7 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
                 .Options;
             _contexto=new ContextoDb(optionsBd);
 
-            Usuario usuarioLogado = new("1234", "usuarioLgado", "usuariologado@gmail.com", "usarioLogado", PerfilUsuario.Admin);
+            Usuario usuarioLogado = new("abcd", "usuarioLogado", "usuariologado@gmail.com", "usarioLogado", PerfilUsuario.Admin);
 
             _usuarioLogadoServiceMock.Setup(u=>u.ObterUsuario()).Returns(usuarioLogado);
 
@@ -140,10 +140,9 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
             Vendedor vendedor = new Vendedor("123","vendedor@gmail.com","vendedor", "22309298018");
             _contexto.Vendedores.Add(vendedor);
             _contexto.SaveChanges();
-            Guid idVendedorVindoDoBanco=_contexto.Vendedores.FirstOrDefault().Id;
-            Guid idRetornado= _vendedorService.AtualizarVendedor(idVendedorVindoDoBanco, new VendedorUpdatedDto("321",
-                "vendedoratualizado@gmail.com", "vendedorAtualizado")).Id;
-            Vendedor? vendedorVindoDoBanco= _contexto.Vendedores.FirstOrDefault(v => v.Id == idRetornado);
+            _vendedorService.AtualizarVendedor(vendedor.Id, new VendedorUpdatedDto("321",
+                "vendedoratualizado@gmail.com", "vendedorAtualizado"));
+            Vendedor? vendedorVindoDoBanco= _contexto.Vendedores.FirstOrDefault(v => v.Id == vendedor.Id);
             Assert.NotNull(vendedorVindoDoBanco);
             Assert.Equal("321", vendedor.Telefone);
             Assert.Equal("vendedoratualizado@gmail.com", vendedorVindoDoBanco.Email);
@@ -156,9 +155,8 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
             Vendedor vendedor = new Vendedor("123", "vendedor@gmail.com", "vendedor", "22309298018");
             _contexto.Vendedores.Add(vendedor);
             _contexto.SaveChanges();
-            Guid idVendedorVindoDoBanco = _contexto.Vendedores.FirstOrDefault().Id;
-            _vendedorService.InativarVendedor(idVendedorVindoDoBanco);
-            Vendedor vendedorVindoDoBanco = _contexto.Vendedores.FirstOrDefault(v => v.Id == idVendedorVindoDoBanco);
+            _vendedorService.InativarVendedor(vendedor.Id);
+            Vendedor vendedorVindoDoBanco = _contexto.Vendedores.FirstOrDefault(v => v.Id == vendedor.Id);
             Assert.NotNull(vendedorVindoDoBanco);
             Assert.False(vendedorVindoDoBanco.Ativo);
         }
@@ -170,9 +168,8 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
             vendedor.Ativo = false;
             _contexto.Vendedores.Add(vendedor);
             _contexto.SaveChanges();
-            Guid idVendedorVindoDoBanco = _contexto.Vendedores.FirstOrDefault().Id;
-            _vendedorService.ReativarVendedor(idVendedorVindoDoBanco);
-            Vendedor vendedorVindoDoBanco = _contexto.Vendedores.FirstOrDefault(v => v.Id == idVendedorVindoDoBanco);
+            _vendedorService.ReativarVendedor(vendedor.Id);
+            Vendedor vendedorVindoDoBanco = _contexto.Vendedores.FirstOrDefault(v => v.Id == vendedor.Id);
             Assert.NotNull(vendedorVindoDoBanco);
             Assert.True(vendedorVindoDoBanco.Ativo);
         }

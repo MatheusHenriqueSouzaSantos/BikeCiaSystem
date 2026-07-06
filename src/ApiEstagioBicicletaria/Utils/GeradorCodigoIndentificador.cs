@@ -5,13 +5,13 @@ using ApiEstagioBicicletaria.Repositories;
 
 namespace ApiEstagioBicicletaria.Utils
 {
-    public class GeradorCodigoIndentificador<T>
+    public class GeradorCodigoIndentificador: IGeradorCodigoIdentificador
     {
         private static  Random _random = new Random();
 
         private readonly ContextoDb _contextoDb;
 
-        private const int _tamanhoDoCodigoDaVenda = 6;
+        private const int _tamanhoDoCodigoMovimento = 6;
         private const int _tamanhoDoCodigoUsuario = 4;
         private const string _caracteresParaACombinacao = "abcdefghjkmnpqrstuvwxyz23456789";
 
@@ -20,15 +20,15 @@ namespace ApiEstagioBicicletaria.Utils
             _contextoDb= contextoDb;
         }
 
-        public string GerarCodigoMovimentacao()
+        public string GerarCodigoVenda()
         {
-           
+
             string codigoGerado;
 
             do
             {
-                char[] codigo = new char[_tamanhoDoCodigoDaVenda];
-                for (int i = 0; i < _tamanhoDoCodigoDaVenda; i++)
+                char[] codigo = new char[_tamanhoDoCodigoMovimento];
+                for (int i = 0; i < _tamanhoDoCodigoMovimento; i++)
                 {
                     int indexAleatorio = _random.Next(_caracteresParaACombinacao.Length);
                     codigo[i] = _caracteresParaACombinacao[indexAleatorio];
@@ -36,21 +36,42 @@ namespace ApiEstagioBicicletaria.Utils
                 codigoGerado = new string(codigo);
 
             }
-            while (VerificarSeOCodigoMovimentoGeradoJaExisteNoBanco(codigoGerado));
+            while (VerificarSeOCodigoVendaGeradoJaExisteNoBanco(codigoGerado));
 
             return codigoGerado;
 
         }
 
-        private bool VerificarSeOCodigoMovimentoGeradoJaExisteNoBanco(string codigoGerado)
+        private bool VerificarSeOCodigoVendaGeradoJaExisteNoBanco(string codigoGerado)
         {
-            if (typeof(T).Equals(typeof(Venda))){
-                return _contextoDb.Vendas.Any(v => v.CodigoVenda == codigoGerado);
+            return _contextoDb.Vendas.Any(v => v.CodigoVenda == codigoGerado);
+        }
+
+        public string GerarCodigoEntradaEstoque()
+        {
+           
+            string codigoGerado;
+
+            do
+            {
+                char[] codigo = new char[_tamanhoDoCodigoMovimento];
+                for (int i = 0; i < _tamanhoDoCodigoMovimento; i++)
+                {
+                    int indexAleatorio = _random.Next(_caracteresParaACombinacao.Length);
+                    codigo[i] = _caracteresParaACombinacao[indexAleatorio];
+                }
+                codigoGerado = new string(codigo);
+
             }
-            if (typeof(T).Equals(typeof(EntradaEstoque))){
-                return _contextoDb.EntradasEstoque.Any(e => e.CodigoEntrada == codigoGerado);
-            }
-            throw new ExcecaoDeRegraDeNegocio(500,"Tipo de entidade inválida");
+            while (VerificarSeOCodigoEntradaEstoqueGeradoJaExisteNoBanco(codigoGerado));
+
+            return codigoGerado;
+
+        }
+
+        private bool VerificarSeOCodigoEntradaEstoqueGeradoJaExisteNoBanco(string codigoGerado)
+        {
+            return _contextoDb.EntradasEstoque.Any(e => e.CodigoEntrada == codigoGerado);
         }
 
         public string GerarCodigoUsuario()

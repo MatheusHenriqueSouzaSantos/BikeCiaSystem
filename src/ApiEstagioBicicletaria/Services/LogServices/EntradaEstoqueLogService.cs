@@ -3,11 +3,12 @@ using ApiEstagioBicicletaria.Entities.EntradaEstoque;
 using ApiEstagioBicicletaria.Entities.UsuarioDomain;
 using ApiEstagioBicicletaria.Entities.VendaDomain;
 using ApiEstagioBicicletaria.Repository.Repositorios;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using System.Reflection;
 
 namespace ApiEstagioBicicletaria.Services.LogServices
 {
-    public class EntradaEstoqueLogService
+    public class EntradaEstoqueLogService: IEntradaEstoqueLogService
     {
         private readonly LogRepositorio<EntradaEstoqueLog> _repositorio;
 

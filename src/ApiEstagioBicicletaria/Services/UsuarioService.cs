@@ -9,6 +9,7 @@ using ApiEstagioBicicletaria.Repository.Repositorios;
 using ApiEstagioBicicletaria.Seguranca;
 using ApiEstagioBicicletaria.Services.Interfaces;
 using ApiEstagioBicicletaria.Services.LogServices;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using ApiEstagioBicicletaria.Utils;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,19 +18,19 @@ namespace ApiEstagioBicicletaria.Services
     public class UsuarioService : IUsuarioService
     {
 
-        private readonly ServicoJwt _servicoJwt;
+        private readonly IServicoJwt _servicoJwt;
 
-        private readonly SenhaService _senhaService;
+        private readonly ISenhaService _senhaService;
 
         private readonly ContextoDb _contexto;
 
-        private readonly UsuarioLogService _usuarioLogService;
+        private readonly IUsuarioLogService _usuarioLogService;
 
         private readonly IUsuarioLogadoService _usuarioLogadoService;
-        private readonly GeradorCodigoIndentificador<Usuario> _geradorCodigoIndentificador;
+        private readonly IGeradorCodigoIdentificador _geradorCodigoIndentificador;
 
-        public UsuarioService(ServicoJwt servicoJwt, SenhaService senhaService, ContextoDb contexto,
-            UsuarioLogService usuarioLogService,IUsuarioLogadoService usuarioLogadoService,GeradorCodigoIndentificador<Usuario> geradorCodigoIndentificador)
+        public UsuarioService(IServicoJwt servicoJwt, ISenhaService senhaService, ContextoDb contexto,
+            IUsuarioLogService usuarioLogService,IUsuarioLogadoService usuarioLogadoService, IGeradorCodigoIdentificador geradorCodigoIndentificador)
         {
             _servicoJwt = servicoJwt;
             _senhaService = senhaService;
