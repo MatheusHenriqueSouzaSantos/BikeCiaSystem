@@ -29,4 +29,4 @@ namespace ApiEstagioBicicletaria.Dtos.UsuarioDtos
         }
     }
 }
-}
+
