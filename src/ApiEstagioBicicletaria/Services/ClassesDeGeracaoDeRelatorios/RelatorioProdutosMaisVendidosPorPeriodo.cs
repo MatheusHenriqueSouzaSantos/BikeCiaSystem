@@ -66,7 +66,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                         {
                             header.Cell().PaddingLeft(9).Text("Nome Do Produto").Bold();
                             header.Cell().AlignCenter().Text("Código De Barra").Bold();
-                            header.Cell().AlignRight().PaddingRight(4).Text("Faturamento").Bold();
+                            header.Cell().AlignRight().PaddingRight(7).Text("Faturamento").Bold();
                             header.Cell().AlignRight().Text("Quantidade Vendida").Bold();
                         });
                         table.Cell().ColumnSpan(4).PaddingTop(8).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Darken3);
@@ -80,7 +80,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                             {
                                 table.Cell().PaddingLeft(9).Text(dto.Produto.NomeProduto);
                                 table.Cell().AlignRight().PaddingRight(16).Text(dto.Produto.CodigoDeBarra);
-                                table.Cell().AlignRight().PaddingRight(4).Text("R$ " + dto.Faturamento.ToString("F2"));
+                                table.Cell().AlignRight().PaddingRight(7).Text("R$ " + dto.Faturamento.ToString("F2"));
                                 table.Cell().AlignRight().Text(dto.QuantidadeVendida.ToString());
                                 table.Cell().ColumnSpan(4).PaddingTop(6).PaddingBottom(6).Border(1).BorderColor(Colors.Grey.Medium);
                             }
