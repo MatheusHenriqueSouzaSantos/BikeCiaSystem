@@ -129,7 +129,7 @@ namespace ApiEstagioBicicletaria.Controllers
                     return BadRequest(mensagensDeErro);
                 }
                 Fornecedor fornecedor = _service.Cadastrar(dto);
-                return Created($"api/vendedor/{fornecedor.Id}", fornecedor);
+                return Created($"api/fornecedor/{fornecedor.Id}", fornecedor);
             }
             catch (ExcecaoDeRegraDeNegocio ex)
             {

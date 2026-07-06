@@ -8,7 +8,7 @@
 
         [AtributoASerIgnoradoLogCriacao]
         [AtributoASerIgnoradoLogAtualizacao]
-        public DateTime DataCriacao {  get; private set; }= DateTime.Now;
+        public DateTime DataCriacao {  get; private set; }= DateTime.UtcNow;
 
         [AtributoASerIgnoradoLogCriacao]
         [AtributoASerIgnoradoLogAtualizacao]

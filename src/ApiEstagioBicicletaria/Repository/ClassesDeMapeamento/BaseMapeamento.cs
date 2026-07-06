@@ -9,10 +9,15 @@ public class BaseMapeamento<T> : IEntityTypeConfiguration<T> where T: EntidadeBa
 {
     public virtual void Configure(EntityTypeBuilder<T> builder)
     {
+        var brasilTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
+
         var dateTimeConverter = new ValueConverter<DateTime, DateTime>(
-           v => v.Kind == DateTimeKind.Utc ? v : v.ToUniversalTime(), 
-           v => DateTime.SpecifyKind(v, DateTimeKind.Local).ToLocalTime() 
-       );
+            v => v.Kind == DateTimeKind.Utc
+                ? v
+                : DateTime.SpecifyKind(v, DateTimeKind.Utc),
+
+            v => TimeZoneInfo.ConvertTimeFromUtc(v, brasilTimeZone)
+        );
 
         builder.HasKey(t => t.Id);
 

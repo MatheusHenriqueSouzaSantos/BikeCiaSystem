@@ -205,20 +205,28 @@ namespace ApiEstagioBicicletaria.Services
                 _servicoVendaLogService.CriarLogsDeCriacao(servicoDaVendaCriado, vendaCriada, _usuarioLogado);
                 _contexto.ServicosVendas.Add(servicoDaVendaCriado);
             }
+            TimeZoneInfo timeZoneBrasil =
+                TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
+
+            DateTime agoraBrasil =
+                TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneBrasil);
+
+            DateOnly hojeBrasil = DateOnly.FromDateTime(agoraBrasil);
+
             if (dto.Transacao.TipoPagamento == TipoPagamento.AVista)
             {
                 if(dto.Transacao.QuantidadeDeParcelas != 1)
                 {
                     throw new ExcecaoDeRegraDeNegocio(400,"Uma venda à vista deve ter apenas uma parcela");
                 }
-                if (dto.Transacao.DataDeVencimentoPrimeiraParcela!=DateOnly.FromDateTime(DateTime.Today))
+                if (dto.Transacao.DataDeVencimentoPrimeiraParcela!= hojeBrasil)
                 {
                     throw new ExcecaoDeRegraDeNegocio(400, "Uma venda à vista deve ter a data de pagamento como hoje");
                 }
             }
             if (dto.Transacao.TipoPagamento == TipoPagamento.APrazo)
             {
-                if (dto.Transacao.DataDeVencimentoPrimeiraParcela <= DateOnly.FromDateTime(DateTime.Today))
+                if (dto.Transacao.DataDeVencimentoPrimeiraParcela <= hojeBrasil)
                 {
                     throw new ExcecaoDeRegraDeNegocio(400, "Uma venda parcelada precisa que data de vencimento da primeira parcela seja maior que a data de hoje");
                 }
@@ -556,6 +564,13 @@ namespace ApiEstagioBicicletaria.Services
 
             if (dto.Transacao != null)
             {
+                TimeZoneInfo timeZoneBrasil =
+                        TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
+
+                DateTime agoraBrasil =
+                    TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneBrasil);
+
+                DateOnly hojeBrasil = DateOnly.FromDateTime(agoraBrasil);
                 if (dto.Transacao.MeioPagamento != null)
                 {
                     transacaoDaVendaASerAtualizada.MeioPagamento = dto.Transacao.MeioPagamento.Value;
@@ -579,9 +594,10 @@ namespace ApiEstagioBicicletaria.Services
 
                 if (dto.Transacao.DataDeVencimentoPrimeiraParcela != null)
                 {
-                    if (!(dto.Transacao.DataDeVencimentoPrimeiraParcela >= DateOnly.FromDateTime(DateTime.Today)))
+                    
+                    if (!(dto.Transacao.DataDeVencimentoPrimeiraParcela >= hojeBrasil))
                     {
-                        throw new ExcecaoDeRegraDeNegocio(400, "A data de vencimento da primeira parcela deve ser maior ou igaual a data atual");
+                        throw new ExcecaoDeRegraDeNegocio(400, "A data de vencimento da primeira parcela deve ser maior ou igual a data atual");
                     }
                     dataVencimentoPrimeiraParcelaAtualizada = dto.Transacao.DataDeVencimentoPrimeiraParcela.Value;
                 }
@@ -593,14 +609,14 @@ namespace ApiEstagioBicicletaria.Services
                         {
                             throw new ExcecaoDeRegraDeNegocio(400, "Uma venda AVista deve ter apenas uma parcela");
                         }
-                        if (dataVencimentoPrimeiraParcelaAtualizada != DateOnly.FromDateTime(DateTime.Today))
+                        if (dataVencimentoPrimeiraParcelaAtualizada != hojeBrasil)
                         {
                             throw new ExcecaoDeRegraDeNegocio(400, "Uma venda AVista deve ter a data de pagamento de hoje");
                         }
                     }
                     else
                     {
-                        if (dataVencimentoPrimeiraParcelaAtualizada <= DateOnly.FromDateTime(DateTime.Today))
+                        if (dataVencimentoPrimeiraParcelaAtualizada <= hojeBrasil)
                         {
                             throw new ExcecaoDeRegraDeNegocio(400, "Uma venda APrazo deve ter a data de pagamento Maior do que a de hoje");
                         }
