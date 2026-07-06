@@ -13,6 +13,7 @@ using ApiEstagioBicicletaria.Seguranca;
 using ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios;
 using ApiEstagioBicicletaria.Services.Interfaces;
 using ApiEstagioBicicletaria.Services.LogServices;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using ApiEstagioBicicletaria.Services.ServicesLogs;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
@@ -29,10 +30,10 @@ namespace ApiEstagioBicicletaria.Services
         //private readonly int _numeroDeLinhasPorPagina = 42;
         private readonly ContextoDb _contextoDb;
         private readonly ProdutoLogService _produtoLogService;
-        private readonly EstoqueLogService _estoqueLogService;
+        private readonly IEstoqueLogService _estoqueLogService;
         private readonly Usuario _usuarioLogado;
 
-        public ProdutoService(ContextoDb contextoDb, ProdutoLogService produtoLogService, EstoqueLogService estoqueLogService, IUsuarioLogadoService userLogadoService)
+        public ProdutoService(ContextoDb contextoDb, ProdutoLogService produtoLogService, IEstoqueLogService estoqueLogService, IUsuarioLogadoService userLogadoService)
         {
             _contextoDb = contextoDb;
             _produtoLogService = produtoLogService;

@@ -16,6 +16,7 @@ using ApiEstagioBicicletaria.Seguranca;
 using ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios;
 using ApiEstagioBicicletaria.Services.Interfaces;
 using ApiEstagioBicicletaria.Services.LogServices;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using ApiEstagioBicicletaria.Utils;
 using Microsoft.EntityFrameworkCore;
 using QuestPDF.Fluent;
@@ -27,19 +28,19 @@ namespace ApiEstagioBicicletaria.Services
     {
         private readonly ContextoDb _contexto;
 
-        private readonly GeradorCodigoIndentificador<EntradaEstoque> _geradorCodigo;
+        private readonly IGeradorCodigoIdentificador _geradorCodigo;
 
-        private readonly EntradaEstoqueLogService _entradaEstoqueLogService;
+        private readonly IEntradaEstoqueLogService _entradaEstoqueLogService;
 
-        private readonly ItemEntradaEstoqueLogService _itemEntradaEstoqueLogService;
+        private readonly IItemEntradaEstoqueLogService _itemEntradaEstoqueLogService;
 
-        private readonly EstoqueLogService _estoqueLogService;
+        private readonly IEstoqueLogService _estoqueLogService;
 
         private readonly Usuario _usuarioLogado;
 
-        public EntradaEstoqueService(ContextoDb contexto,GeradorCodigoIndentificador<EntradaEstoque> geradorCodigo,
-            EntradaEstoqueLogService entradaEstoqueLogService,ItemEntradaEstoqueLogService itemEntradaEstoqueLogService,
-            EstoqueLogService estoqueLogService,IUsuarioLogadoService usuarioLogadoService)
+        public EntradaEstoqueService(ContextoDb contexto, IGeradorCodigoIdentificador geradorCodigo,
+            IEntradaEstoqueLogService entradaEstoqueLogService,IItemEntradaEstoqueLogService itemEntradaEstoqueLogService,
+            IEstoqueLogService estoqueLogService,IUsuarioLogadoService usuarioLogadoService)
         {
             _contexto = contexto;
             _geradorCodigo = geradorCodigo;
@@ -106,7 +107,7 @@ namespace ApiEstagioBicicletaria.Services
             Fornecedor fornecedor=_contexto.Fornecedores.FirstOrDefault(f=>f.Id==dto.IdFornecedor && f.Ativo)
             ?? throw new ExcecaoDeRegraDeNegocio(404,"Fornecedor não encontrado ou inativo");
 
-            EntradaEstoque entradaEstoque = new(fornecedor, _geradorCodigo.GerarCodigoMovimentacao(),StatusEntradaEstoque.Criada);
+            EntradaEstoque entradaEstoque = new(fornecedor, _geradorCodigo.GerarCodigoEntradaEstoque(),StatusEntradaEstoque.Criada);
 
             if (dto.Itens.Count<1)
             {

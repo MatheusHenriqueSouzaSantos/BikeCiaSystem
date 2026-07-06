@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ApiEstagioBicicletaria.Seguranca
 {
-    public class ServicoJwt
+    public class ServicoJwt: IServicoJwt
     {
         private readonly string _chaveJwtEmString;
 

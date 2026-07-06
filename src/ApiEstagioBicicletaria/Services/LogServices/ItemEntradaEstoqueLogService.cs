@@ -2,11 +2,12 @@
 using ApiEstagioBicicletaria.Entities.EntradaEstoque;
 using ApiEstagioBicicletaria.Entities.UsuarioDomain;
 using ApiEstagioBicicletaria.Repository.Repositorios;
+using ApiEstagioBicicletaria.Services.LogServices.InterfacesLog;
 using System.Reflection;
 
 namespace ApiEstagioBicicletaria.Services.LogServices
 {
-    public class ItemEntradaEstoqueLogService
+    public class ItemEntradaEstoqueLogService:IItemEntradaEstoqueLogService
     {
         private readonly LogRepositorio<ItemEntradaEstoqueLog> _repositorio;
 

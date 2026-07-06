@@ -1,10 +1,11 @@
 ﻿using ApiEstagioBicicletaria.Entities.UsuarioDomain;
+using ApiEstagioBicicletaria.Services.Interfaces;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Identity;
 
 namespace ApiEstagioBicicletaria.Services
 {
-    public class SenhaService
+    public class SenhaService : ISenhaService
     {
         public string GerarHashDaSenha(string senha)
         {
