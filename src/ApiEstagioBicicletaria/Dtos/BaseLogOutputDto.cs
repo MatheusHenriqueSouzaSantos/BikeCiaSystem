@@ -17,7 +17,9 @@ namespace ApiEstagioBicicletaria.Dtos
 
         public DateTime DataCriacao { get; private set; } = DateTime.Now;
 
-        public BaseLogOutputDto(TipoDtoLog tipoLog, LogAcao acao, string campoAlterado, string valorAntigo, string valorNovo, Guid idUsuarioResponsavel, DateTime dataCriacao)
+        public string CodigoUsuarioResponsavel { get; set; }
+
+        public BaseLogOutputDto(TipoDtoLog tipoLog, LogAcao acao, string campoAlterado, string valorAntigo, string valorNovo, Guid idUsuarioResponsavel, DateTime dataCriacao, string codigoUsuarioResponsavel)
         {
             TipoLog = tipoLog;
             Acao = acao;
@@ -26,6 +28,7 @@ namespace ApiEstagioBicicletaria.Dtos
             ValorNovo = valorNovo;
             IdUsuarioResponsavel = idUsuarioResponsavel;
             DataCriacao = dataCriacao;
+            CodigoUsuarioResponsavel = codigoUsuarioResponsavel;
         }
     }
 }

@@ -10,8 +10,9 @@ namespace ApiEstagioBicicletaria.Dtos.EntradaEstoqueDtos.Output
 
         public string NomeDoProdutoDoItem { get; set; } 
         public ItemEntradaEstoqueLogOutputDto(Guid idItemEntradaEstoque,Guid idProdutoDoItem,string nomeProdutoDoItem,
-            LogAcao acao, string campoAlterado, string valorAntigo, string valorNovo,Guid idUsuarioResponsavel, DateTime dataCriacao) 
-            : base(TipoDtoLog.ItemEntradaEstoque, acao, campoAlterado, valorAntigo, valorNovo, idUsuarioResponsavel, dataCriacao)
+            LogAcao acao, string campoAlterado, string valorAntigo, string valorNovo,Guid idUsuarioResponsavel, DateTime dataCriacao,
+            string codigoUsuarioResponsavel) 
+            : base(TipoDtoLog.ItemEntradaEstoque, acao, campoAlterado, valorAntigo, valorNovo, idUsuarioResponsavel, dataCriacao, codigoUsuarioResponsavel)
         {
             IdItemEntradaEstoque = idItemEntradaEstoque;
             IdProdutoDoItem = idProdutoDoItem;

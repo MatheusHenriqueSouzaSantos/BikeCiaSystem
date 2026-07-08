@@ -8,6 +8,7 @@ using ApiEstagioBicicletaria.Repositories;
 using ApiEstagioBicicletaria.Seguranca;
 using ApiEstagioBicicletaria.Services.Interfaces;
 using ApiEstagioBicicletaria.Services.LogServices;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 
 namespace ApiEstagioBicicletaria.Services
@@ -188,7 +189,7 @@ namespace ApiEstagioBicicletaria.Services
             Servico servico = _contextoDb.Servicos.FirstOrDefault(s => s.Id == id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Serviço não encontrado");
 
-            List<ServicoLog> logs = _contextoDb.ServicoLogs
+            List<ServicoLog> logs = _contextoDb.ServicoLogs.Include(l=>l.UsuarioResponsavel)
                 .Where(l => l.IdServico == servico.Id).OrderByDescending(l => l.DataCriacao).ToList();
 
             List<ServicoLogOutputDto> logsDto =
@@ -199,7 +200,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario))
+                .ToList();
             return logsDto;
         }
 
@@ -208,7 +211,7 @@ namespace ApiEstagioBicicletaria.Services
             Servico servico = _contextoDb.Servicos.FirstOrDefault(s => s.CodigoDoServico == codigoDoServico)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Serviço não encontrado");
 
-            List<ServicoLog> logs = _contextoDb.ServicoLogs
+            List<ServicoLog> logs = _contextoDb.ServicoLogs.Include(l=>l.UsuarioResponsavel)
                 .Where(l => l.IdServico == servico.Id).OrderByDescending(l => l.DataCriacao).ToList();
 
             List<ServicoLogOutputDto> logsDto =
@@ -219,7 +222,10 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                ))
+                .ToList();
             return logsDto;
         }
     }

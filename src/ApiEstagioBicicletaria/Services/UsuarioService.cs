@@ -210,7 +210,7 @@ namespace ApiEstagioBicicletaria.Services
             Usuario usuario = _contexto.Usuarios.FirstOrDefault(u => u.Id == id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Usuário não encontrado");
 
-            List<UsuarioLog> logs = _contexto.UsuarioLogs.Include(l=>l.Usuario)
+            List<UsuarioLog> logs = _contexto.UsuarioLogs.Include(l=>l.UsuarioResponsavel).Include(l=>l.Usuario)
                 .Where(l => l.IdUsuario == usuario.Id).ToList();
 
             List<UsuarioLogOutputDto> logsDto =
@@ -222,7 +222,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario))
+                .ToList();
 
             return logsDto.OrderByDescending(l => l.DataCriacao).ToList();
         }
@@ -232,7 +234,7 @@ namespace ApiEstagioBicicletaria.Services
             Usuario usuario = _contexto.Usuarios.FirstOrDefault(u => u.CodigoUsuario == codigoUsuario)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Usuário não encontrado");
 
-            List<UsuarioLog> logs = _contexto.UsuarioLogs.Include(l => l.Usuario)
+            List<UsuarioLog> logs = _contexto.UsuarioLogs.Include(l=>l.UsuarioResponsavel).Include(l => l.Usuario)
                 .Where(l => l.IdUsuario == usuario.Id).ToList();
 
             List<UsuarioLogOutputDto> logsDto =
@@ -244,7 +246,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             return logsDto.OrderByDescending(l => l.DataCriacao).ToList();
         }

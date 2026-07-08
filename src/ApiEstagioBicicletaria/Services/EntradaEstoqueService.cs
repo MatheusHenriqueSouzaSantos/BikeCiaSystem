@@ -331,14 +331,34 @@ namespace ApiEstagioBicicletaria.Services
             EntradaEstoque entradaEstoque = _contexto.EntradasEstoque.FirstOrDefault(e => e.Id == idEntrada)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Entrada estoque não encontrada");
 
-            List<EntradaEstoqueLogOutputDto> logsEntradaDto=_contexto.EntradasEstoqueLogs.Where(l=>l.IdEntradaEstoque==entradaEstoque.Id)
-                .Select(l=>new EntradaEstoqueLogOutputDto(l.IdEntradaEstoque,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,l.IdUsuarioResponsavel,l.DataCriacao)).ToList();
+            List<EntradaEstoqueLogOutputDto> logsEntradaDto=_contexto.EntradasEstoqueLogs.Include(l=>l.UsuarioResponsavel)
+                .Where(l=>l.IdEntradaEstoque==entradaEstoque.Id)
+                .Select(l=>new EntradaEstoqueLogOutputDto
+                (l.IdEntradaEstoque,
+                l.Acao,
+                l.CampoAlterado,
+                l.ValorAntigo,
+                l.ValorNovo,
+                l.IdUsuarioResponsavel,
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             List<ItemEntradaEstoqueLogOutputDto> logsItemEntradaDto = _contexto.ItensEntradaEstoqueLogs
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l => l.ItemEntradaEstoque).ThenInclude(i => i.Produto)
                 .Where(l => l.IdEntradaEstoque == entradaEstoque.Id)
-                .Select(l => new ItemEntradaEstoqueLogOutputDto(l.IdItemEntradaEstoque, l.ItemEntradaEstoque.IdProduto,
-                l.ItemEntradaEstoque.Produto.NomeProduto, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel, l.DataCriacao)).ToList();
+                .Select(l => new ItemEntradaEstoqueLogOutputDto(l.IdItemEntradaEstoque,
+                l.ItemEntradaEstoque.IdProduto,
+                l.ItemEntradaEstoque.Produto.NomeProduto,
+                l.Acao,
+                l.CampoAlterado,
+                l.ValorAntigo,
+                l.ValorNovo,
+                l.IdUsuarioResponsavel,
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             List<BaseLogOutputDto> logsEntradaEItensDto=new List<BaseLogOutputDto>();
 
@@ -356,14 +376,34 @@ namespace ApiEstagioBicicletaria.Services
             EntradaEstoque entradaEstoque=_contexto.EntradasEstoque.FirstOrDefault(e=>e.CodigoEntrada==codigoEntrada)
                 ?? throw new ExcecaoDeRegraDeNegocio(404,"Entrada estoque não encontrada");
 
-            List<EntradaEstoqueLogOutputDto> logsEntradaDto = _contexto.EntradasEstoqueLogs.Where(l => l.IdEntradaEstoque == entradaEstoque.Id)
-                .Select(l => new EntradaEstoqueLogOutputDto(l.IdEntradaEstoque, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel, l.DataCriacao)).ToList();
+            List<EntradaEstoqueLogOutputDto> logsEntradaDto = _contexto.EntradasEstoqueLogs.Include(l => l.UsuarioResponsavel)
+                .Where(l => l.IdEntradaEstoque == entradaEstoque.Id)
+                .Select(l => new EntradaEstoqueLogOutputDto(
+                    l.IdEntradaEstoque,
+                    l.Acao,
+                    l.CampoAlterado,
+                    l.ValorAntigo,
+                    l.ValorNovo,
+                    l.IdUsuarioResponsavel,
+                    l.DataCriacao,
+                    l.UsuarioResponsavel.CodigoUsuario
+                    )).ToList();
 
             List<ItemEntradaEstoqueLogOutputDto> logsItemEntradaDto = _contexto.ItensEntradaEstoqueLogs
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l => l.ItemEntradaEstoque).ThenInclude(i => i.Produto)
                 .Where(l => l.IdEntradaEstoque == entradaEstoque.Id)
-                .Select(l => new ItemEntradaEstoqueLogOutputDto(l.IdItemEntradaEstoque, l.ItemEntradaEstoque.IdProduto,
-                l.ItemEntradaEstoque.Produto.NomeProduto, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel, l.DataCriacao)).ToList();
+                .Select(l => new ItemEntradaEstoqueLogOutputDto(
+                    l.IdItemEntradaEstoque,
+                    l.ItemEntradaEstoque.IdProduto,
+                    l.ItemEntradaEstoque.Produto.NomeProduto,
+                    l.Acao,
+                    l.CampoAlterado,
+                    l.ValorAntigo,
+                    l.ValorNovo,
+                    l.IdUsuarioResponsavel,
+                    l.DataCriacao,
+                    l.UsuarioResponsavel.CodigoUsuario)).ToList();
 
             List<BaseLogOutputDto> logsEntradaEItensDto = new List<BaseLogOutputDto>();
 
