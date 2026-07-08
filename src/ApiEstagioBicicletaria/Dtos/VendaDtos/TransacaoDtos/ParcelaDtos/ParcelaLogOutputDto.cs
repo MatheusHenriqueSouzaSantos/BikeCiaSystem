@@ -8,7 +8,8 @@ namespace ApiEstagioBicicletaria.Dtos.VendaDtos.TransacaoDtos.ParcelaDtos
 
         public int NumeroDaParcelaDaVenda { get; set; }
         public ParcelaLogOutputDto(Guid idParcela,int numeroDaParcelaDaVenda, LogAcao acao, string campoAlterado, string valorAntigo, string valorNovo,
-            Guid idUsuarioResponsavel, DateTime dataCriacao) : base(TipoDtoLog.Parcela, acao, campoAlterado, valorAntigo, valorNovo, idUsuarioResponsavel, dataCriacao)
+            Guid idUsuarioResponsavel, DateTime dataCriacao, string codigoUsuarioResponsavel) 
+            : base(TipoDtoLog.Parcela, acao, campoAlterado, valorAntigo, valorNovo, idUsuarioResponsavel, dataCriacao, codigoUsuarioResponsavel)
         {
             IdParcela = idParcela;
             NumeroDaParcelaDaVenda=numeroDaParcelaDaVenda;

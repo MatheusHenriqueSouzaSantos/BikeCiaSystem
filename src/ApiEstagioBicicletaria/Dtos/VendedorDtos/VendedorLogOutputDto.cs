@@ -7,8 +7,8 @@ namespace ApiEstagioBicicletaria.Dtos.VendedorDtos
         public Guid IdVendedor { get; private set; }
 
         public VendedorLogOutputDto(Guid idVendedor,LogAcao acao, string campoAlterado, 
-            string valorAntigo, string valorNovo, Guid idUsuarioResponsavel, DateTime dataCriacao) 
-            : base(TipoDtoLog.Vendedor,acao, campoAlterado, valorAntigo, valorNovo, idUsuarioResponsavel, dataCriacao)
+            string valorAntigo, string valorNovo, Guid idUsuarioResponsavel, DateTime dataCriacao, string codigoUsuarioResponsavel) 
+            : base(TipoDtoLog.Vendedor,acao, campoAlterado, valorAntigo, valorNovo, idUsuarioResponsavel, dataCriacao, codigoUsuarioResponsavel)
         {
             IdVendedor= idVendedor; 
         }

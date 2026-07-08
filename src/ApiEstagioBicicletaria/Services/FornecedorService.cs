@@ -226,6 +226,7 @@ namespace ApiEstagioBicicletaria.Services
             Fornecedor fornecedor = _contexto.Fornecedores.FirstOrDefault(f => f.Id == id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Fornecedor não encontrado");
             List<FornecedorLog> logs = _contexto.FornecedorLogs
+                .Include(l => l.UsuarioResponsavel)
                 .Where(l => l.IdFornecedor == fornecedor.Id).OrderByDescending(l => l.DataCriacao).ToList();
 
             List<FornecedorLogOutputDto> logsDto =
@@ -236,7 +237,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
             return logsDto;
         }
 
@@ -256,6 +259,7 @@ namespace ApiEstagioBicicletaria.Services
                 ?? throw new ExcecaoDeRegraDeNegocio(404,"Fornecedor não encontrado");
 
             List<FornecedorLog> logs = _contexto.FornecedorLogs
+                .Include(l => l.UsuarioResponsavel)
                 .Where(l => l.IdFornecedor == fornecedor.Id).OrderByDescending(l => l.DataCriacao).ToList();
 
             List<FornecedorLogOutputDto> logsDto =
@@ -266,7 +270,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
             return logsDto;
         }
     }

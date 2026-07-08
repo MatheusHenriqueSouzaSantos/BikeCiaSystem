@@ -248,7 +248,7 @@ namespace ApiEstagioBicicletaria.Services
             Vendedor vendedor=_contexto.Vendedores.FirstOrDefault(v=>v.Id==id)
                 ?? throw new ExcecaoDeRegraDeNegocio(404,"Vendedor não encontrado");
 
-            List<VendedorLog> logs = _contexto.VendedorLogs
+            List<VendedorLog> logs = _contexto.VendedorLogs.Include(l=>l.UsuarioResponsavel)
                 .Where(l => l.IdVendedor == vendedor.Id).ToList();
 
             List<VendedorLogOutputDto> logsDto =
@@ -259,7 +259,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             return logsDto.OrderByDescending(l=>l.DataCriacao).ToList();
         }
@@ -276,7 +278,7 @@ namespace ApiEstagioBicicletaria.Services
             }
             Vendedor vendedor=_contexto.Vendedores.FirstOrDefault(v=>v.Cpf == cpfSemPontoETracos)
             ?? throw new ExcecaoDeRegraDeNegocio(404, "Vendedor não encontrado");
-            List<VendedorLog> logs = _contexto.VendedorLogs
+            List<VendedorLog> logs = _contexto.VendedorLogs.Include(l => l.UsuarioResponsavel)
                 .Where(l => l.IdVendedor==vendedor.Id).ToList();
 
             List<VendedorLogOutputDto> logsDto =
@@ -287,7 +289,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             return logsDto.OrderByDescending(l=>l.DataCriacao).ToList();
         }

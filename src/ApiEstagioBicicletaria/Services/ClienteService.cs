@@ -483,7 +483,7 @@ namespace ApiEstagioBicicletaria.Services
 
 
 
-            List<ClienteLog> clienteLogs = _contextoDb.ClienteLogs.Where(l => l.IdCliente == cliente.Id).ToList();
+            List<ClienteLog> clienteLogs = _contextoDb.ClienteLogs.Include(l=>l.UsuarioResponsavel).Where(l => l.IdCliente == cliente.Id).ToList();
 
             List<ClienteLogOutputDto> clienteDtoLogs = clienteLogs.Select(l =>
                 new ClienteLogOutputDto(
@@ -493,11 +493,12 @@ namespace ApiEstagioBicicletaria.Services
                         l.ValorAntigo,
                         l.ValorNovo,
                         l.IdUsuarioResponsavel,
-                        l.DataCriacao
+                        l.DataCriacao,
+                        l.UsuarioResponsavel.CodigoUsuario
                     )
             ).ToList();
 
-            List<EnderecoLog> enderecoLogs = _contextoDb.EnderecoLogs.Where(l => l.IdCliente == cliente.Id).ToList();
+            List<EnderecoLog> enderecoLogs = _contextoDb.EnderecoLogs.Include(l=>l.UsuarioResponsavel).Where(l => l.IdCliente == cliente.Id).ToList();
 
             List<EnderecoLogOutputDto> enderecoDtoLogs = enderecoLogs.Select(l =>
                 new EnderecoLogOutputDto(
@@ -507,7 +508,8 @@ namespace ApiEstagioBicicletaria.Services
                         l.ValorAntigo,
                         l.ValorNovo,
                         l.IdUsuarioResponsavel,
-                        l.DataCriacao
+                        l.DataCriacao,
+                        l.UsuarioResponsavel.CodigoUsuario
                     )
             ).ToList();
 
@@ -541,7 +543,7 @@ namespace ApiEstagioBicicletaria.Services
                             .FirstOrDefault(c => c.Cpf == cpfSemPontoETracos) ??
                             throw new ExcecaoDeRegraDeNegocio(400, "Cliente não encontrado!!");
 
-                        List<ClienteLog> clienteLogs = _contextoDb.ClienteLogs.Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
+                        List<ClienteLog> clienteLogs = _contextoDb.ClienteLogs.Include(l => l.UsuarioResponsavel).Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
 
                         List<ClienteLogOutputDto> clienteDtoLogs = clienteLogs.Select(l =>
                             new ClienteLogOutputDto(
@@ -551,11 +553,12 @@ namespace ApiEstagioBicicletaria.Services
                                     l.ValorAntigo,
                                     l.ValorNovo,
                                     l.IdUsuarioResponsavel,
-                                    l.DataCriacao
+                                    l.DataCriacao,
+                                    l.UsuarioResponsavel.CodigoUsuario
                                 )
                         ).ToList();
 
-                        List<EnderecoLog> enderecoLogs = _contextoDb.EnderecoLogs.Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
+                        List<EnderecoLog> enderecoLogs = _contextoDb.EnderecoLogs.Include(l => l.UsuarioResponsavel).Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
 
                         List<EnderecoLogOutputDto> enderecoDtoLogs = enderecoLogs.Select(l =>
                             new EnderecoLogOutputDto(
@@ -565,7 +568,8 @@ namespace ApiEstagioBicicletaria.Services
                                     l.ValorAntigo,
                                     l.ValorNovo,
                                     l.IdUsuarioResponsavel,
-                                    l.DataCriacao
+                                    l.DataCriacao,
+                                    l.UsuarioResponsavel.CodigoUsuario
                                 )
                         ).ToList();
 
@@ -592,7 +596,8 @@ namespace ApiEstagioBicicletaria.Services
                             .FirstOrDefault(c => c.Cnpj == cnpjSemPontoETracos) ??
                             throw new ExcecaoDeRegraDeNegocio(400, "Cliente não encontrado!!");
 
-                        List<ClienteLog> clienteLogs = _contextoDb.ClienteLogs.Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
+                        List<ClienteLog> clienteLogs = _contextoDb.ClienteLogs.Include(l => l.UsuarioResponsavel)
+                            .Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
 
                         List<ClienteLogOutputDto> clienteDtoLogs = clienteLogs.Select(l =>
                             new ClienteLogOutputDto(
@@ -602,11 +607,12 @@ namespace ApiEstagioBicicletaria.Services
                                     l.ValorAntigo,
                                     l.ValorNovo,
                                     l.IdUsuarioResponsavel,
-                                    l.DataCriacao
+                                    l.DataCriacao,
+                                    l.UsuarioResponsavel.CodigoUsuario
                                 )
                         ).ToList();
 
-                        List<EnderecoLog> enderecoLogs = _contextoDb.EnderecoLogs.Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
+                        List<EnderecoLog> enderecoLogs = _contextoDb.EnderecoLogs.Include(l => l.UsuarioResponsavel).Where(l => l.IdCliente == clienteVindoDoBanco.Id).ToList();
 
                         List<EnderecoLogOutputDto> enderecoDtoLogs = enderecoLogs.Select(l =>
                             new EnderecoLogOutputDto(
@@ -616,7 +622,8 @@ namespace ApiEstagioBicicletaria.Services
                                     l.ValorAntigo,
                                     l.ValorNovo,
                                     l.IdUsuarioResponsavel,
-                                    l.DataCriacao
+                                    l.DataCriacao,
+                                    l.UsuarioResponsavel.CodigoUsuario
                                 )
                         ).ToList();
 

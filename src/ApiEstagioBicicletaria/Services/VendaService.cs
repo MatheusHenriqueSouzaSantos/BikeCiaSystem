@@ -1030,30 +1030,37 @@ namespace ApiEstagioBicicletaria.Services
                 ?? throw new ExcecaoDeRegraDeNegocio(500, "não foi possível encontrar a transacao da venda");
 
             List<VendaLogOutputDto> logsVendaDto = _contexto.VendaLog
+                .Include(l=>l.UsuarioResponsavel)
                 .Where(l => l.IdVenda == venda.Id)
-                .Select(l=>new VendaLogOutputDto(l.IdVenda,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,l.IdUsuarioResponsavel,l.DataCriacao))
+                .Select(l=>new VendaLogOutputDto(l.IdVenda,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,l.IdUsuarioResponsavel,l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<ItemVendaLogOutputDto> logsItemVendaDto = _contexto.ItensVendaLogs
                 .Where(l => l.IdVenda == venda.Id)
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l=>l.ItemVenda).ThenInclude(i=>i.Produto)
-                .Select(l=>new ItemVendaLogOutputDto(l.IdItemVenda,l.ItemVenda.Produto.Id,l.ItemVenda.Produto.NomeProduto,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,
-                l.IdUsuarioResponsavel,l.DataCriacao))
+                .Select(l=>new ItemVendaLogOutputDto(l.IdItemVenda,l.ItemVenda.Produto.Id,l.ItemVenda.Produto.NomeProduto,l.Acao,l.CampoAlterado,
+                l.ValorAntigo,l.ValorNovo,l.IdUsuarioResponsavel,l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<ServicoVendaLogOutputDto> logsServicoVendaDto = _contexto.ServicosVendaLog
                 .Where(l => l.IdVenda == venda.Id)
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l=>l.ServicoVenda).ThenInclude(sv=>sv.Servico)
                 .Select(l=>new ServicoVendaLogOutputDto(l.IdServicoVenda,l.ServicoVenda.Servico.NomeServico,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,
-                l.IdUsuarioResponsavel,l.DataCriacao))
+                l.IdUsuarioResponsavel,l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<TransacaoLogOutputDto> logsTransacaoDto = _contexto.TransacaoLogs
                 .Where(l => l.IdTransacao == transacaoDaVenda.Id)
-                .Select(l=>new TransacaoLogOutputDto(l.IdTransacao,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,l.IdUsuarioResponsavel,l.DataCriacao))
+                .Include(l=>l.UsuarioResponsavel)
+                .Select(l=>new TransacaoLogOutputDto(l.IdTransacao,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,l.IdUsuarioResponsavel,l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<ParcelaLogOutputDto> logsParcelaDto = _contexto.ParcelaLogs
                 .Where(l => l.IdTransacao == transacaoDaVenda.Id)
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l=>l.Parcela)
                 .Select(l=>new ParcelaLogOutputDto(l.IdParcela,l.Parcela.NumeroDaParcelaDaVenda,l.Acao,l.CampoAlterado,l.ValorAntigo,l.ValorNovo,
-                l.IdUsuarioResponsavel,l.DataCriacao))
+                l.IdUsuarioResponsavel,l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
 
             List<BaseLogOutputDto> logsGeralDto = new List<BaseLogOutputDto>();
@@ -1081,29 +1088,36 @@ namespace ApiEstagioBicicletaria.Services
 
             List<VendaLogOutputDto> logsVendaDto = _contexto.VendaLog
                 .Where(l => l.IdVenda == venda.Id)
-                .Select(l => new VendaLogOutputDto(l.IdVenda, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel, l.DataCriacao))
+                .Include(l=>l.UsuarioResponsavel)
+                .Select(l => new VendaLogOutputDto(l.IdVenda, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel, l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<ItemVendaLogOutputDto> logsItemVendaDto = _contexto.ItensVendaLogs
                 .Where(l => l.IdVenda == venda.Id)
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l => l.ItemVenda).ThenInclude(i => i.Produto)
-                .Select(l => new ItemVendaLogOutputDto(l.IdItemVenda, l.ItemVenda.Produto.Id, l.ItemVenda.Produto.NomeProduto, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo,
-                l.IdUsuarioResponsavel, l.DataCriacao))
+                .Select(l => new ItemVendaLogOutputDto(l.IdItemVenda, l.ItemVenda.Produto.Id, l.ItemVenda.Produto.NomeProduto, l.Acao, l.CampoAlterado,
+                l.ValorAntigo, l.ValorNovo,l.IdUsuarioResponsavel, l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<ServicoVendaLogOutputDto> logsServicoVendaDto = _contexto.ServicosVendaLog
                 .Where(l => l.IdVenda == venda.Id)
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l => l.ServicoVenda).ThenInclude(sv => sv.Servico)
-                .Select(l => new ServicoVendaLogOutputDto(l.IdServicoVenda, l.ServicoVenda.Servico.NomeServico, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo,
-                l.IdUsuarioResponsavel, l.DataCriacao))
+                .Select(l => new ServicoVendaLogOutputDto(l.IdServicoVenda, l.ServicoVenda.Servico.NomeServico, l.Acao, l.CampoAlterado, l.ValorAntigo,
+                l.ValorNovo,l.IdUsuarioResponsavel, l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<TransacaoLogOutputDto> logsTransacaoDto = _contexto.TransacaoLogs
                 .Where(l => l.IdTransacao == transacaoDaVenda.Id)
-                .Select(l => new TransacaoLogOutputDto(l.IdTransacao, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel, l.DataCriacao))
+                .Include(l=>l.UsuarioResponsavel)
+                .Select(l => new TransacaoLogOutputDto(l.IdTransacao, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo, l.IdUsuarioResponsavel,
+                l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
             List<ParcelaLogOutputDto> logsParcelaDto = _contexto.ParcelaLogs
                 .Where(l => l.IdTransacao == transacaoDaVenda.Id)
+                .Include(l=>l.UsuarioResponsavel)
                 .Include(l => l.Parcela)
                 .Select(l => new ParcelaLogOutputDto(l.IdParcela, l.Parcela.NumeroDaParcelaDaVenda, l.Acao, l.CampoAlterado, l.ValorAntigo, l.ValorNovo,
-                l.IdUsuarioResponsavel, l.DataCriacao))
+                l.IdUsuarioResponsavel, l.DataCriacao,l.UsuarioResponsavel.CodigoUsuario))
                 .ToList();
 
             List<BaseLogOutputDto> logsGeralDto = new List<BaseLogOutputDto>();

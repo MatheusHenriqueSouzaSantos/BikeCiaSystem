@@ -367,6 +367,7 @@ namespace ApiEstagioBicicletaria.Services
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Produto não encontrado");
 
             List<ProdutoLog> produtoLogs = _contextoDb.ProdutoLogs
+                .Include(l=>l.UsuarioResponsavel)
                 .Where(l => l.IdProduto == produto.Id).ToList();
 
             List<ProdutoLogOutputDto> produtoLogsDto =
@@ -377,10 +378,14 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             List<EstoqueLog> estoqueLogs = _contextoDb.EstoqueLogs
-               .Where(l => l.IdProduto == produto.Id).Include(e=>e.Produto).ToList();
+               .Include(l => l.UsuarioResponsavel)
+               .Include(l => l.Produto)
+               .Where(l => l.IdProduto == produto.Id).ToList();
 
             List<EstoqueLogOutPutDto> estoqueLogsDto =
                 estoqueLogs.Select(l => new EstoqueLogOutPutDto
@@ -393,7 +398,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             List<BaseLogOutputDto> dtoLogs = new List<BaseLogOutputDto>();
 
@@ -414,6 +421,7 @@ namespace ApiEstagioBicicletaria.Services
                 ?? throw new ExcecaoDeRegraDeNegocio(404, "Produto não encontrado");
 
             List<ProdutoLog> produtoLogs = _contextoDb.ProdutoLogs
+                .Include(l => l.UsuarioResponsavel)
                 .Where(l => l.IdProduto == produto.Id).ToList();
 
             List<ProdutoLogOutputDto> produtoLogsDto =
@@ -424,10 +432,14 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             List<EstoqueLog> estoqueLogs = _contextoDb.EstoqueLogs
-               .Where(l => l.IdProduto == produto.Id).Include(e => e.Produto).ToList();
+                .Include(l => l.UsuarioResponsavel)
+                .Include(l => l.Produto)
+                .Where(l => l.IdProduto == produto.Id).ToList();
 
             List<EstoqueLogOutPutDto> estoqueLogsDto =
                 estoqueLogs.Select(l => new EstoqueLogOutPutDto
@@ -440,7 +452,9 @@ namespace ApiEstagioBicicletaria.Services
                 l.ValorAntigo,
                 l.ValorNovo,
                 l.IdUsuarioResponsavel,
-                l.DataCriacao)).ToList();
+                l.DataCriacao,
+                l.UsuarioResponsavel.CodigoUsuario
+                )).ToList();
 
             List<BaseLogOutputDto> dtoLogs = new List<BaseLogOutputDto>();
 
