@@ -1,5 +1,6 @@
 ﻿using ApiEstagioBicicletaria.Dtos.RelatorioDtos;
 using ApiEstagioBicicletaria.Entities;
+using ApiEstagioBicicletaria.Utils;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -95,7 +96,7 @@ namespace ApiEstagioBicicletaria.Services.ClassesDeGeracaoDeRelatorios
                 });
                 page.Footer().AlignRight().Text(text =>
                 {
-                    text.Span($"Gerado em: {DateTime.Now.ToString("HH:mm dd/MM/yyyy")} - ").FontSize(10);
+                    text.Span($"Gerado em: {DateHelper.AgoraBrasil().ToString("HH:mm dd/MM/yyyy")} - ").FontSize(10);
                     text.Span("Página ").FontSize(10);
                     text.CurrentPageNumber().FontSize(10);
                     text.Span(" de ").FontSize(10);

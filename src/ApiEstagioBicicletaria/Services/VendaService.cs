@@ -205,13 +205,8 @@ namespace ApiEstagioBicicletaria.Services
                 _servicoVendaLogService.CriarLogsDeCriacao(servicoDaVendaCriado, vendaCriada, _usuarioLogado);
                 _contexto.ServicosVendas.Add(servicoDaVendaCriado);
             }
-            TimeZoneInfo timeZoneBrasil =
-                TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
 
-            DateTime agoraBrasil =
-                TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneBrasil);
-
-            DateOnly hojeBrasil = DateOnly.FromDateTime(agoraBrasil);
+            DateOnly hojeBrasil = DateOnly.FromDateTime(DateHelper.AgoraBrasil());
 
             if (dto.Transacao.TipoPagamento == TipoPagamento.AVista)
             {
@@ -564,13 +559,8 @@ namespace ApiEstagioBicicletaria.Services
 
             if (dto.Transacao != null)
             {
-                TimeZoneInfo timeZoneBrasil =
-                        TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
 
-                DateTime agoraBrasil =
-                    TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneBrasil);
-
-                DateOnly hojeBrasil = DateOnly.FromDateTime(agoraBrasil);
+                DateOnly hojeBrasil = DateOnly.FromDateTime(DateHelper.AgoraBrasil());
                 if (dto.Transacao.MeioPagamento != null)
                 {
                     transacaoDaVendaASerAtualizada.MeioPagamento = dto.Transacao.MeioPagamento.Value;
