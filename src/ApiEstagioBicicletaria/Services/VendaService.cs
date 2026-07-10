@@ -923,11 +923,11 @@ namespace ApiEstagioBicicletaria.Services
                     valorTotalDasVendasNessePeriodo += valorTotalVenda;
                 }
                
-                string status="Aberta";
+                string status="Aberto";
 
                 if (!vendaIterada.Ativo)
                 {
-                    status = "Cancelada";
+                    status = "Cancelado";
                 }
                 if(vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && !transacaoDaVenda.Pago)
                 {
@@ -944,7 +944,7 @@ namespace ApiEstagioBicicletaria.Services
                 listaDeVendasNoFormatoASerExibidoNoRelatorio.Add(vendaNoFormatoDto);
             }
             listaDeVendasNoFormatoASerExibidoNoRelatorio = listaDeVendasNoFormatoASerExibidoNoRelatorio
-                .OrderBy(v => v.Status == "Aberta" ? 1 :
+                .OrderBy(v => v.Status == "Aberto" ? 1 :
                 v.Status == "Em Andamento" ? 2 :
                 v.Status == "Pago" ? 3 : 4)
                 .ThenByDescending(v=>v.DataDaVenda).ToList();
