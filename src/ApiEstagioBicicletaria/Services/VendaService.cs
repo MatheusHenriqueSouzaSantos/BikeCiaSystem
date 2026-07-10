@@ -931,7 +931,7 @@ namespace ApiEstagioBicicletaria.Services
                 }
                 if(vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && !transacaoDaVenda.Pago)
                 {
-                    status= StatusVendaParaRelatorioVendaPorPeriodo.EmAndamento;
+                    status= StatusVendaParaRelatorioVendaPorPeriodo.Andamento;
                 }
                 if (vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && transacaoDaVenda.Pago)
                 {
@@ -945,7 +945,7 @@ namespace ApiEstagioBicicletaria.Services
             }
             listaDeVendasNoFormatoASerExibidoNoRelatorio = listaDeVendasNoFormatoASerExibidoNoRelatorio
                 .OrderBy(v => v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Aberta ? 1 :
-                v.Status == StatusVendaParaRelatorioVendaPorPeriodo.EmAndamento ? 2 :
+                v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Andamento ? 2 :
                 v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Pago ? 3 : 4)
                 .ThenByDescending(v=>v.DataDaVenda).ToList();
             QuestPDF.Settings.License = LicenseType.Community;
