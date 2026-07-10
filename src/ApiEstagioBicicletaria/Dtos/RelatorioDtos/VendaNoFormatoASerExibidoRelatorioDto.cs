@@ -16,10 +16,10 @@
 
         public decimal ValorTotal { get; set; }
 
-        public StatusVendaParaRelatorioVendaPorPeriodo Status { get; set; }
+        public string Status { get; set; }
 
         public VendaNoFormatoASerExibidoRelatorioDto(string codigoVenda, string nomeCliente, string nomeVendedor, 
-            string tipoDePagamento, string dataDaVenda, decimal valorTotalPago, decimal valorTotal, StatusVendaParaRelatorioVendaPorPeriodo status)
+            string tipoDePagamento, string dataDaVenda, decimal valorTotalPago, decimal valorTotal, string status)
         {
             CodigoVenda = codigoVenda;
             NomeCliente = nomeCliente;

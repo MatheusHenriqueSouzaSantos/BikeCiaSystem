@@ -923,19 +923,19 @@ namespace ApiEstagioBicicletaria.Services
                     valorTotalDasVendasNessePeriodo += valorTotalVenda;
                 }
                
-                StatusVendaParaRelatorioVendaPorPeriodo status=StatusVendaParaRelatorioVendaPorPeriodo.Aberta;
+                string status="Aberta";
 
                 if (!vendaIterada.Ativo)
                 {
-                    status = StatusVendaParaRelatorioVendaPorPeriodo.Cancelada;
+                    status = "Cancelada";
                 }
                 if(vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && !transacaoDaVenda.Pago)
                 {
-                    status= StatusVendaParaRelatorioVendaPorPeriodo.Andamento;
+                    status="Em Andamento";
                 }
                 if (vendaIterada.Ativo && transacaoDaVenda.TransacaoEmCurso && transacaoDaVenda.Pago)
                 {
-                    status = StatusVendaParaRelatorioVendaPorPeriodo.Pago;
+                    status = "Pago";
                 }
 
                 VendaNoFormatoASerExibidoRelatorioDto vendaNoFormatoDto = new VendaNoFormatoASerExibidoRelatorioDto(codigoVenda,nomeCliente,vendedor.NomeCompleto, tipoDePagamento,
@@ -944,9 +944,9 @@ namespace ApiEstagioBicicletaria.Services
                 listaDeVendasNoFormatoASerExibidoNoRelatorio.Add(vendaNoFormatoDto);
             }
             listaDeVendasNoFormatoASerExibidoNoRelatorio = listaDeVendasNoFormatoASerExibidoNoRelatorio
-                .OrderBy(v => v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Aberta ? 1 :
-                v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Andamento ? 2 :
-                v.Status == StatusVendaParaRelatorioVendaPorPeriodo.Pago ? 3 : 4)
+                .OrderBy(v => v.Status == "Aberta" ? 1 :
+                v.Status == "Em Andamento" ? 2 :
+                v.Status == "Pago" ? 3 : 4)
                 .ThenByDescending(v=>v.DataDaVenda).ToList();
             QuestPDF.Settings.License = LicenseType.Community;
 
