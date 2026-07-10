@@ -3,7 +3,7 @@
     public enum StatusVendaParaRelatorioVendaPorPeriodo
     {
         Aberta,
-        EmAndamento,
+        Andamento,
         Pago,
         Cancelada
     }
