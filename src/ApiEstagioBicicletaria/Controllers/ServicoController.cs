@@ -95,12 +95,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 Servico servico= _servicoService.CadastrarServico(dto);
                 return Created($"api/servico/{servico.Id}", servico);
             }
@@ -119,12 +113,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 return _servicoService.AtualizarServico(id, dto);
             }
             catch (ExcecaoDeRegraDeNegocio ex)
