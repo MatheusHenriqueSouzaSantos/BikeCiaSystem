@@ -236,9 +236,9 @@ namespace ApiEstagioBicicletaria.Services
 
             List<Decimal> valoresDasParcelas = CalcularValorDasParcelas(vendaCriada.ValorTotalComDesconto, dto.Transacao.QuantidadeDeParcelas);
 
-            if (!(dto.Transacao.DataDeVencimentoPrimeiraParcela >= DateOnly.FromDateTime(DateTime.Today)))
+            if (!(dto.Transacao.DataDeVencimentoPrimeiraParcela >= hojeBrasil))
             {
-                throw new ExcecaoDeRegraDeNegocio(400, "A data de vencimento da primeira parcela deve ser maior ou igaual a data atual");
+                throw new ExcecaoDeRegraDeNegocio(400, "A data de vencimento da primeira parcela deve ser maior ou igual a data atual");
             }
 
             DateOnly dataDeVencimentoDaPrimeiraParcela = dto.Transacao.DataDeVencimentoPrimeiraParcela;
