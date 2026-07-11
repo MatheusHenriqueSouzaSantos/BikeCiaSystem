@@ -120,12 +120,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 Vendedor vendedor = _service.CadastrarVendedor(dto);
                 return Created($"api/vendedor/{vendedor.Id}", vendedor);
             }
@@ -145,13 +139,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
-
                 return Ok(_service.AtualizarVendedor(id, dto));
             }
             catch (ExcecaoDeRegraDeNegocio ex)
@@ -210,12 +197,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 byte[] bytesPdf = _service.GerarRelatorioDeVendedoresComMaiorFaturamentoPorPeriodo(dto);
                 return File(bytesPdf, "application/pdf", "RelatorioDeVendedoresComMaiorFaturamentoPorPeriodo.pdf");
             }

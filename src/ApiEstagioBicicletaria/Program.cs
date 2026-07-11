@@ -12,6 +12,7 @@ using ApiEstagioBicicletaria.Services.ServicesLogs;
 using ApiEstagioBicicletaria.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -148,7 +149,18 @@ namespace ApiEstagioBicicletaria
 
             builder.Services.AddAuthorization();
 
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var mensagensDeErro = context.ModelState.Values
+                        .SelectMany(v => v.Errors)
+                        .Select(e => e.ErrorMessage)
+                        .ToList();
 
+                    return new BadRequestObjectResult(mensagensDeErro);
+                };
+            });
 
             var app = builder.Build();
 

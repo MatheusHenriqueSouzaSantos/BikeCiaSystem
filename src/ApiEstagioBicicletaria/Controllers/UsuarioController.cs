@@ -98,14 +98,7 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 UsuarioOutputDto usuarioDto = _usuarioService.Cadastrar(dto);
-
                 return Created($"api/usuario/{usuarioDto.Id}", usuarioDto);
             }
             catch (ExcecaoDeRegraDeNegocio ex)
@@ -123,12 +116,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 return Ok(_usuarioService.Atualizar(id, dto));
             }
             catch (ExcecaoDeRegraDeNegocio ex)
@@ -147,12 +134,6 @@ namespace ApiEstagioBicicletaria.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                    return BadRequest(mensagensDeErro);
-                }
                 return Ok(_usuarioService.AtualizarUsuarioLogado(dto));
             }
             catch (ExcecaoDeRegraDeNegocio ex)
@@ -206,12 +187,6 @@ namespace ApiEstagioBicicletaria.Controllers
         [HttpPost("login")]
         public ActionResult Login(UsuarioLoginDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                var mensagensDeErro = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
-                return BadRequest(mensagensDeErro);
-            }
             try
             {
                 string tokenJWT=_usuarioService.Login(dto);
