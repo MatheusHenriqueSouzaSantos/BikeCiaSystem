@@ -6,7 +6,7 @@ Este Projeto foi desenvolvido para a disciplina do Estágio Supervisionado Do cu
 Este repositório contém o backend(API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core que.
 No qual a API é responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
 
-## Demonstração ☁️
+☁️ Demonstração 
 
 O backend encontra-se publicado na plataforma Render.
 
