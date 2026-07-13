@@ -123,7 +123,7 @@ namespace ApiEstagioBicicletaria.Services
 
             if(usuarioLogado.Email== EMAIL_USUARIO_DEMO)
             {
-                throw new ExcecaoDeRegraDeNegocio(400, "O usuário de demostração não deve alterar nenhum dadao próprio");
+                throw new ExcecaoDeRegraDeNegocio(400, "Não é possível alterar nenhum dado do usuário de demonstração");
             }
 
             if (!_senhaService.ValidarSenha(usuarioLogado.Senha, dto.Senha))
