@@ -1,10 +1,23 @@
 # BikeCiaSystem
+ 
 O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no gerenciamento de suas operações diárias, como vendas e controle de estoque.
-
-Este Projeto foi desenvolvido para a disciplina do Estágio Supervisionado Do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG. 
-
-Este repositório contém o backend(API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core que.
-No qual a API é responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
+ 
+Este projeto foi desenvolvido para a disciplina de Estágio Supervisionado do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG.
+ 
+Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
+ 
+## 📑 Sumário
+- [Demonstração](#️-demonstração)
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologias](#-tecnologias)
+- [Arquitetura do Sistema](#️-arquitetura-do-sistema)
+- [Diagramas do Sistema](#-diagramas-do-sistema)
+- [Como Executar o Projeto](#-como-executar-o-projeto)
+- [Testes](#-testes)
+- [Estrutura de Pastas](#-estrutura-de-pastas)
+- [Desafios e Aprendizados](#-desafios-e-aprendizados)
+- [Autor](#-autor)
+- [Licença](#-licença)
 
 ## ☁️ Demonstração  
 
@@ -17,6 +30,11 @@ O frontend foi desenvolvido majoritariamente pelo meu parceiro de estágio, com 
 
 Repositório: https://github.com/Marcos-ZF/FrontProjetoFinal
 Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
+
+Para Acessar o sistema utilize o Usuário de demonstração:
+- Email: demo@bikecia.com
+- Senha: demo123
+- * esse usuário possuí a role de user, e não é possível alterar nenhuma informação dele
 
 ## ✨ Funcionalidade
 ### 🔐 Autenticação
@@ -62,7 +80,7 @@ Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 - Postman
 
 
-## Fluxo Do Sistema
+## 🏗️ Arquitetura do Sistema
 ![Fluxo Do Sistema](resourcesImages/fluxoDoSistema.drawio.png)
 
 ## Diagramas Do Sistema
