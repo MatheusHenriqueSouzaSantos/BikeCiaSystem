@@ -179,12 +179,21 @@ namespace ApiEstagioBicicletaria
                 var contexto = scope.ServiceProvider.GetRequiredService<ContextoDb>();
                 var senhaService = scope.ServiceProvider.GetRequiredService<ISenhaService>();
 
-                if (!contexto.Usuarios.Any())
+                var usuarioAdminCadastrado = contexto.Usuarios.FirstOrDefault(u => u.Email == builder.Configuration["user:email"]);
+                var usuarioUtilizadoParaDemonstracao = contexto.Usuarios.FirstOrDefault(u => u.Email == "demo@bikecia.com");
+                if (usuarioAdminCadastrado==null)
                 {
-                    Usuario usuario = new Usuario(builder.Configuration["user:codigoUser"], builder.Configuration["user:nome"],
+                    Usuario usuarioAdmin = new Usuario(builder.Configuration["user:codigoUser"], builder.Configuration["user:nome"],
                         builder.Configuration["user:email"], senhaService.GerarHashDaSenha(builder.Configuration["user:senha"]),PerfilUsuario.Admin);
 
-                    contexto.Usuarios.Add(usuario);
+                    contexto.Usuarios.Add(usuarioAdmin);
+                    contexto.SaveChanges();
+                }
+                if (usuarioUtilizadoParaDemonstracao == null)
+                {
+                    Usuario usuarioDemo = new Usuario("efgh","usuario demo",
+                        "demo@bikecia.com", "demo123", PerfilUsuario.User);
+                    contexto.Usuarios.Add(usuarioDemo);
                     contexto.SaveChanges();
                 }
             }

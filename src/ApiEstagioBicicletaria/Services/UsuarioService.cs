@@ -17,7 +17,7 @@ namespace ApiEstagioBicicletaria.Services
 {
     public class UsuarioService : IUsuarioService
     {
-
+        private const string EMAIL_USUARIO_DEMO= "demo@bikecia.com";
         private readonly IServicoJwt _servicoJwt;
 
         private readonly ISenhaService _senhaService;
@@ -121,6 +121,10 @@ namespace ApiEstagioBicicletaria.Services
         {
             Usuario usuarioLogado = _usuarioLogadoService.ObterUsuario();
 
+            if(usuarioLogado.Email== EMAIL_USUARIO_DEMO)
+            {
+                throw new ExcecaoDeRegraDeNegocio(400, "O usuário de demostração não deve alterar nenhum dadao próprio");
+            }
 
             if (!_senhaService.ValidarSenha(usuarioLogado.Senha, dto.Senha))
             {
