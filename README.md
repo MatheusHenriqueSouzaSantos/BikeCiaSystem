@@ -4,7 +4,7 @@ O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no ge
  
 Este projeto foi desenvolvido para a disciplina de Estágio Supervisionado do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG.
  
-Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend. O frontend foi desenvolvido majoritariamento pelo me parceiro, com meu auxilio e está disponível em:https://github.com/Marcos-ZF/FrontProjetoFinal
+Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend. O frontend foi desenvolvido majoritariamento pelo me parceiro, com meu auxilio e está disponível em: https://github.com/Marcos-ZF/FrontProjetoFinal
  
 ## 📑 Sumário
 - ☁️ [Demonstração](#️-demonstração)
@@ -35,7 +35,7 @@ Para Acessar o sistema utilize o Usuário de demonstração:
 - Senha: demo123
 - * esse usuário possuí a role de user, e não é possível alterar nenhuma informação dele
 
-## ✨ Funcionalidade
+## ✨ Funcionalidades
 ### 🔐 Autenticação
 - JWT
 - Roles(Admin/User)
