@@ -104,6 +104,43 @@ Para Acessar o sistema utilize o Usuário de demonstração:
 ## 🔧 Como Executar o Projeto Localmente
 
 ### Pré requisitos
--.NET SDK 8.0
+- .NET SDK 8.0
 - PostgreSQL 13 ou superior
+- Git
+- 
+#### 1. Clone o Repositório (execute os comandos abaixo)
+- git clone https://github.com/MatheusHenriqueSouzaSantos/BikeCiaSystem
+- cd BikeCiaSystem
+  
+#### 2. Configure o Banco de Dados Postgres
+- crie um banco de dados no postgreSQL chamado projeto_estagio_bicicletaria
+- execute o script de criação nas tabelas que esta disponível na pasta databse desse repositório
 
+#### 3. Defina as Variavéis de Ambiente (preencha as informações do banco de dados com os seus dados e execute os comandos)
+
+##### Windows(Power Shell)
+```powershell
+$env:ConnectionStrings__DefaultConnection="Host=localhost;Port=5432;Database=projeto_estagio_bicicletaria;Username=SEU_USERNAME_POSTGRES;Password=SEU_PASSWORD_POSTGRES;"
+$env:Jwt__Key="H8rQ2mLp5ZwX7NcDv1FsKa9YtGu4BeJx0MiCn3RhPk6LsVq8AfTdWy5UzEnSb4Oo"
+$env:User__CodigoUser="abcd"
+$env:User__Email="admin2026@gmail.com"
+$env:User__Nome="admin"
+$env:User__Senha="admin"
+```
+
+##### Linux/Mac
+```bash
+export ConnectionStrings__DefaultConnection="Host=localhost;Port=5432;Database=projeto_estagio_bicicletaria;Username=SEU_USERNAME_POSTGRES;Password=SEU_PASSWORD_POSTGRES;"
+export Jwt__Key="H8rQ2mLp5ZwX7NcDv1FsKa9YtGu4BeJx0MiCn3RhPk6LsVq8AfTdWy5UzEnSb4Oo"
+export User__CodigoUser="abcd"
+export User__Email="admin2026@gmail.com"
+export User__Nome="admin"
+export User__Senha="admin"
+```
+
+#### 4. Executar o Projeto
+- dotnet run
+
+### Pronto, agora o projeto está disponível na rota: http://localhost:10000/api, e para fazer login pode usar o usuário:
+#### email: admin2026@gmail.com
+#### senha: admin
