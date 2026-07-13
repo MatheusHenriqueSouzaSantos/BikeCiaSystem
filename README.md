@@ -82,7 +82,7 @@ Para Acessar o sistema utilize o Usuário de demonstração:
 ## 🏗️ Arquitetura do Sistema
 ![Fluxo Do Sistema](resourcesImages/fluxoDoSistema.drawio.png)
 
-## Diagramas Do Sistema
+## 📐 Diagramas Do Sistema
 ### Diagrama De Casos De Uso
 ![Diagrama De Casos De Uso](resourcesImages/diagramaDeCasoDeUso.png)
 
@@ -141,6 +141,20 @@ export User__Senha="admin"
 #### 4. Executar o Projeto
 - dotnet run
 
-### Pronto, agora o projeto está disponível na rota: http://localhost:10000/api, e para fazer login pode usar o usuário:
-#### email: admin2026@gmail.com
-#### senha: admin
+#### Pronto, agora o projeto está disponível na rota: http://localhost:10000/api, e o swagger: http://localhost:10000/api/swagger, para fazer login pode usar o usuário:
+##### email: admin2026@gmail.com
+##### senha: admin
+
+### 🧪 Testes
+#### O projeto possuí testes unitários e para executalos basta executar:
+- dotnet test
+
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **PolyForm Noncommercial License 1.0.0**.
+
+Isso significa que você pode usar, estudar, copiar e modificar o código livremente, 
+inclusive para fins educacionais, desde que não seja para fins comerciais.
+
+Texto completo da licença: https://polyformproject.org/licenses/noncommercial/1.0.0/
