@@ -1,12 +1,22 @@
 # BikeCiaSystem
 O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no gerenciamento de suas operações diárias, como vendas e controle de estoque.
 
-Este repositório contém o backend(API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core.
+Este Projeto foi desenvolvido para a disciplina do Estágio Supervisionado Do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG. 
+
+Este repositório contém o backend(API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core que.
 No qual a API é responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
 
+## Demonstração ☁️
 
-Este Projeto foi desenvolvido para a disciplina do Estágio Supervisionado Do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG. 
-O Front End da aplicação foi desenvolvido majoriatariamento pelo meu parceiro de estágio, comigo auxiliando quando necessário e está disponível em: https://github.com/Marcos-ZF/FrontProjetoFinal
+O backend encontra-se publicado na plataforma Render.
+
+API: https://projetoapidevendaestagio.onrender.com/api
+Swagger: https://projetoapidevendaestagio.onrender.com/api/swagger
+
+O frontend foi desenvolvido majoritariamente pelo meu parceiro de estágio, com minha colaboração durante o desenvolvimento.
+
+Repositório: https://github.com/Marcos-ZF/FrontProjetoFinal
+Aplicação (Vercel): https://SEU-PROJETO.vercel.app
 
 ## Funcionalidade
 ### Autenticação
@@ -43,12 +53,32 @@ O Front End da aplicação foi desenvolvido majoriatariamento pelo meu parceiro 
 - ASP.Net Core
 - Entity Framework
 - PostgreSQL
+- XUnit(Testes Unitários)
+- BCrypt.Net
 - QuestPDF
 - Swagger
 - Git
-- XUnit(Testes Unitários)
+- Docker
 - Postman
--...
+
 
 ## Arquitetura do Sistema
 ![Fluxo Do Sistema](resourcesImages/fluxoDoSistema.drawio.png)
+
+## Diagramas Do Sistema
+### Diagrama De Casos De Uso
+![Diagrama De Casos De Uso](resourcesImages/diagramaDeCasoDeUso.png)
+
+### Diagrama De Classes
+#### Módulo De Entrada Estoque
+![Diagrama De Classes Entrada Estoque](resourcesImages/DiagramaClasseEntrada.png)
+
+#### Módulo De Venda
+![Diagrama De Classes Venda](resourcesImages/DiagramaDeClasseVenda.png)
+
+### Diagrama De Entidade Relacionamento
+#### Módulo De Entrada Estoque
+![Diagrama De Entidade Relacionamento De Entrada Estoque](resourcesImages/DerEntrada.png)
+
+#### Módulo De Venda
+![Diagrama De Entidade Relacionamento De Venda](resourcesImages/derVenda.png)
