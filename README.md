@@ -6,7 +6,7 @@ Este Projeto foi desenvolvido para a disciplina do Estágio Supervisionado Do cu
 Este repositório contém o backend(API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core que.
 No qual a API é responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
 
-☁️ Demonstração 
+## ☁️ Demonstração  
 
 O backend encontra-se publicado na plataforma Render.
 
@@ -16,7 +16,7 @@ Swagger: https://projetoapidevendaestagio.onrender.com/api/swagger
 O frontend foi desenvolvido majoritariamente pelo meu parceiro de estágio, com minha colaboração durante o desenvolvimento.
 
 Repositório: https://github.com/Marcos-ZF/FrontProjetoFinal
-Aplicação (Vercel): https://SEU-PROJETO.vercel.app
+Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 
 ## Funcionalidade
 ### Autenticação
