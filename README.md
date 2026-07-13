@@ -1,6 +1,6 @@
-# 🚲 BikeCiaSystem
+# BikeCiaSystem
  
-O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no gerenciamento de suas operações diárias, como vendas e controle de estoque.
+O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no gerenciamento de vendas e controle de estoque.
  
 Este projeto foi desenvolvido para a disciplina de Estágio Supervisionado do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG.
  
@@ -99,3 +99,11 @@ Para Acessar o sistema utilize o Usuário de demonstração:
 
 #### Módulo De Venda
 ![Diagrama De Entidade Relacionamento De Venda](resourcesImages/derVenda.png)
+
+
+## 🔧 Como Executar o Projeto Localmente
+
+### Pré requisitos
+-.NET SDK 8.0
+- PostgreSQL 13 ou superior
+
