@@ -31,7 +31,7 @@ Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 - Fornecedores
 - Usuarios(Disponível somente para admins)
   
-### 💰Movimentações
+### 💰 Movimentações
 - Venda
 - Entrada de Estoque
   
@@ -42,13 +42,13 @@ Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 - Fornecedores Com Maior Volume De Entrada Estoque Por Período
 - Vendedores Com Maior Faturamento Por Periodo(Disponível somente para admins)
   
-### Auditoria
+### 📝 Auditoria
 - Logs em Todas as Operações(Disponível somente para admins)
   
-### Alteração Das Informações Do Usuário Logado
+### 👤 Perfil do Usuário
 - O usuário logado, pode alterar suas informações, exceto role
   
-## Tecnologias
+## 🚀 Tecnologias
 - C#
 - ASP.Net Core
 - Entity Framework
@@ -62,7 +62,7 @@ Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 - Postman
 
 
-## Arquitetura do Sistema
+## Fluxo Do Sistema
 ![Fluxo Do Sistema](resourcesImages/fluxoDoSistema.drawio.png)
 
 ## Diagramas Do Sistema
