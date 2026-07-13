@@ -4,13 +4,13 @@ O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no ge
  
 Este projeto foi desenvolvido para a disciplina de Estágio Supervisionado do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG.
  
-Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
+Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend. O frontend foi desenvolvido majoritariamento pelo me parceiro, com meu auxilio e está disponível em:https://github.com/Marcos-ZF/FrontProjetoFinal
  
 ## 📑 Sumário
-- [Demonstração](#️-demonstração)
-- [Funcionalidades](#-funcionalidades)
-- [Tecnologias](#-tecnologias)
-- [Arquitetura do Sistema](#️-arquitetura-do-sistema)
+- ☁️ [Demonstração](#️-demonstração)
+- ✨ [Funcionalidades](#-funcionalidades)
+- 🚀 [Tecnologias](#-tecnologias)
+- 🏗️ [Arquitetura do Sistema](#️-arquitetura-do-sistema)
 - [Diagramas do Sistema](#-diagramas-do-sistema)
 - [Como Executar o Projeto](#-como-executar-o-projeto)
 - [Testes](#-testes)
@@ -26,9 +26,8 @@ O backend encontra-se publicado na plataforma Render.
 API: https://projetoapidevendaestagio.onrender.com/api
 Swagger: https://projetoapidevendaestagio.onrender.com/api/swagger
 
-O frontend foi desenvolvido majoritariamente pelo meu parceiro de estágio, com minha colaboração durante o desenvolvimento.
+O FrontEnd se encontra publicado no vercel:
 
-Repositório: https://github.com/Marcos-ZF/FrontProjetoFinal
 Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 
 Para Acessar o sistema utilize o Usuário de demonstração:
