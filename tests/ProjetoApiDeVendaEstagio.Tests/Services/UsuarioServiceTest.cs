@@ -151,17 +151,17 @@ namespace ProjetoApiDeVendaEstagio.Tests.Services
         [Fact]
         public void AtualizarUsuarioComSucesso()
         {
-            _contexto.Usuarios.Add(new Usuario("abce", "usuarioUm", "usuarioum@gmail.com", _senhaService.GerarHashDaSenha("testeUm"), PerfilUsuario.Admin));
+            _contexto.Usuarios.Add(new Usuario("abce", "usuarioUm", "usuarioum@gmail.com", _senhaService.GerarHashDaSenha("testeUm"), PerfilUsuario.User));
             _contexto.SaveChanges();
             Guid idUsuarioCriado = _contexto.Usuarios.FirstOrDefault().Id;
-            UsuarioCreateDto dtoDeAtualizacao = new("usuarioAtualizado", "usuarioatualizado@gmail.com", "testeatualizado", PerfilUsuario.User);
+            UsuarioUpdateDto dtoDeAtualizacao = new("usuarioAtualizado", "usuarioatualizado@gmail.com", "testeatualizado", PerfilUsuario.Admin);
             _service.Atualizar(idUsuarioCriado, dtoDeAtualizacao);
             Usuario? usuarioVindoDoBanco = _contexto.Usuarios.FirstOrDefault(v => v.Id == idUsuarioCriado);
             Assert.NotNull(usuarioVindoDoBanco);
             Assert.Equal(idUsuarioCriado, usuarioVindoDoBanco.Id);
             Assert.Equal("usuarioAtualizado", usuarioVindoDoBanco.Nome);
             Assert.Equal("usuarioatualizado@gmail.com", usuarioVindoDoBanco.Email);
-            Assert.Equal(PerfilUsuario.User, usuarioVindoDoBanco.PerfilUsuario);
+            Assert.Equal(PerfilUsuario.Admin, usuarioVindoDoBanco.PerfilUsuario);
         }
         [Fact]
         public void AtualizarUsuarioLogadoComSucesso()

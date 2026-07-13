@@ -4,3 +4,7 @@ tests/
 .git/
 .github/
 **/.vs/
+resourcesImages/
+database/
+README.md
+LICENSE
