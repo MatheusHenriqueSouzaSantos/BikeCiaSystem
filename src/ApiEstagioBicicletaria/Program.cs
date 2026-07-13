@@ -192,7 +192,7 @@ namespace ApiEstagioBicicletaria
                 if (usuarioUtilizadoParaDemonstracao == null)
                 {
                     Usuario usuarioDemo = new Usuario("efgh","usuario demo",
-                        "demo@bikecia.com", "demo123", PerfilUsuario.User);
+                        "demo@bikecia.com", senhaService.GerarHashDaSenha("demo123"), PerfilUsuario.User);
                     contexto.Usuarios.Add(usuarioDemo);
                     contexto.SaveChanges();
                 }
