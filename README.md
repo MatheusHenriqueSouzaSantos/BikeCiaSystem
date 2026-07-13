@@ -30,7 +30,7 @@ O Front End da aplicação foi desenvolvido majoriatariamento pelo meu parceiro 
 - Produtos Em Falta
 - Vendas Por Período
 - Fornecedores Com Maior Volume De Entrada Estoque Por Período
-- Vendedores Com Maior Faturamento Por Periodo
+- Vendedores Com Maior Faturamento Por Periodo(Disponível somente para admins)
   
 ### Auditoria
 - Logs em Todas as Operações(Disponível somente para admins)
@@ -48,4 +48,7 @@ O Front End da aplicação foi desenvolvido majoriatariamento pelo meu parceiro 
 - Git
 - XUnit(Testes Unitários)
 - Postman
-  
+-...
+
+## Arquitetura do Sistema
+![Fluxo Do Sistema](resourcesImages/fluxoDoSistema.drawio.png)
