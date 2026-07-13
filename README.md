@@ -18,12 +18,12 @@ O frontend foi desenvolvido majoritariamente pelo meu parceiro de estágio, com 
 Repositório: https://github.com/Marcos-ZF/FrontProjetoFinal
 Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 
-## Funcionalidade
-### Autenticação
+## ✨ Funcionalidade
+### 🔐 Autenticação
 - JWT
 - Roles(Admin/User)
   
-### Cadastros
+### 📋 Cadastros
 - Clientes(físico ou jurídico)
 - Produtos
 - Serviços
@@ -31,11 +31,11 @@ Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
 - Fornecedores
 - Usuarios(Disponível somente para admins)
   
-### Movimentos
+### 💰Movimentações
 - Venda
 - Entrada de Estoque
   
-### Relatórios
+### 📊 Relatórios
 - Produtos Mais Vendidos Por Período
 - Produtos Em Falta
 - Vendas Por Período
