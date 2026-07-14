@@ -4,70 +4,101 @@ O BikeCiaSystem é um sistema ERP desenvolvido para auxiliar bicicletarias no ge
  
 Este projeto foi desenvolvido para a disciplina de Estágio Supervisionado do curso de Análise e Desenvolvimento de Sistemas da Faculdade UMFG.
  
-Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend. O frontend foi desenvolvido majoritariamento pelo me parceiro, com meu auxilio e está disponível em: https://github.com/Marcos-ZF/FrontProjetoFinal
+Este repositório contém o backend (API) da aplicação, desenvolvido por mim utilizando C# e ASP.NET Core, responsável por garantir as regras de negócio, realizar a autenticação e autorização dos usuários, persistir os dados no PostgreSQL e disponibilizar os endpoints consumidos pelo frontend.
+
+O frontend foi desenvolvido majoritariamente pelo meu parceiro, com meu auxílio, e está disponível em: https://github.com/Marcos-ZF/FrontProjetoFinal
  
 ## 📑 Sumário
+
 - ☁️ [Demonstração](#️-demonstração)
 - ✨ [Funcionalidades](#-funcionalidades)
 - 🚀 [Tecnologias](#-tecnologias)
 - 🏗️ [Arquitetura do Sistema](#️-arquitetura-do-sistema)
 - 📐 [Diagramas do Sistema](#-diagramas-do-sistema)
-- 🔧 [Como Executar o Projeto](#-como-executar-o-projeto)
+- 🔧 [Como Executar o Projeto Localmente](#-como-executar-o-projeto-localmente)
 - 🧪 [Testes](#-testes)
 - 👨‍💻 [Desenvolvedor](#-desenvolvedor)
 - 📄 [Licença](#-licença)
 
+
 ## ☁️ Demonstração  
 
-### O backend encontra-se publicado na plataforma Render, que pode ser acessado em : https://projetoapidevendaestagio.onrender.com/api
+### Backend e Swagger
 
-### E os EndPoitns da API são documentados via swaager que podem ser acessados em: https://projetoapidevendaestagio.onrender.com/api/swagger
+O backend encontra-se publicado na plataforma Render e pode ser acessado em:
+
+https://projetoapidevendaestagio.onrender.com/api
+
+Os endpoints da API são documentados utilizando Swagger, que pode ser acessado em:
+
+https://projetoapidevendaestagio.onrender.com/api/swagger
+
 ![Swagger Interface](resourcesImages/swaggerUi.png)
 
-## O FrontEnd se encontra publicado no vercel e pode ser acessado em: https://front-projeto-final-snowy.vercel.app/
+
+### Frontend
+
+O frontend encontra-se publicado na Vercel e pode ser acessado em:
+
+https://front-projeto-final-snowy.vercel.app/
+
 ![Home Frontend](resourcesImages/homeFront.png)
 
-#### Para Acessar o sistema utilize o Usuário de demonstração:
+
+### Usuário de demonstração
+
+Para acessar o sistema utilize o usuário de demonstração:
+
 - Email: demo@bikecia.com
 - Senha: demo123
-- * esse usuário possuí a role de user, e não é possível alterar nenhuma informação dele
+
+*Esse usuário possui a role de user e não é possível alterar nenhuma informação dele.
+
 
 ## ✨ Funcionalidades
+
 ### 🔐 Autenticação
+
 - JWT
-- Roles(Admin/User)
+- Roles (Admin/User)
   
 ### 📋 Cadastros
-- Clientes(físico ou jurídico)
+
+- Clientes (físico ou jurídico)
 - Produtos
 - Serviços
 - Vendedores
 - Fornecedores
-- Usuarios(Disponível somente para admins)
+- Usuários (disponível somente para admins)
   
 ### 💰 Movimentações
+
 - Venda
 - Entrada de Estoque
   
 ### 📊 Relatórios
+
 - Produtos Mais Vendidos Por Período
 - Produtos Em Falta
 - Vendas Por Período
-- Fornecedores Com Maior Volume De Entrada Estoque Por Período
-- Vendedores Com Maior Faturamento Por Periodo(Disponível somente para admins)
+- Fornecedores Com Maior Volume De Entrada De Estoque Por Período
+- Vendedores Com Maior Faturamento Por Período (disponível somente para admins)
   
 ### 📝 Auditoria
-- Logs em Todas as Operações(Disponível somente para admins)
+
+- Logs em Todas as Operações (disponível somente para admins)
   
 ### 👤 Perfil do Usuário
-- O usuário logado, pode alterar suas informações, exceto role
+
+- O usuário logado pode alterar suas informações, exceto a role.
   
 ## 🚀 Tecnologias
+
 - C#
-- ASP.Net Core
+- ASP.NET Core
 - Entity Framework
 - PostgreSQL
-- XUnit(Testes Unitários)
+- XUnit (Testes Unitários)
 - BCrypt.Net
 - QuestPDF
 - Swagger
@@ -77,45 +108,70 @@ Este repositório contém o backend (API) da aplicação, desenvolvido por mim u
 
 
 ## 🏗️ Arquitetura do Sistema
+
 ![Fluxo Do Sistema](resourcesImages/fluxoDoSistema.drawio.png)
 
-## 📐 Diagramas Do Sistema
-### Diagrama De Casos De Uso
+
+## 📐 Diagramas do Sistema
+
+### Diagrama de Casos de Uso
+
 ![Diagrama De Casos De Uso](resourcesImages/diagramaDeCasoDeUso.png)
 
-### Diagrama De Classes
-#### Módulo De Entrada Estoque
+
+### Diagrama de Classes
+
+#### Módulo de Entrada de Estoque
+
 ![Diagrama De Classes Entrada Estoque](resourcesImages/DiagramaClasseEntrada.png)
 
-#### Módulo De Venda
+#### Módulo de Venda
+
 ![Diagrama De Classes Venda](resourcesImages/DiagramaDeClasseVenda.png)
 
-### Diagrama De Entidade Relacionamento
-#### Módulo De Entrada Estoque
+
+### Diagrama de Entidade Relacionamento
+
+#### Módulo de Entrada de Estoque
+
 ![Diagrama De Entidade Relacionamento De Entrada Estoque](resourcesImages/DerEntrada.png)
 
-#### Módulo De Venda
+#### Módulo de Venda
+
 ![Diagrama De Entidade Relacionamento De Venda](resourcesImages/derVenda.png)
 
 
 ## 🔧 Como Executar o Projeto Localmente
 
-### Pré requisitos
+### Pré-requisitos
+
 - .NET SDK 8.0
 - PostgreSQL 13 ou superior
 - Git
-- 
-#### 1. Clone o Repositório (execute os comandos abaixo)
-- git clone https://github.com/MatheusHenriqueSouzaSantos/BikeCiaSystem
-- cd BikeCiaSystem
-  
-#### 2. Configure o Banco de Dados Postgres
-- crie um banco de dados no postgreSQL chamado projeto_estagio_bicicletaria
-- execute o script de criação nas tabelas que esta disponível na pasta databse desse repositório
 
-#### 3. Defina as Variavéis de Ambiente (preencha as informações do banco de dados com os seus dados e execute os comandos)
 
-##### Windows(Power Shell)
+### 1. Clone o Repositório
+
+Execute os comandos abaixo:
+
+```bash
+git clone https://github.com/MatheusHenriqueSouzaSantos/BikeCiaSystem
+
+cd BikeCiaSystem
+```
+
+### 2. Configure o Banco de Dados PostgreSQL
+
+- Crie um banco de dados no PostgreSQL chamado `projeto_estagio_bicicletaria`.
+- Execute o script de criação das tabelas que está disponível na pasta `database` deste repositório.
+
+
+### 3. Defina as Variáveis de Ambiente
+
+Preencha as informações do banco de dados com seus dados e execute os comandos.
+
+#### Windows (PowerShell)
+
 ```powershell
 $env:ConnectionStrings__DefaultConnection="Host=localhost;Port=5432;Database=projeto_estagio_bicicletaria;Username=SEU_USERNAME_POSTGRES;Password=SEU_PASSWORD_POSTGRES;"
 $env:Jwt__Key="H8rQ2mLp5ZwX7NcDv1FsKa9YtGu4BeJx0MiCn3RhPk6LsVq8AfTdWy5UzEnSb4Oo"
@@ -125,7 +181,8 @@ $env:User__Nome="admin"
 $env:User__Senha="admin"
 ```
 
-##### Linux/Mac
+#### Linux/Mac
+
 ```bash
 export ConnectionStrings__DefaultConnection="Host=localhost;Port=5432;Database=projeto_estagio_bicicletaria;Username=SEU_USERNAME_POSTGRES;Password=SEU_PASSWORD_POSTGRES;"
 export Jwt__Key="H8rQ2mLp5ZwX7NcDv1FsKa9YtGu4BeJx0MiCn3RhPk6LsVq8AfTdWy5UzEnSb4Oo"
@@ -135,16 +192,47 @@ export User__Nome="admin"
 export User__Senha="admin"
 ```
 
-#### 4. Executar o Projeto
-- dotnet run
+### 4. Execute o Projeto
 
-#### Pronto, agora o projeto está disponível na rota: http://localhost:10000/api, e o swagger: http://localhost:10000/api/swagger, para fazer login pode usar o usuário:
-##### email: admin2026@gmail.com
-##### senha: admin
+Execute:
 
-### 🧪 Testes
-#### O projeto possuí testes unitários e para executalos basta executar:
-- dotnet test
+```bash
+dotnet run
+```
+
+Pronto, agora o projeto está disponível na rota:
+
+```
+http://localhost:10000/api
+```
+
+Swagger:
+
+```
+http://localhost:10000/api/swagger
+```
+
+Para fazer login, pode utilizar o usuário:
+
+**Email:**
+```
+admin2026@gmail.com
+```
+
+**Senha:**
+```
+admin
+```
+
+
+## 🧪 Testes
+
+O projeto possui testes unitários e, para executá-los, basta executar:
+
+```bash
+dotnet test
+```
+
 
 ## 👨‍💻 Desenvolvedor
 
@@ -158,7 +246,8 @@ export User__Senha="admin"
 
 Este projeto está licenciado sob a **PolyForm Noncommercial License 1.0.0**.
 
-Isso significa que você pode usar, estudar, copiar e modificar o código livremente, 
-inclusive para fins educacionais, desde que não seja para fins comerciais.
+Isso significa que você pode usar, estudar, copiar e modificar o código livremente, inclusive para fins educacionais, desde que não seja para fins comerciais.
 
-Texto completo da licença: https://polyformproject.org/licenses/noncommercial/1.0.0/
+Texto completo da licença:
+
+https://polyformproject.org/licenses/noncommercial/1.0.0/
