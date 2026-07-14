@@ -11,26 +11,23 @@ Este repositório contém o backend (API) da aplicação, desenvolvido por mim u
 - ✨ [Funcionalidades](#-funcionalidades)
 - 🚀 [Tecnologias](#-tecnologias)
 - 🏗️ [Arquitetura do Sistema](#️-arquitetura-do-sistema)
-- [Diagramas do Sistema](#-diagramas-do-sistema)
-- [Como Executar o Projeto](#-como-executar-o-projeto)
-- [Testes](#-testes)
-- [Estrutura de Pastas](#-estrutura-de-pastas)
-- [Desafios e Aprendizados](#-desafios-e-aprendizados)
-- [Autor](#-autor)
-- [Licença](#-licença)
+- 📐 [Diagramas do Sistema](#-diagramas-do-sistema)
+- 🔧 [Como Executar o Projeto](#-como-executar-o-projeto)
+- 🧪 [Testes](#-testes)
+- 👤 [Autor](#-autor)
+- 📄 [Licença](#-licença)
 
 ## ☁️ Demonstração  
 
-O backend encontra-se publicado na plataforma Render.
+### O backend encontra-se publicado na plataforma Render, que pode ser acessado em : https://projetoapidevendaestagio.onrender.com/api
 
-API: https://projetoapidevendaestagio.onrender.com/api
-Swagger: https://projetoapidevendaestagio.onrender.com/api/swagger
+### E os EndPoitns da API são documentados via swaager que podem ser acessados em: https://projetoapidevendaestagio.onrender.com/api/swagger
+![Swagger Interface](resourcesImages/swaggerUi.png)
 
-O FrontEnd se encontra publicado no vercel:
+## O FrontEnd se encontra publicado no vercel e pode ser acessado em: https://front-projeto-final-snowy.vercel.app/
+![Home Frontend](resourcesImages/homeFront.png)
 
-Aplicação (Vercel): https://front-projeto-final-snowy.vercel.app/
-
-Para Acessar o sistema utilize o Usuário de demonstração:
+#### Para Acessar o sistema utilize o Usuário de demonstração:
 - Email: demo@bikecia.com
 - Senha: demo123
 - * esse usuário possuí a role de user, e não é possível alterar nenhuma informação dele
@@ -148,6 +145,12 @@ export User__Senha="admin"
 ### 🧪 Testes
 #### O projeto possuí testes unitários e para executalos basta executar:
 - dotnet test
+
+### 👤 Autor
+Matheus Henrique Souza Santos
+
+LinkedIn: seu-linkedin
+GitHub: @MatheusHenriqueSouzaSantos
 
 
 ## 📄 Licença
