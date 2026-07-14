@@ -200,7 +200,7 @@ Execute:
 dotnet run
 ```
 
-Pronto, agora o projeto está disponível na rota:
+Após isso o projeto está disponível na rota:
 
 ```
 http://localhost:10000/api
