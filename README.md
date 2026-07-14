@@ -252,7 +252,7 @@ dotnet test
 
 Este projeto está licenciado sob a **PolyForm Noncommercial License 1.0.0**.
 
-Isso significa que você pode usar, estudar, copiar e modificar o código livremente, inclusive para fins educacionais, desde que não seja para fins comerciais.
+Ou seja, ele pode ser usado para estudar, copiar e modificar o código livremente, inclusive para fins educacionais, desde que não seja para fins comerciais.
 
 Texto completo da licença:
 
