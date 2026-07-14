@@ -74,19 +74,19 @@ Para acessar o sistema utilize o usuário de demonstração:
 ### 💰 Movimentações
 
 - Venda
-- Entrada de Estoque
+- Entrada de estoque
   
 ### 📊 Relatórios
 
-- Produtos Mais Vendidos Por Período
-- Produtos Em Falta
-- Vendas Por Período
-- Fornecedores Com Maior Volume De Entrada De Estoque Por Período
-- Vendedores Com Maior Faturamento Por Período (disponível somente para admins)
+- Produtos mais vendidos por período
+- Produtos em falta
+- Vendas por período
+- Fornecedores com maior volume de entrada de estoque por período
+- Vendedores com maior faturamento por período (disponível somente para admins)
   
 ### 📝 Auditoria
 
-- Logs em Todas as Operações (disponível somente para admins)
+- Logs das operações (disponível somente para admins)
   
 ### 👤 Perfil do Usuário
 
