@@ -14,7 +14,7 @@ Este repositório contém o backend (API) da aplicação, desenvolvido por mim u
 - 📐 [Diagramas do Sistema](#-diagramas-do-sistema)
 - 🔧 [Como Executar o Projeto](#-como-executar-o-projeto)
 - 🧪 [Testes](#-testes)
-- 👤 [Autor](#-autor)
+- 👨‍💻 [Desenvolvedor](#-desenvolvedor)
 - 📄 [Licença](#-licença)
 
 ## ☁️ Demonstração  
@@ -146,11 +146,12 @@ export User__Senha="admin"
 #### O projeto possuí testes unitários e para executalos basta executar:
 - dotnet test
 
-### 👤 Autor
-Matheus Henrique Souza Santos
+## 👨‍💻 Desenvolvedor
 
-LinkedIn: seu-linkedin
-GitHub: @MatheusHenriqueSouzaSantos
+**Matheus Henrique Souza Santos**
+
+- GitHub: @MatheusHenriqueSouzaSantos
+- LinkedIn: https://www.linkedin.com/in/matheushensouzasantos/
 
 
 ## 📄 Licença
