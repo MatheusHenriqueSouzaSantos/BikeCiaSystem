@@ -125,6 +125,8 @@ Para acessar o sistema utilize o usuário de demonstração:
 
 ![Diagrama De Classes Entrada Estoque](resourcesImages/DiagramaClasseEntrada.png)
 
+<hr>
+
 #### Módulo de Venda
 
 ![Diagrama De Classes Venda](resourcesImages/DiagramaDeClasseVenda.png)
@@ -135,6 +137,8 @@ Para acessar o sistema utilize o usuário de demonstração:
 #### Módulo de Entrada de Estoque
 
 ![Diagrama De Entidade Relacionamento De Entrada Estoque](resourcesImages/DerEntrada.png)
+
+<hr>
 
 #### Módulo de Venda
 
@@ -199,6 +203,8 @@ Execute:
 ```bash
 dotnet run
 ```
+
+<hr>
 
 Após isso o projeto está disponível na rota:
 
