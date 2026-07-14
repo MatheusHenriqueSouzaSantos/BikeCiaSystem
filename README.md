@@ -118,6 +118,7 @@ Para acessar o sistema utilize o usuário de demonstração:
 
 ![Diagrama De Casos De Uso](resourcesImages/diagramaDeCasoDeUso.png)
 
+<hr>
 
 ### Diagrama de Classes
 
